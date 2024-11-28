@@ -1,0 +1,16 @@
+.footer {
+    flex-direction: row;
+    font-size: 0.9rem;
+}
+
+/* logo 大小设置 */
+.header-wrapper .header-content .left .logo-image {
+    flex-shrink: 0;
+    width: 6rem;
+    height: 4.5rem;
+    margin-right: 0.5rem;
+}
+
+/* :root {
+    --page-content-max-width: 1200px;
+} */

@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="xfblog">
+    
+    <title>
+        
+            07_C_宏定义_文件包含_条件编译 |
+        
+        XFBLOG.CN
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+        <link rel="shortcut icon" href="/images/favicon.png">
+    
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.2.5/source/font/css/fontawesome.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.2.5/source/font/css/regular.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.2.5/source/font/css/solid.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.2.5/source/font/css/brands.min.css">
+    
+        
+            
+                
+<link rel="stylesheet" href="/css/custom-1.css">
+
+            
+        
+    
+    <script class="keep-theme-configurations">
+    const KEEP = window.KEEP || {}
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"zh-CN","path":"search.xml"}
+    KEEP.theme_config = {"base_info":{"primary_color":"#0066cc","title":"XFBLOG.CN","author":"xfblog","avatar":"/images/avatar.jpeg","logo":"/images/logo.png","favicon":"/images/favicon.png"},"menu":{"home":"/ || fa-solid fa-home","archives":"/archives || fa-solid fa-box-archive","categories":"/categories || fa-solid fa-layer-group","links":"/links || fa-solid fa-link","about":"/about || fa-solid fa-circle-info"},"first_screen":{"enable":true,"background_img":"/images/home_light.jpg","background_img_dark":"/images/home_dark.jpg","description":null,"hitokoto":false},"social_contact":{"enable":true,"links":{"github":"https://github.com/Chuanfu-Wei","weixin":null,"qq":null,"weibo":null,"zhihu":null,"twitter":null,"x":null,"facebook":null,"email":null}},"scroll":{"progress_bar":false,"percent":true,"hide_header":true},"home":{"announcement":"版权声明：本站所有文章均为 xfblog.cn 小傅原创，请遵循 CC 4.0 BY-SA 版权协议，转载请附上原文出处链接及本声明。","category":true,"tag":true,"post_datetime":"created","post_datetime_format":"YYYY-MM-DD"},"post":{"author_badge":{"enable":true,"level_badge":true,"custom_badge":["One","Two","Three"]},"word_count":{"wordcount":true,"min2read":true},"datetime_format":"YYYY-MM-DD","copyright_info":true,"share":true,"reward":{"enable":true,"img_link":"/images/zfb.jpg","text":"创作不易，打赏随意，您的支持是我更新的动力💪！"}},"code_block":{"tools":{"enable":true,"style":"default"},"highlight_theme":"obsidian"},"toc":{"enable":true,"number":false,"expand_all":true,"init_open":true,"layout":"right"},"website_count":{"busuanzi_count":{"enable":true,"site_uv":false,"site_pv":false,"page_pv":true}},"local_search":{"enable":true,"preload":true},"comment":{"enable":false,"use":"valine","valine":{"appid":null,"appkey":null,"server_urls":null,"placeholder":null},"gitalk":{"github_id":null,"github_admins":null,"repository":null,"client_id":null,"client_secret":null,"proxy":null},"twikoo":{"env_id":null,"region":null,"version":"1.6.36"},"waline":{"server_url":null,"reaction":false,"version":"3.2.1"},"giscus":{"repo":null,"repo_id":null,"category":"Announcements","category_id":null,"reactions_enabled":false},"artalk":{"server":null},"disqus":{"shortname":null}},"rss":{"enable":true},"lazyload":{"enable":true},"cdn":{"enable":true,"provider":"jsdelivr"},"pjax":{"enable":true},"footer":{"since":2021,"word_count":false,"site_deploy":{"enable":false,"provider":"github","url":null},"record":{"enable":true,"list":[{"code":"蜀ICP备2021021033号-1","link":"https://beian.miit.gov.cn"},{"code":"川公网安备 51138102000134号","link":"http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=51138102000134"}]}},"inject":{"enable":true,"css":["/css/custom-1.css"],"js":["/js/run_time.js","/js/code_click_copy.js"]},"root":"","source_data":{},"version":"4.2.5"}
+    KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"}
+    KEEP.language_code_block = {"copy":"复制代码","copied":"已复制","fold":"折叠代码块","folded":"已折叠"}
+    KEEP.language_copy_copyright = {"copy":"复制版权信息","copied":"已复制","title":"原文标题","author":"原文作者","link":"原文链接"}
+  </script>
+<meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="Keep" type="application/atom+xml">
+</head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <i class="pjax-progress-icon fas fa-circle-notch fa-spin"></i>
+    
+</div>
+
+
+
+<main class="page-container border-box">
+    <!-- home first screen  -->
+    
+
+    <!-- page content -->
+    <div class="page-main-content border-box">
+        <div class="page-main-content-top">
+            
+<header class="header-wrapper">
+
+    <div class="border-box header-content">
+        <div class="left flex-start border-box">
+            
+                <a class="logo-image border-box" href="/">
+                    <img src="/images/logo.png">
+                </a>
+            
+            <a class="site-name border-box" href="/">
+               XFBLOG.CN
+            </a>
+        </div>
+
+        <div class="right border-box">
+            <div class="pc border-box">
+                <ul class="menu-list border-box">
+                    
+                        
+                        <li class="menu-item flex-start border-box">
+                            <a class="menu-text-color border-box" href="/">
+                                
+                                    <i class="menu-text-color menu-icon fa-solid fa-home"></i>
+                                
+                                首页
+                                
+                            </a>
+                            
+                        </li>
+                    
+                        
+                        <li class="menu-item flex-start border-box">
+                            <a class="menu-text-color border-box" href="/archives">
+                                
+                                    <i class="menu-text-color menu-icon fa-solid fa-box-archive"></i>
+                                
+                                归档
+                                
+                            </a>
+                            
+                        </li>
+                    
+                        
+                        <li class="menu-item flex-start border-box">
+                            <a class="menu-text-color border-box" href="/categories">
+                                
+                                    <i class="menu-text-color menu-icon fa-solid fa-layer-group"></i>
+                                
+                                分类
+                                
+                            </a>
+                            
+                        </li>
+                    
+                        
+                        <li class="menu-item flex-start border-box">
+                            <a class="menu-text-color border-box" href="/links">
+                                
+                                    <i class="menu-text-color menu-icon fa-solid fa-link"></i>
+                                
+                                友链
+                                
+                            </a>
+                            
+                        </li>
+                    
+                        
+                        <li class="menu-item flex-start border-box">
+                            <a class="menu-text-color border-box" href="/about">
+                                
+                                    <i class="menu-text-color menu-icon fa-solid fa-circle-info"></i>
+                                
+                                关于
+                                
+                            </a>
+                            
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="menu-text-color fas search fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile border-box flex-start">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list border-box">
+            
+                
+                <li class="drawer-menu-item border-box not-sub-menu">
+                    <label class="drawer-menu-label border-box">
+                        <a class="drawer-menu-text-color left-side flex-start border-box" href="/">
+                            
+                                <span class="menu-icon-wrap border-box flex-center">
+                                    <i class="drawer-menu-text-color menu-icon fa-solid fa-home"></i>
+                                </span>
+                            
+                            首页
+                        </a>
+                        
+                    </label>
+                    
+                </li>
+            
+                
+                <li class="drawer-menu-item border-box not-sub-menu">
+                    <label class="drawer-menu-label border-box">
+                        <a class="drawer-menu-text-color left-side flex-start border-box" href="/archives">
+                            
+                                <span class="menu-icon-wrap border-box flex-center">
+                                    <i class="drawer-menu-text-color menu-icon fa-solid fa-box-archive"></i>
+                                </span>
+                            
+                            归档
+                        </a>
+                        
+                    </label>
+                    
+                </li>
+            
+                
+                <li class="drawer-menu-item border-box not-sub-menu">
+                    <label class="drawer-menu-label border-box">
+                        <a class="drawer-menu-text-color left-side flex-start border-box" href="/categories">
+                            
+                                <span class="menu-icon-wrap border-box flex-center">
+                                    <i class="drawer-menu-text-color menu-icon fa-solid fa-layer-group"></i>
+                                </span>
+                            
+                            分类
+                        </a>
+                        
+                    </label>
+                    
+                </li>
+            
+                
+                <li class="drawer-menu-item border-box not-sub-menu">
+                    <label class="drawer-menu-label border-box">
+                        <a class="drawer-menu-text-color left-side flex-start border-box" href="/links">
+                            
+                                <span class="menu-icon-wrap border-box flex-center">
+                                    <i class="drawer-menu-text-color menu-icon fa-solid fa-link"></i>
+                                </span>
+                            
+                            友链
+                        </a>
+                        
+                    </label>
+                    
+                </li>
+            
+                
+                <li class="drawer-menu-item border-box not-sub-menu">
+                    <label class="drawer-menu-label border-box">
+                        <a class="drawer-menu-text-color left-side flex-start border-box" href="/about">
+                            
+                                <span class="menu-icon-wrap border-box flex-center">
+                                    <i class="drawer-menu-text-color menu-icon fa-solid fa-circle-info"></i>
+                                </span>
+                            
+                            关于
+                        </a>
+                        
+                    </label>
+                    
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle border-box">
+
+            <div class="main-content border-box">
+                
+
+                    
+<div class="fade-in-down-animation">
+    <div class="post-page-container border-box">
+        <div class="post-content-container border-box">
+            
+
+            <div class="post-content-bottom border-box">
+                
+                    <div class="post-title">
+                        07_C_宏定义_文件包含_条件编译
+                    </div>
+                
+
+                
+                    <div class="post-header border-box">
+                        
+                            <div class="avatar-box border-box">
+                                <img src="/images/avatar.jpeg">
+                            </div>
+                        
+                        <div class="info-box">
+                            <div class="author border-box">
+                                <span class="name">xfblog</span>
+                                
+                                    <span class="author-badge">Lv3</span>
+                                
+                            </div>
+                            <div class="meta-info border-box">
+                                
+
+<div class="post-meta-info-container border-box post">
+    <div class="post-meta-info border-box">
+        
+
+        
+            <span class="meta-info-item post-create-date">
+                <i class="icon fa-solid fa-calendar-plus"></i>&nbsp;
+                <span class="datetime">2021-08-01</span>
+            </span>
+
+            
+                <span class="meta-info-item post-update-date">
+                    <i class="icon fa-solid fa-file-pen"></i>&nbsp;
+                    <span class="datetime" data-updated="Wed Nov 27 2024 16:23:37 GMT+0800">2024-11-27</span>
+                </span>
+            
+        
+
+        
+            <span class="meta-info-item post-category border-box"><i class="icon fas fa-folder"></i>&nbsp;
+                <ul class="post-category-ul">
+                    
+                            <li class="category-item"><a href="/categories/C%E8%AF%AD%E8%A8%80/">C语言</a></li>
+                        
+                    
+                </ul>
+            </span>
+        
+
+        
+            <span class="post-tag meta-info-item border-box">
+                <ul class="post-tag-ul">
+                    
+                            <li class="tag-item"><span class="tag-separator"><i class="icon fas fa-hashtag"></i></span><a href="/tags/C%E8%AF%AD%E8%A8%80/">C语言</a></li>
+                        
+                    
+                </ul>
+            </span>
+        
+
+        
+        
+            <span class="meta-info-item post-wordcount">
+                <i class="icon fas fa-file-word"></i>&nbsp;<span>1.6k 字</span>
+            </span>
+        
+        
+            <span class="meta-info-item post-min2read">
+                <i class="icon fas fa-clock"></i>&nbsp;<span>6 分钟</span>
+            </span>
+        
+        
+            <span class="meta-info-item post-pv">
+                <i class="icon fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+            </span>
+        
+    </div>
+
+    
+</div>
+
+                            </div>
+                        </div>
+                    </div>
+                
+
+                <div class="post-content keep-markdown-body ">
+                    
+
+                    
+                         <blockquote>
+<p><strong>编译预处理（预编译）</strong> C语言一般提供三种预处理功能：1、宏定义 2、文件包含 3、条件编译</p>
+</blockquote>
+<h2 id="一、宏定义"><a href="#一、宏定义" class="headerlink" title="一、宏定义"></a>一、宏定义</h2><ul>
+<li>简介：宏定义主要在预处理阶段完成，由预处理器进行字符替换，变量定义则会在内存中为变量分配地址</li>
+<li>定义：#define 标识符 字符串（其中标识符称为<strong>宏名</strong>，预编译时将宏名替换成字符串的过程称为<strong>宏展开</strong>，#define称为<strong>宏定义命令</strong>）</li>
+<li>作用：用一个指定的标识符来代表一个字符串，一般写在文件开头</li>
+</ul>
+<h4 id="1-不带参数的宏定义"><a href="#1-不带参数的宏定义" class="headerlink" title="1. 不带参数的宏定义"></a>1. 不带参数的宏定义</h4><ul>
+<li>语法：#define 标识符 字符串</li>
+<li>好处：<ol>
+<li>用一个简单的名字替代一个很长的字符串</li>
+<li>增加了修改的方便性，提高了程序的可移植性</li>
+</ol>
+</li>
+<li>说明：<ol>
+<li>宏名一般都用大写字母</li>
+<li>宏定义不是C语句，所以不用在末尾加分号，如果有分号会连分号一起替换</li>
+<li>#define命令出现在程序中函数的外面，宏名的有效范围是#define之后到本源文件结束，不能跨文件使用</li>
+<li>可以用#undef命令终止宏定义的作用域</li>
+<li>#define用于宏定义时，还可以用于已经定义的宏，可以层层置换</li>
+<li>字符串内的字符不进行替换（例：char stmp[100] &#x3D; “DPICPI”; 即使与宏名DPICPI相同，也不进行替换）</li>
+</ol>
+</li>
+</ul>
+<h4 id="2-带参数的宏定义"><a href="#2-带参数的宏定义" class="headerlink" title="2. 带参数的宏定义"></a>2. 带参数的宏定义</h4><ul>
+<li>语法：#define 宏名(参数表) 字符串</li>
+<li>说明：<ol>
+<li>一般字符串中都会包含参数中所指定的参数，但不包含或不包含完全也可以，只是参数没意义</li>
+<li>宏定义时宏名和带参数的括号之间不能加空格，否则空格以后的字符都会作为替代字符串的一部分</li>
+</ol>
+</li>
+</ul>
+<h4 id="3-宏定义和函数区别："><a href="#3-宏定义和函数区别：" class="headerlink" title="3. 宏定义和函数区别："></a>3. 宏定义和函数区别：</h4><ul>
+<li>函数调用是先求出实参表达式的值，然后带入形参，而宏定义只进行简单的字符替换，并不会求出表达式的值</li>
+<li>函数调用是在程序运行时处理，分配临时内存；而宏展开是在编译时进行的，不分配内存，也没有返回值、值传递等说法</li>
+<li>宏的参数没有类型这个说法，只是个符号，展开时带入指定字符串中</li>
+<li>使用宏次数多时，宏展开后源程序变长，函数调用就不会</li>
+<li>宏替换只占用编译时间，不占用运行时间；而函数调用占用的是运行时间(分配内存，传参，执行函数体，返回值)</li>
+</ul>
+<h2 id="二、宏定义-案例"><a href="#二、宏定义-案例" class="headerlink" title="二、宏定义_案例"></a>二、宏定义_案例</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line"></span><br><span class="line">// 不带参数的宏定义</span><br><span class="line">#define PI 3.1415926</span><br><span class="line">#define DPI 2 * PI</span><br><span class="line">#define DPICPI PI * DPI</span><br><span class="line">// 带参数的宏定义</span><br><span class="line">#define S(a,b) a * b</span><br><span class="line">#define A(r) PI * (r) * (r) // 求圆的面积</span><br><span class="line">#define MAX(a,b) (a)&gt;(b)?(a):(b) // 求两个数的最大值</span><br><span class="line">// 宏替换多行语句</span><br><span class="line">#define TEST              \</span><br><span class="line">    do                    \</span><br><span class="line">    &#123;                     \</span><br><span class="line">        printf(&quot;哈哈哈\n&quot;); \</span><br><span class="line">    &#125;while (0)</span><br><span class="line"></span><br><span class="line">// 声明：本文件函数 + 外部函数 + 外部全局变量(extern)</span><br><span class="line">void func();</span><br><span class="line"></span><br><span class="line">int main() //主函数</span><br><span class="line">&#123;</span><br><span class="line">    // 不带参数的宏定义</span><br><span class="line">    printf(&quot;3*PI=%f\n&quot;, 3 * PI); //不做语法检查，替换后直接参与运算</span><br><span class="line">    func();</span><br><span class="line">    printf(&quot;DPICPI=%f\n&quot;,DPICPI);</span><br><span class="line"></span><br><span class="line">    // 带参数的宏定义</span><br><span class="line">    printf(&quot;S(5,6)=%d\n&quot;,S(5,6));// #define S(a,b) a * b</span><br><span class="line">    printf(&quot;A(3+1)=%f\n&quot;,A(3+1));// #define A(r) PI * (r) * (r)</span><br><span class="line">    // 如果PI * (r) * (r)中r没加括号，则 A(3+1) = 3.1415926*3+1*3+1 != A(4)，因为预编译只是替换,不做运算</span><br><span class="line"></span><br><span class="line">    TEST;</span><br><span class="line"></span><br><span class="line">    system(&quot;pause&quot;);</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// #undef PI //结束PI的作用域</span><br><span class="line"></span><br><span class="line">void func()</span><br><span class="line">&#123;</span><br><span class="line">    printf(&quot;PI-3=%f\n&quot;, PI - 3);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="三、文件包含"><a href="#三、文件包含" class="headerlink" title="三、文件包含"></a>三、文件包含</h2><ul>
+<li>简介：将另一个文件的内容包含到本文件中，通过#include实现</li>
+<li>语法：#include “文件名”</li>
+<li>用法：#include常用于公共头文件（即.h后缀文件）；常把宏定义、函数+外部全局变量声明等放在头文件中，需要时引用</li>
+<li>说明：<ol>
+<li>一个#include只能引入一个头文件，需要时引入多个#include即可</li>
+<li>文件包含是可以嵌套的，头文件中还可以#include其他头文件</li>
+<li>#include &lt;&gt;是去系统目录中查找文件；#include “”是在当前目录中查找，找不到再到系统目录中查找</li>
+</ol>
+</li>
+</ul>
+<h2 id="四、条件编译"><a href="#四、条件编译" class="headerlink" title="四、条件编译"></a>四、条件编译</h2><ul>
+<li><p>语法1：</p>
+<ul>
+<li><p>简介：当标识符被宏定义过(#define)时，则对程序段1进行编译，否则对程序段2进行编译；#else也可以没有</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#ifdef 标识符</span><br><span class="line"> 程序段1(一堆代码)</span><br><span class="line">#else</span><br><span class="line"> 程序段2</span><br><span class="line">#endif</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>语法2：</p>
+<ul>
+<li><p>简介：当标识符没有被宏定义过(#define)时，则对程序段1进行编译，否则对程序段2进行编译；#else也可以没有（作用与语法1相反）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#ifndef 标识符</span><br><span class="line"> 程序段1(一堆代码)</span><br><span class="line">#else</span><br><span class="line"> 程序段2</span><br><span class="line">#endif</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>语法3：</p>
+<ul>
+<li><p>简介：当指定表达式值为真(非0)时就编译程序段1，否则编译程序段2，这样就可以使程序在不同条件下实现不同的功能</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">#if 表达式</span><br><span class="line"> 程序段1(一堆代码)</span><br><span class="line">#elif 表达式2</span><br><span class="line"> 程序段2</span><br><span class="line">#else</span><br><span class="line"> 程序段3</span><br><span class="line">#endif</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+<h4 id="1-条件编译的好处"><a href="#1-条件编译的好处" class="headerlink" title="1. 条件编译的好处"></a>1. 条件编译的好处</h4><ol>
+<li><p>条件编译可以减少生成的目标文件的长度，因为都是预编译时做的判断，实际行数就只剩执行文件那几行了，而用if else语句就是实打实的每一行</p>
+</li>
+<li><p>开发时跨平台使用，就必须用条件编译，增加程序的可移植性和灵活性</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">#if _WIN32</span><br><span class="line">     WaitForSingleObject() //...windows上专用</span><br><span class="line">#elif __linux__</span><br><span class="line">     epoll()</span><br><span class="line">#else</span><br><span class="line">     ......</span><br><span class="line">#endif</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="五、文件包含-条件编译-案例"><a href="#五、文件包含-条件编译-案例" class="headerlink" title="五、文件包含_条件编译_案例"></a>五、文件包含_条件编译_案例</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line"></span><br><span class="line">// 宏定义</span><br><span class="line">#define DEBUG //可以不要字符串，#ifdef也判断为真</span><br><span class="line">// #define RELEASE //release : 发布、释放</span><br><span class="line">#define BOOL 3&gt;5</span><br><span class="line"></span><br><span class="line">int main() //主函数</span><br><span class="line">&#123;</span><br><span class="line">#ifdef DEBUG</span><br><span class="line">    printf(&quot;调试程序执行的\n&quot;);</span><br><span class="line">#endif</span><br><span class="line"></span><br><span class="line">#ifndef RELEASE</span><br><span class="line">    printf(&quot;如果没有发布执行的\n&quot;);</span><br><span class="line">#endif</span><br><span class="line"></span><br><span class="line">#if BOOL</span><br><span class="line">    printf(&quot;BOOL为真输出程序段1\n&quot;);</span><br><span class="line">#else</span><br><span class="line">    printf(&quot;BOOL为假输出程序段2\n&quot;);</span><br><span class="line">#endif</span><br><span class="line"></span><br><span class="line">    system(&quot;pause&quot;);</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+                    
+                </div>
+
+                
+                        
+<div class="post-copyright-info-container border-box">
+    <div class="copyright-info-content border-box">
+        <div class="copyright-info-top border-box">
+            <div class="copyright-post-title border-box text-ellipsis">
+                07_C_宏定义_文件包含_条件编译
+            </div>
+
+            <div class="copyright-post-link border-box text-ellipsis">
+                2021/08/01/07-c-宏定义-文件包含-条件编译/
+            </div>
+        </div>
+
+        <div class="copyright-info-bottom border-box">
+            <div class="copyright-post-author bottom-item">
+                <div class="type">
+                    作者
+                </div>
+                <div class="content">xfblog</div>
+            </div>
+
+            <div class="post-time bottom-item">
+                <div class="type">
+                    发布于
+                </div>
+                <div class="content">2021-08-01 00:00</div>
+            </div>
+
+
+            <div class="post-license bottom-item">
+                <div class="type">
+                    许可
+                </div>
+                <div class="content tooltip" data-tooltip-content="CC BY-NC-SA 4.0">
+                    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hans" target="_blank">
+                        
+                            <i class="fa-brands fa-creative-commons"></i>
+                            <i class="fa-brands fa-creative-commons-by"></i>
+                            <i class="fa-brands fa-creative-commons-nc"></i>
+                            <i class="fa-brands fa-creative-commons-sa"></i>
+                        
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <i class="copyright-bg fa-solid fa-copyright"></i>
+    </div>
+    <div class="copy-copyright-info flex-center tooltip" data-tooltip-content="复制版权信息" data-tooltip-offset-y="-2px">
+        <i class="fa-solid fa-copy"></i>
+    </div>
+</div>
+
+                
+
+                <div class="post-bottom-tags-and-share border-box">
+                    <div>
+                        
+                            <ul class="post-tags-box border-box">
+                                
+                                    <li class="tag-item border-box">
+                                        <i class="icon fas fa-hashtag"></i>&nbsp;<a href="/tags/C%E8%AF%AD%E8%A8%80/">C语言</a>
+                                    </li>
+                                
+                            </ul>
+                        
+                    </div>
+                    <div>
+                        
+                            <div class="post-share-container border-box">
+    <ul class="share-list-wrap border-box">
+        <li class="qq share-item border-box flex-center tooltip"
+            data-tooltip-content="分享到 QQ"
+        >
+            <i class="fa-brands fa-qq"></i>
+        </li>
+        <li class="wechat share-item border-box flex-center tooltip tooltip-img"
+            data-tooltip-content="分享到微信"
+            data-tooltip-img-tip="微信扫一扫"
+            data-tooltip-img-style="background-color: #fff; top: -10px; padding: 0.6rem 0.6rem 0.1rem 0.6rem;"
+        >
+            <i class="fa-brands fa-weixin"></i>
+        </li>
+        <li class="weibo share-item border-box flex-center tooltip"
+            data-tooltip-content="分享到微博"
+        >
+            <i class="fa-brands fa-weibo"></i>
+        </li>
+    </ul>
+</div>
+
+                        
+                    </div>
+                </div>
+
+                
+                    
+
+<div class="reward-author-container border-box flex-center">
+    <div class="reward-btn border-box flex-center tooltip tooltip-img"
+            data-tooltip-img-url="/images/zfb.jpg"
+            data-tooltip-img-trigger="click"
+            data-tooltip-img-style="top: -6px;"
+    >
+        <i class="fa-solid fa-gift"></i>&nbsp;创作不易，打赏随意，您的支持是我更新的动力💪！
+    </div>
+</div>
+
+                
+
+                
+                    <div class="post-nav border-box">
+                        
+                            <div class="prev-post">
+                                <a class="prev"
+                                   rel="prev"
+                                   href="/2021/09/01/08-1-c-%E5%8F%98%E9%87%8F%E7%9A%84%E6%8C%87%E9%92%88%E5%92%8C%E6%8C%87%E5%90%91%E5%8F%98%E9%87%8F%E7%9A%84%E6%8C%87%E9%92%88%E5%8F%98%E9%87%8F/"
+                                   title="08-1_C_变量的指针和指向变量的指针变量"
+                                >
+                                    <span class="left arrow-icon flex-center">
+                                        <i class="fas fa-chevron-left"></i>
+                                    </span>
+                                    <span class="title flex-center">
+                                        <span class="post-nav-title-item text-ellipsis">08-1_C_变量的指针和指向变量的指针变量</span>
+                                        <span class="post-nav-item">上一篇</span>
+                                    </span>
+                                </a>
+                            </div>
+                        
+                        
+                            <div class="next-post">
+                                <a class="next"
+                                   rel="next"
+                                   href="/2021/07/01/06-c-%E5%87%BD%E6%95%B0%E4%B8%8E%E5%8F%98%E9%87%8F/"
+                                   title="06_C_函数与变量"
+                                >
+                                    <span class="title flex-center">
+                                        <span class="post-nav-title-item text-ellipsis">06_C_函数与变量</span>
+                                        <span class="post-nav-item">下一篇</span>
+                                    </span>
+                                    <span class="right arrow-icon flex-center">
+                                        <i class="fas fa-chevron-right"></i>
+                                    </span>
+                                </a>
+                            </div>
+                        
+                    </div>
+                
+
+                
+                    
+
+
+
+
+
+
+                
+            </div>
+        </div>
+
+        
+            <div class="pc-post-toc right-toc">
+                <div class="post-toc-wrap border-box">
+    <div class="post-toc border-box">
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E5%AE%8F%E5%AE%9A%E4%B9%89"><span class="nav-text">一、宏定义</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E4%B8%8D%E5%B8%A6%E5%8F%82%E6%95%B0%E7%9A%84%E5%AE%8F%E5%AE%9A%E4%B9%89"><span class="nav-text">1. 不带参数的宏定义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E5%B8%A6%E5%8F%82%E6%95%B0%E7%9A%84%E5%AE%8F%E5%AE%9A%E4%B9%89"><span class="nav-text">2. 带参数的宏定义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E5%AE%8F%E5%AE%9A%E4%B9%89%E5%92%8C%E5%87%BD%E6%95%B0%E5%8C%BA%E5%88%AB%EF%BC%9A"><span class="nav-text">3. 宏定义和函数区别：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E5%AE%8F%E5%AE%9A%E4%B9%89-%E6%A1%88%E4%BE%8B"><span class="nav-text">二、宏定义_案例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB"><span class="nav-text">三、文件包含</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E6%9D%A1%E4%BB%B6%E7%BC%96%E8%AF%91"><span class="nav-text">四、条件编译</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E6%9D%A1%E4%BB%B6%E7%BC%96%E8%AF%91%E7%9A%84%E5%A5%BD%E5%A4%84"><span class="nav-text">1. 条件编译的好处</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%94%E3%80%81%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB-%E6%9D%A1%E4%BB%B6%E7%BC%96%E8%AF%91-%E6%A1%88%E4%BE%8B"><span class="nav-text">五、文件包含_条件编译_案例</span></a></li></ol>
+    </div>
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+        </div>
+
+        <div class="page-main-content-bottom border-box">
+            
+<footer class="footer border-box">
+    <div class="copyright-info info-item">
+    Copyright&nbsp;&copy;&nbsp;<span>2021</span>&nbsp;-&nbsp;2024&nbsp;<a href="https://xfblog.cn/" target="_self">小傅博客</a>&nbsp;-&nbsp;All&nbsp;rights&nbsp;reserved.&nbsp;&nbsp;&nbsp;&nbsp;
+    
+            <!-- &nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;&nbsp;<a href="/">xfblog</a> -->
+        
+    </div>
+
+    <!-- <div class="theme-info info-item">
+        由&nbsp;<a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;驱动&nbsp;&&nbsp;主题&nbsp;<a class="keep-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep</a>
+    </div> -->
+
+    
+
+    
+
+    
+        <div class="record-info info-item">
+            
+                
+                    <div class="record-item border-box">
+                        <a class=""
+                           target="_blank"
+                           href="https://beian.miit.gov.cn"
+                        >
+                            蜀ICP备2021021033号-1
+                        </a>
+                    </div>
+                
+            
+                
+                    <div class="record-item border-box">
+                        <a class=""
+                           target="_blank"
+                           href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=51138102000134"
+                        >
+                            川公网安备 51138102000134号
+                        </a>
+                    </div>
+                
+            
+        </div>&nbsp;&nbsp;&nbsp;&nbsp;
+    
+</footer>
+
+        </div>
+    </div>
+
+    <!-- post tools -->
+    
+        <div class="post-tools right-toc">
+            <div class="post-tools-container border-box">
+    <ul class="post-tools-list border-box">
+        <!-- PC encrypt again -->
+        
+
+        <!-- PC TOC show toggle -->
+        
+            <li class="tools-item flex-center toggle-show-toc">
+                <i class="fas fa-list"></i>
+            </li>
+        
+
+        <!-- PC go comment -->
+        
+
+        <!-- PC full screen -->
+        <li class="tools-item flex-center full-screen">
+            <i class="fa-solid fa-expand"></i>
+        </li>
+    </ul>
+</div>
+
+        </div>
+    
+
+    <!-- side tools -->
+    <div class="side-tools">
+        <div class="side-tools-container border-box ">
+    <ul class="side-tools-list side-tools-show-handle border-box">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <!-- toggle mode -->
+        
+            <li class="tools-item tool-toggle-theme-mode flex-center">
+                <i class="fas fa-moon"></i>
+            </li>
+        
+
+        <!-- rss -->
+        
+            <li class="tools-item rss flex-center">
+                <a class="flex-center"
+                   href="/atom.xml"
+                   target="_blank"
+                >
+                    <i class="fas fa-rss"></i>
+                </a>
+            </li>
+        
+
+        <!-- to bottom -->
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list border-box">
+        
+            <li class="tools-item toggle-show-toc-tablet flex-center">
+                <i class="fas fa-list"></i>
+            </li>
+        
+
+        
+
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+
+        <li class="tools-item tool-scroll-to-top flex-center show-arrow">
+            <i class="arrow fas fa-arrow-up"></i>
+            <span class="percent"></span>
+        </li>
+    </ul>
+</div>
+
+    </div>
+
+    <!-- image mask -->
+    <div class="zoom-in-image-mask">
+    <img class="zoom-in-image">
+</div>
+
+
+    <!-- local search -->
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="close-popup-btn">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+    <!-- tablet toc -->
+    
+        <div class="tablet-post-toc-mask">
+            <div class="tablet-post-toc">
+                <div class="post-toc-wrap border-box">
+    <div class="post-toc border-box">
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E5%AE%8F%E5%AE%9A%E4%B9%89"><span class="nav-text">一、宏定义</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E4%B8%8D%E5%B8%A6%E5%8F%82%E6%95%B0%E7%9A%84%E5%AE%8F%E5%AE%9A%E4%B9%89"><span class="nav-text">1. 不带参数的宏定义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E5%B8%A6%E5%8F%82%E6%95%B0%E7%9A%84%E5%AE%8F%E5%AE%9A%E4%B9%89"><span class="nav-text">2. 带参数的宏定义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E5%AE%8F%E5%AE%9A%E4%B9%89%E5%92%8C%E5%87%BD%E6%95%B0%E5%8C%BA%E5%88%AB%EF%BC%9A"><span class="nav-text">3. 宏定义和函数区别：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E5%AE%8F%E5%AE%9A%E4%B9%89-%E6%A1%88%E4%BE%8B"><span class="nav-text">二、宏定义_案例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB"><span class="nav-text">三、文件包含</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E6%9D%A1%E4%BB%B6%E7%BC%96%E8%AF%91"><span class="nav-text">四、条件编译</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E6%9D%A1%E4%BB%B6%E7%BC%96%E8%AF%91%E7%9A%84%E5%A5%BD%E5%A4%84"><span class="nav-text">1. 条件编译的好处</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%94%E3%80%81%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB-%E6%9D%A1%E4%BB%B6%E7%BC%96%E8%AF%91-%E6%A1%88%E4%BE%8B"><span class="nav-text">五、文件包含_条件编译_案例</span></a></li></ol>
+    </div>
+</div>
+
+            </div>
+        </div>
+    
+</main>
+
+
+
+
+
+<!-- common js -->
+<script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.2.5/source/js/utils.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.2.5/source/js/header-shrink.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.2.5/source/js/back2top.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.2.5/source/js/toggle-theme.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.2.5/source/js/code-block.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.2.5/source/js/main.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.2.5/source/js/libs/anime.min.js"></script>
+
+<!-- local search -->
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.2.5/source/js/local-search.js"></script>
+
+
+<!-- lazyload -->
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.2.5/source/js/lazyload.js"></script>
+
+
+<div class="pjax">
+    <!-- home page -->
+    
+
+    <!-- post page -->
+    
+        <!-- post-helper -->
+        <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.2.5/source/js/post/post-helper.js"></script>
+
+        <!-- toc -->
+        
+            <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.2.5/source/js/post/toc.js"></script>
+        
+
+        <!-- copyright-info -->
+        
+            <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.2.5/source/js/post/copyright-info.js"></script>
+        
+
+        <!-- share -->
+        
+            <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.2.5/source/js/post/share.js"></script>
+        
+    
+
+    <!-- categories page -->
+    
+
+    <!-- links page -->
+    
+
+    <!-- photos page -->
+    
+
+    <!-- tools page -->
+    
+</div>
+
+<!-- mermaid -->
+
+
+<!-- pjax -->
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.2.5/source/js/libs/pjax.min.js"></script>
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            KEEP.utils.pjaxProgressBarStart()
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            KEEP.utils.pjaxProgressBarEnd()
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'))
+            KEEP.initExecute()
+        });
+    });
+</script>
+
+
+
+
+    
+        
+            
+<script class="custom-inject-js" src="/js/run_time.js" data-pjax></script>
+
+        
+    
+        
+            
+<script class="custom-inject-js" src="/js/code_click_copy.js" data-pjax></script>
+
+        
+    
+
+</body>
+</html>

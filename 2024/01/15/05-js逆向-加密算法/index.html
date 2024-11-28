@@ -1,0 +1,1275 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="xfblog">
+    
+    <title>
+        
+            05_JS逆向_加密算法 |
+        
+        XFBLOG.CN
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+        <link rel="shortcut icon" href="/images/favicon.png">
+    
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.2.5/source/font/css/fontawesome.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.2.5/source/font/css/regular.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.2.5/source/font/css/solid.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.2.5/source/font/css/brands.min.css">
+    
+        
+            
+                
+<link rel="stylesheet" href="/css/custom-1.css">
+
+            
+        
+    
+    <script class="keep-theme-configurations">
+    const KEEP = window.KEEP || {}
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"zh-CN","path":"search.xml"}
+    KEEP.theme_config = {"base_info":{"primary_color":"#0066cc","title":"XFBLOG.CN","author":"xfblog","avatar":"/images/avatar.jpeg","logo":"/images/logo.png","favicon":"/images/favicon.png"},"menu":{"home":"/ || fa-solid fa-home","archives":"/archives || fa-solid fa-box-archive","categories":"/categories || fa-solid fa-layer-group","links":"/links || fa-solid fa-link","about":"/about || fa-solid fa-circle-info"},"first_screen":{"enable":true,"background_img":"/images/home_light.jpg","background_img_dark":"/images/home_dark.jpg","description":null,"hitokoto":false},"social_contact":{"enable":true,"links":{"github":"https://github.com/Chuanfu-Wei","weixin":null,"qq":null,"weibo":null,"zhihu":null,"twitter":null,"x":null,"facebook":null,"email":null}},"scroll":{"progress_bar":false,"percent":true,"hide_header":true},"home":{"announcement":"版权声明：本站所有文章均为 xfblog.cn 小傅原创，请遵循 CC 4.0 BY-SA 版权协议，转载请附上原文出处链接及本声明。","category":true,"tag":true,"post_datetime":"created","post_datetime_format":"YYYY-MM-DD"},"post":{"author_badge":{"enable":true,"level_badge":true,"custom_badge":["One","Two","Three"]},"word_count":{"wordcount":true,"min2read":true},"datetime_format":"YYYY-MM-DD","copyright_info":true,"share":true,"reward":{"enable":true,"img_link":"/images/zfb.jpg","text":"创作不易，打赏随意，您的支持是我更新的动力💪！"}},"code_block":{"tools":{"enable":true,"style":"default"},"highlight_theme":"obsidian"},"toc":{"enable":true,"number":false,"expand_all":true,"init_open":true,"layout":"right"},"website_count":{"busuanzi_count":{"enable":true,"site_uv":false,"site_pv":false,"page_pv":true}},"local_search":{"enable":true,"preload":true},"comment":{"enable":false,"use":"valine","valine":{"appid":null,"appkey":null,"server_urls":null,"placeholder":null},"gitalk":{"github_id":null,"github_admins":null,"repository":null,"client_id":null,"client_secret":null,"proxy":null},"twikoo":{"env_id":null,"region":null,"version":"1.6.36"},"waline":{"server_url":null,"reaction":false,"version":"3.2.1"},"giscus":{"repo":null,"repo_id":null,"category":"Announcements","category_id":null,"reactions_enabled":false},"artalk":{"server":null},"disqus":{"shortname":null}},"rss":{"enable":true},"lazyload":{"enable":true},"cdn":{"enable":true,"provider":"jsdelivr"},"pjax":{"enable":true},"footer":{"since":2021,"word_count":false,"site_deploy":{"enable":false,"provider":"github","url":null},"record":{"enable":true,"list":[{"code":"蜀ICP备2021021033号-1","link":"https://beian.miit.gov.cn"},{"code":"川公网安备 51138102000134号","link":"http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=51138102000134"}]}},"inject":{"enable":true,"css":["/css/custom-1.css"],"js":["/js/run_time.js","/js/code_click_copy.js"]},"root":"","source_data":{},"version":"4.2.5"}
+    KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"}
+    KEEP.language_code_block = {"copy":"复制代码","copied":"已复制","fold":"折叠代码块","folded":"已折叠"}
+    KEEP.language_copy_copyright = {"copy":"复制版权信息","copied":"已复制","title":"原文标题","author":"原文作者","link":"原文链接"}
+  </script>
+<meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="Keep" type="application/atom+xml">
+</head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <i class="pjax-progress-icon fas fa-circle-notch fa-spin"></i>
+    
+</div>
+
+
+
+<main class="page-container border-box">
+    <!-- home first screen  -->
+    
+
+    <!-- page content -->
+    <div class="page-main-content border-box">
+        <div class="page-main-content-top">
+            
+<header class="header-wrapper">
+
+    <div class="border-box header-content">
+        <div class="left flex-start border-box">
+            
+                <a class="logo-image border-box" href="/">
+                    <img src="/images/logo.png">
+                </a>
+            
+            <a class="site-name border-box" href="/">
+               XFBLOG.CN
+            </a>
+        </div>
+
+        <div class="right border-box">
+            <div class="pc border-box">
+                <ul class="menu-list border-box">
+                    
+                        
+                        <li class="menu-item flex-start border-box">
+                            <a class="menu-text-color border-box" href="/">
+                                
+                                    <i class="menu-text-color menu-icon fa-solid fa-home"></i>
+                                
+                                首页
+                                
+                            </a>
+                            
+                        </li>
+                    
+                        
+                        <li class="menu-item flex-start border-box">
+                            <a class="menu-text-color border-box" href="/archives">
+                                
+                                    <i class="menu-text-color menu-icon fa-solid fa-box-archive"></i>
+                                
+                                归档
+                                
+                            </a>
+                            
+                        </li>
+                    
+                        
+                        <li class="menu-item flex-start border-box">
+                            <a class="menu-text-color border-box" href="/categories">
+                                
+                                    <i class="menu-text-color menu-icon fa-solid fa-layer-group"></i>
+                                
+                                分类
+                                
+                            </a>
+                            
+                        </li>
+                    
+                        
+                        <li class="menu-item flex-start border-box">
+                            <a class="menu-text-color border-box" href="/links">
+                                
+                                    <i class="menu-text-color menu-icon fa-solid fa-link"></i>
+                                
+                                友链
+                                
+                            </a>
+                            
+                        </li>
+                    
+                        
+                        <li class="menu-item flex-start border-box">
+                            <a class="menu-text-color border-box" href="/about">
+                                
+                                    <i class="menu-text-color menu-icon fa-solid fa-circle-info"></i>
+                                
+                                关于
+                                
+                            </a>
+                            
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="menu-text-color fas search fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile border-box flex-start">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list border-box">
+            
+                
+                <li class="drawer-menu-item border-box not-sub-menu">
+                    <label class="drawer-menu-label border-box">
+                        <a class="drawer-menu-text-color left-side flex-start border-box" href="/">
+                            
+                                <span class="menu-icon-wrap border-box flex-center">
+                                    <i class="drawer-menu-text-color menu-icon fa-solid fa-home"></i>
+                                </span>
+                            
+                            首页
+                        </a>
+                        
+                    </label>
+                    
+                </li>
+            
+                
+                <li class="drawer-menu-item border-box not-sub-menu">
+                    <label class="drawer-menu-label border-box">
+                        <a class="drawer-menu-text-color left-side flex-start border-box" href="/archives">
+                            
+                                <span class="menu-icon-wrap border-box flex-center">
+                                    <i class="drawer-menu-text-color menu-icon fa-solid fa-box-archive"></i>
+                                </span>
+                            
+                            归档
+                        </a>
+                        
+                    </label>
+                    
+                </li>
+            
+                
+                <li class="drawer-menu-item border-box not-sub-menu">
+                    <label class="drawer-menu-label border-box">
+                        <a class="drawer-menu-text-color left-side flex-start border-box" href="/categories">
+                            
+                                <span class="menu-icon-wrap border-box flex-center">
+                                    <i class="drawer-menu-text-color menu-icon fa-solid fa-layer-group"></i>
+                                </span>
+                            
+                            分类
+                        </a>
+                        
+                    </label>
+                    
+                </li>
+            
+                
+                <li class="drawer-menu-item border-box not-sub-menu">
+                    <label class="drawer-menu-label border-box">
+                        <a class="drawer-menu-text-color left-side flex-start border-box" href="/links">
+                            
+                                <span class="menu-icon-wrap border-box flex-center">
+                                    <i class="drawer-menu-text-color menu-icon fa-solid fa-link"></i>
+                                </span>
+                            
+                            友链
+                        </a>
+                        
+                    </label>
+                    
+                </li>
+            
+                
+                <li class="drawer-menu-item border-box not-sub-menu">
+                    <label class="drawer-menu-label border-box">
+                        <a class="drawer-menu-text-color left-side flex-start border-box" href="/about">
+                            
+                                <span class="menu-icon-wrap border-box flex-center">
+                                    <i class="drawer-menu-text-color menu-icon fa-solid fa-circle-info"></i>
+                                </span>
+                            
+                            关于
+                        </a>
+                        
+                    </label>
+                    
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle border-box">
+
+            <div class="main-content border-box">
+                
+
+                    
+<div class="fade-in-down-animation">
+    <div class="post-page-container border-box">
+        <div class="post-content-container border-box">
+            
+
+            <div class="post-content-bottom border-box">
+                
+                    <div class="post-title">
+                        05_JS逆向_加密算法
+                    </div>
+                
+
+                
+                    <div class="post-header border-box">
+                        
+                            <div class="avatar-box border-box">
+                                <img src="/images/avatar.jpeg">
+                            </div>
+                        
+                        <div class="info-box">
+                            <div class="author border-box">
+                                <span class="name">xfblog</span>
+                                
+                                    <span class="author-badge">Lv3</span>
+                                
+                            </div>
+                            <div class="meta-info border-box">
+                                
+
+<div class="post-meta-info-container border-box post">
+    <div class="post-meta-info border-box">
+        
+
+        
+            <span class="meta-info-item post-create-date">
+                <i class="icon fa-solid fa-calendar-plus"></i>&nbsp;
+                <span class="datetime">2024-01-15</span>
+            </span>
+
+            
+                <span class="meta-info-item post-update-date">
+                    <i class="icon fa-solid fa-file-pen"></i>&nbsp;
+                    <span class="datetime" data-updated="Wed Nov 27 2024 16:23:37 GMT+0800">2024-11-27</span>
+                </span>
+            
+        
+
+        
+            <span class="meta-info-item post-category border-box"><i class="icon fas fa-folder"></i>&nbsp;
+                <ul class="post-category-ul">
+                    
+                            <li class="category-item"><a href="/categories/%E7%88%AC%E8%99%AB/">爬虫</a></li>
+                        
+                    
+                </ul>
+            </span>
+        
+
+        
+            <span class="post-tag meta-info-item border-box">
+                <ul class="post-tag-ul">
+                    
+                            <li class="tag-item"><span class="tag-separator"><i class="icon fas fa-hashtag"></i></span><a href="/tags/Python/">Python</a></li>
+                        
+                    
+                            <li class="tag-item"><span class="tag-separator"><i class="icon fas fa-hashtag"></i></span><a href="/tags/%E7%88%AC%E8%99%AB/">爬虫</a></li>
+                        
+                    
+                </ul>
+            </span>
+        
+
+        
+        
+            <span class="meta-info-item post-wordcount">
+                <i class="icon fas fa-file-word"></i>&nbsp;<span>6.7k 字</span>
+            </span>
+        
+        
+            <span class="meta-info-item post-min2read">
+                <i class="icon fas fa-clock"></i>&nbsp;<span>27 分钟</span>
+            </span>
+        
+        
+            <span class="meta-info-item post-pv">
+                <i class="icon fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+            </span>
+        
+    </div>
+
+    
+</div>
+
+                            </div>
+                        </div>
+                    </div>
+                
+
+                <div class="post-content keep-markdown-body ">
+                    
+
+                    
+                         <h2 id="一、哈希摘要算法"><a href="#一、哈希摘要算法" class="headerlink" title="一、哈希摘要算法"></a>一、哈希摘要算法</h2><blockquote>
+<p><strong>哈希摘要：是一种通过将数据应用哈希函数来生成固定长度的数据摘要的过程</strong></p>
+<p><strong>哈希摘要算法的基本特点包括：</strong></p>
+<ol>
+<li><strong>不可逆性：</strong>数据不能被逆向还原，即无法从散列值（哈希摘要）反推出原始数据</li>
+<li><strong>固定长度输出：</strong>不同输入长度的数据都生成相同长度的摘要</li>
+<li><strong>唯一性：</strong>不同的输入数据应生成唯一的摘要，但碰撞是理论上可能的，即两个不同的输入生成相同的摘要</li>
+<li><strong>快速计算：</strong>对于给定输入，摘要的生成应该是高效的</li>
+</ol>
+</blockquote>
+<h4 id="1-MD5"><a href="#1-MD5" class="headerlink" title="1. MD5"></a>1. MD5</h4><blockquote>
+<p><strong>MD5（Message-Digest Algorithm）：</strong>是一种广泛使用的哈希算法（密码散列函数），可以产生出一个128位（16字节）的散列值，用于确保信息传输完整一致。MD5由美国密码学家罗纳德·李维斯特（Ronald Linn Rivest）设计，于1992年公开，用以取代MD4算法。这套算法的程序在 RFC 1321 标准中被加以规范。1996年后该算法被证实存在弱点，可以被加以破解，对于需要高度安全性的数据，一般建议改用其他算法，如SHA-2。2004年，证实MD5算法无法防止碰撞（collision），因此不适用于安全性认证，如SSL公开密钥认证或是数字签名等用途。</p>
+<p><strong>MD5特征：32长度、十六进制</strong></p>
+<p><strong>md5应用领域：</strong></p>
+<ol>
+<li><strong>密码保护：</strong>前端后端密码对比，不怕数据库数据丢失</li>
+<li><strong>文件完整性校验：</strong>确保文件传递的前后一致</li>
+<li><strong>数字签名：</strong>防止发布的软件被篡改</li>
+<li><strong>云盘秒传：</strong>云盘有时并不会把全部的数据上传，而是拿到数据加密之后的md5去文件数据库对比</li>
+</ol>
+</blockquote>
+<ul>
+<li><strong>JavaScript 实现 MD5（<a class="link"   target="_blank" rel="noopener" href="https://www.mytokencap.com/" >测试网站<i class="fas fa-external-link-alt"></i></a>）：</strong></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">// **在 Node.js 中安装算法库：`npm install crypto-js -S`**</span><br><span class="line">var crypto = require(&#x27;crypto-js&#x27;);</span><br><span class="line"></span><br><span class="line">console.log(crypto.MD5(&#x27;abc&#x27;));</span><br><span class="line">/* MD5 哈希值的内部表示形式</span><br><span class="line">&#123;</span><br><span class="line">  words: [ -1936743598, -1629270706, 1772141231, -1224303197 ],</span><br><span class="line">  sigBytes: 16</span><br><span class="line">&#125;</span><br><span class="line">* */</span><br><span class="line"></span><br><span class="line">console.log(crypto.MD5(&#x27;abc&#x27;).toString());</span><br><span class="line">// 8c8fa3529ee34d4e69a0baafb7069da3</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>Python 实现 MD5：</strong></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">import hashlib</span><br><span class="line"></span><br><span class="line"># 字符串是无法直接进行加密的，需要进行encode编码</span><br><span class="line">data = hashlib.md5(&#x27;abc&#x27;.encode(&#x27;utf-8&#x27;)).hexdigest()</span><br><span class="line">print(data)  # 8c8fa3529ee34d4e69a0baafb7069da3</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-SHA"><a href="#2-SHA" class="headerlink" title="2. SHA"></a>2. SHA</h4><blockquote>
+<p><strong>SHA（Secure Hash Algorithm）：</strong>是由美国国家标准与技术研究院（NIST）制定的一系列哈希算法标准，包括 SHA-1、SHA-256、SHA-384、SHA-512 等。旨在产生一种固定长度的哈希值，通常以<strong>十六进制</strong>表示。SHA 算法家族被广泛用于数字签名、数据完整性验证等安全应用。</p>
+<p><strong>SHA家族的特征（版本越强，密文越长，代价是速度越慢）：</strong></p>
+<ol>
+<li><strong>SHA-1：20字节，40长度</strong></li>
+<li><strong>SHA-224：28字节，56长度</strong></li>
+<li><strong>SHA-256：32字节，64长度</strong></li>
+<li><strong>SHA-384：48字节，96长度</strong></li>
+<li><strong>SHA-512：64字节，128长度</strong></li>
+</ol>
+</blockquote>
+<ul>
+<li><strong>JavaScript 实现 SHA（<a class="link"   target="_blank" rel="noopener" href="https://www.hh1024.com/#/ranklist/ranklist" >测试网站<i class="fas fa-external-link-alt"></i></a>）：</strong></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">var crypto = require(&#x27;crypto-js&#x27;);</span><br><span class="line"></span><br><span class="line">// SHA哈希值的内部表示形式</span><br><span class="line">console.log(crypto.SHA1(&#x27;abc&#x27;));  // sigBytes: 20</span><br><span class="line">console.log(crypto.SHA1(&#x27;abc&#x27;).toString());  // 哈希值</span><br><span class="line"></span><br><span class="line">console.log(crypto.SHA224(&#x27;abc&#x27;));  // sigBytes: 28</span><br><span class="line">console.log(crypto.SHA224(&#x27;abc&#x27;).toString());</span><br><span class="line"></span><br><span class="line">console.log(crypto.SHA256(&#x27;abc&#x27;));  // sigBytes: 32</span><br><span class="line">console.log(crypto.SHA256(&#x27;abc&#x27;).toString());</span><br><span class="line"></span><br><span class="line">console.log(crypto.SHA384(&#x27;abc&#x27;));  // sigBytes: 48</span><br><span class="line">console.log(crypto.SHA384(&#x27;abc&#x27;).toString());</span><br><span class="line"></span><br><span class="line">console.log(crypto.SHA512(&#x27;abc&#x27;));  // sigBytes: 64</span><br><span class="line">console.log(crypto.SHA512(&#x27;abc&#x27;).toString());</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>Python 实现 SHA：</strong></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">import hashlib</span><br><span class="line"></span><br><span class="line"># 字符串是无法直接进行加密的，需要进行encode编码</span><br><span class="line">data1 = hashlib.sha1(&#x27;abc&#x27;.encode(&#x27;utf-8&#x27;)).hexdigest()</span><br><span class="line">data2 = hashlib.sha224(&#x27;abc&#x27;.encode(&#x27;utf-8&#x27;)).hexdigest()</span><br><span class="line">data3 = hashlib.sha256(&#x27;abc&#x27;.encode(&#x27;utf-8&#x27;)).hexdigest()</span><br><span class="line">data4 = hashlib.sha384(&#x27;abc&#x27;.encode(&#x27;utf-8&#x27;)).hexdigest()</span><br><span class="line">data5 = hashlib.sha512(&#x27;abc&#x27;.encode(&#x27;utf-8&#x27;)).hexdigest()</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-HMAC"><a href="#3-HMAC" class="headerlink" title="3. HMAC"></a>3. HMAC</h4><blockquote>
+<p><strong>HMAC（Hash-based Message Authentication Code）：</strong>是一种基于哈希函数的消息认证码算法，结合了哈希函数和密钥以提供消息完整性和真实性的验证。于1996年提出，并于1997年作为 RFC2104 被公布。</p>
+<p><strong>HMAC的基本思想：</strong>通过将消息和密钥混合在一起，并将其输入到哈希函数中，生成一个固定长度的摘要。这个摘要（HMAC）随着消息一起传递，并在接收端使用相同的密钥和哈希函数重新计算，但<strong>同样是不可逆的</strong>，以验证消息的完整性（<strong>可以与各种哈希算法捆绑使用，并拥有相同的特点</strong>）</p>
+</blockquote>
+<ul>
+<li><strong>JavaScript 实现 HMAC（<a class="link"   target="_blank" rel="noopener" href="https://www.qcc.com/" >测试网站<i class="fas fa-external-link-alt"></i></a>）：</strong></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">var crypto = require(&#x27;crypto-js&#x27;);</span><br><span class="line"></span><br><span class="line">var text = &quot;I love python&quot;;</span><br><span class="line">var key = &quot;xxxxxx&quot;;</span><br><span class="line"></span><br><span class="line">console.log(crypto.HmacMD5(text, key).toString())</span><br><span class="line">console.log(crypto.HmacSHA512(text, key).toString())</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>Python 实现 HMAC：</strong></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">import hmac  # 导入hmac模块，hmac是单独的模块，而不是hashlib</span><br><span class="line"></span><br><span class="line">def hmac_md5():</span><br><span class="line">    text = &#x27;I love python&#x27;</span><br><span class="line">    key = b&quot;xxxxxx&quot;</span><br><span class="line">    return hmac.new(text.encode(), key, digestmod=&#x27;MD5&#x27;).hexdigest()</span><br><span class="line"></span><br><span class="line">def hmac_sha256():</span><br><span class="line">    text = &#x27;I love python&#x27;</span><br><span class="line">    key = b&quot;xxxxxx&quot;</span><br><span class="line">    sha256 = hmac.new(key, digestmod=&#x27;sha256&#x27;)</span><br><span class="line">    sha256.update(&#x27;I love &#x27;.encode(&#x27;utf8&#x27;))</span><br><span class="line">    sha256.update(&#x27;Python&#x27;.encode(&#x27;utf8&#x27;))</span><br><span class="line">    data1 = sha256.hexdigest()</span><br><span class="line">    data2 = hmac.new(text.encode(), key, digestmod=&#x27;sha256&#x27;).hexdigest()</span><br><span class="line">    return data1, data2  # 分开加密是不同的</span><br><span class="line"></span><br><span class="line">if __name__ == &#x27;__main__&#x27;:</span><br><span class="line">    print(hmac_md5())  # b119f6355b6e1dfdbb35b44851e3e731</span><br><span class="line">    print(hmac_sha256())  # ......</span><br></pre></td></tr></table></figure>
+
+<h2 id="二、对称加密算法"><a href="#二、对称加密算法" class="headerlink" title="二、对称加密算法"></a>二、对称加密算法</h2><blockquote>
+<p><strong>对称加密算法的基本思想</strong>：使用相同的密钥（也被称为秘密密钥）同时执行加密和解密操作，也就是说加密和解密用的是同一个算法。这意味着在通信的两端，发送方和接收方都必须共享相同的密钥。对称加密算法通过这个共享的密钥来隐藏和还原原始数据，确保只有持有密钥的人能够解密和访问数据。</p>
+<p><strong>常见的对称加密算法：DES、AES（Advanced Encryption Standard*）、3DES、RC4、IDEA</strong></p>
+<p><strong>对称加密的特点：可逆性、密钥共享、高效性、适用于随机访问</strong></p>
+</blockquote>
+<h4 id="1-算法工作模式"><a href="#1-算法工作模式" class="headerlink" title="1. 算法工作模式"></a>1. 算法工作模式</h4><ul>
+<li><strong>ECB模式（电子密码本模式）：</strong><ul>
+<li><strong>基本思想：</strong>将明文切分成固定大小的块，然后对每个块独立进行加密。每个块使用相同的密钥进行加密，且每个块的加密是独立的，不依赖于其他块，最后将每一组加密的结果进行拼接得到密文（<strong>最简单</strong>）</li>
+</ul>
+</li>
+</ul>
+<p><img  
+                       lazyload
+                       alt="image"
+                       data-src="https://osswcf.oss-cn-shanghai.aliyuncs.com/2024/01/1705231325-f38b501dbc480ff.png"
+                       
+                 ></p>
+<ul>
+<li><p><strong>CBC模式（密码分组链接模式）：</strong></p>
+<ul>
+<li><strong>基本思想：</strong>引入了<strong>初始化向量 IV</strong>，在第一个块中先让 IV 与明文进行异或操作，再进行加密生成密文，此时将密文又作为下一个块的 IV 与下一个块的明文加密生成下一个块的密文，以此类推（<strong>使用最多</strong>）</li>
+</ul>
+</li>
+</ul>
+<p><img  
+                       lazyload
+                       alt="image"
+                       data-src="https://osswcf.oss-cn-shanghai.aliyuncs.com/2024/01/1705231326-b0efd28804fe12e.png"
+                       
+                 ></p>
+<ul>
+<li><strong>CFB模式（密码反馈模式）：</strong><ul>
+<li><strong>基本思想：</strong>吸收了<strong>流加密</strong>的特点，可以理解为在CBC模式中实现了流加密。<strong>加密关键</strong>是使用前一次加密的输出作为下一次加密的输入。将前一个密文块输入（反馈）到加密函数中，产生一个伪随机流，将伪随机流与当前块的明文异或，得到密文，再将密文进行位移处理后作为下一块的输入，以此类推</li>
+</ul>
+</li>
+</ul>
+<p><img  
+                       lazyload
+                       alt="image"
+                       data-src="https://osswcf.oss-cn-shanghai.aliyuncs.com/2024/01/1705231327-64e40d496f31ff7.png"
+                       
+                 ></p>
+<ul>
+<li><strong>OFB模式（输出反馈模式）：</strong><ul>
+<li><strong>基本思想：</strong>类似于CFB，但反馈的是加密函数的输出，使用上一个块的加密函数的输出与当前块的明文进行异或操作，得到密文</li>
+</ul>
+</li>
+</ul>
+<p><img  
+                       lazyload
+                       alt="image"
+                       data-src="https://osswcf.oss-cn-shanghai.aliyuncs.com/2024/01/1705231327-9bf75a8a2cc240b.png"
+                       
+                 ></p>
+<ul>
+<li><strong>CTR模式（计数器模式）：</strong><ul>
+<li><strong>基本思想：</strong>与CFB、OFB模式为同一类，但<strong>加密关键</strong>是使用计数器和密钥生成的伪随机数流与明文进行异或操作，得到密文。计数器的值逐块递增，每个块都使用不同的计数器值进行加密，适用于流加密，支持并行处理（可以代替CFB、OFB模式）</li>
+</ul>
+</li>
+</ul>
+<p><img  
+                       lazyload
+                       alt="image"
+                       data-src="https://osswcf.oss-cn-shanghai.aliyuncs.com/2024/01/1705231328-18e363d5cef7d65.png"
+                       
+                 ></p>
+<h4 id="2-DES"><a href="#2-DES" class="headerlink" title="2. DES"></a>2. DES</h4><blockquote>
+<p><strong>DES（Data Encryption Standard）：</strong>是一种对称加密算法，最早由IBM于1977年提出并被美国国家标准局（NIST）采纳为联邦信息处理标准（FIPS）。由于DES密钥较短，在1999年被AES（高级加密标准）取代。</p>
+<p><strong>加密原理：</strong>DES属于对称密码算法中的<strong>分组加密算法（块加密）</strong>，原理是将明文分成n个64位的字节块，分别进行加密，当明文块不足64位时会通过双方统一的填充方案进行<strong>填充（PKCS5Padding）</strong>。密钥长度64位，56位参与运算，8位校验位。每个明文数据块都经过 des 加密后，所有密文块串联在一起形成完整的密文。</p>
+</blockquote>
+<ul>
+<li><p><strong>DES加密算法的主要步骤：</strong></p>
+<ol>
+<li><strong>密钥生成：</strong><ul>
+<li>DES使用56位的密钥，但实际上是使用64位的密钥，其中有8位是奇偶校验位。这样实际有效的密钥长度为56位</li>
+<li>密钥被分为16个子密钥，每个子密钥包含48位</li>
+</ul>
+</li>
+<li><strong>初始置换（IP置换）：</strong><ul>
+<li>明文（64位）被初始置换，即重新排列其位，产生一个初始置换的数据块</li>
+</ul>
+</li>
+<li><strong>分为左右两半：</strong><ul>
+<li>初始置换后的数据块分为左右两个32位的半块</li>
+</ul>
+</li>
+<li><strong>DES采用Feistel网络结构。每一轮的右半块通过一个轮函数进行处理，这个轮函数包括：</strong><ul>
+<li><strong>扩展（Expansion）：</strong> 将右半块的32位扩展为48位</li>
+<li><strong>密钥混合（Key Mixing）：</strong> 将扩展后的右半块与子密钥进行异或运算</li>
+<li><strong>S盒代替（S-box Substitution）：</strong> 将48位的数据分成8组，每组6位，通过8个S盒进行代替，每个S盒将6位输入映射到4位输出</li>
+<li><strong>P盒置换（Permutation）：</strong> 对S盒输出进行置换，得到最终的32位输出</li>
+</ul>
+</li>
+<li><strong>左右交换：</strong><ul>
+<li>经过轮函数处理后，左半块与右半块进行异或运算，然后交换位置</li>
+</ul>
+</li>
+<li><strong>重复16轮：</strong><ul>
+<li>上述的轮函数过程重复16轮</li>
+</ul>
+</li>
+<li><strong>逆初始置换（Final Permutation）：</strong><ul>
+<li>最后一轮处理完后，左右两半进行逆初始置换，得到最终的密文</li>
+</ul>
+</li>
+</ol>
+</li>
+<li><p><strong>DES加密过程的伪代码：</strong></p>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Input: 64位明文，56位密钥</span><br><span class="line">Output: 64位密文</span><br><span class="line"></span><br><span class="line">1. 生成子密钥</span><br><span class="line">2. 初始置换</span><br><span class="line">3. 分为左右两半</span><br><span class="line">4. 16轮循环：</span><br><span class="line">   a. 右半块经过轮函数处理</span><br><span class="line">   b. 左右半块异或并交换位置</span><br><span class="line">5. 逆初始置换</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>JavaScript 实现 DES（<a class="link"   target="_blank" rel="noopener" href="https://www.endata.com.cn/BoxOffice/BO/Month/oneMonth.html" >测试网站<i class="fas fa-external-link-alt"></i></a>）：</strong><ul>
+<li><strong>注意：</strong>在 js 逆向中不适合使用 python 实现算法，不同语言使用的库和版本不同，同样的加密算法在不同的语言中加密的结果可能不一致，所以在逆向中最好使用 node 加密数据</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">var crypto = require(&#x27;crypto-js&#x27;)</span><br><span class="line"></span><br><span class="line">// 加密</span><br><span class="line">function desencrypt(text, key, iv) &#123;</span><br><span class="line">    key = crypto.enc.Utf8.parse(key);</span><br><span class="line">    iv = crypto.enc.Utf8.parse(iv);</span><br><span class="line">    text = crypto.enc.Utf8.parse(text);</span><br><span class="line">    // CBC 加密模式，Pkcs7 填充方式</span><br><span class="line">    let encrypted = crypto.DES.encrypt(text, key, &#123;</span><br><span class="line">        iv: iv,</span><br><span class="line">        mode: crypto.mode.CBC,</span><br><span class="line">        padding: crypto.pad.Pkcs7</span><br><span class="line">    &#125;);</span><br><span class="line">    return encrypted.toString();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 解密</span><br><span class="line">function desdecrypt(destext, key, iv) &#123;</span><br><span class="line">    key = crypto.enc.Utf8.parse(key);</span><br><span class="line">    iv = crypto.enc.Utf8.parse(iv);</span><br><span class="line">    // CBC 加密模式，Pkcs7 填充方式</span><br><span class="line">    let decrypted = crypto.DES.decrypt(destext, key, &#123;</span><br><span class="line">        iv: iv,</span><br><span class="line">        mode: crypto.mode.CBC,</span><br><span class="line">        padding: crypto.pad.Pkcs7</span><br><span class="line">    &#125;);</span><br><span class="line">    return decrypted.toString(crypto.enc.Utf8);  // 指定解密后的编码格式</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var text = &quot;I love Python!&quot;  // 待加密对象</span><br><span class="line">var desKey = &quot;12345678&quot;  // 密钥，64位，8字节</span><br><span class="line">var desIv = &quot;0123456789ABCDEF&quot;  // 初始向量</span><br><span class="line"></span><br><span class="line">var encryptedData = desencrypt(text, desKey, desIv)</span><br><span class="line">var decryptedData = desdecrypt(encryptedData, desKey, desIv)</span><br><span class="line"></span><br><span class="line">console.log(&quot;加密字符串: &quot;, encryptedData)  // 4rg1YxfRM2tIPSuriHtDQA==</span><br><span class="line">console.log(&quot;解密字符串: &quot;, decryptedData)  // I love Python!</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-AES"><a href="#3-AES" class="headerlink" title="3. AES"></a>3. AES</h4><blockquote>
+<p><strong>AES（Advanced Encryption Standard）：</strong>全称高级加密标准，在密码学中又称 Rijndael 加密法，由美国国家标准与技术研究院 （NIST）于 2001 年发布，并在 2002 年成为有效的标准，是美国联邦政府采用的一种区块加密标准。这个标准用来替代原先的 DES，支持多种密钥长度，包括128位、192位和256位，目前已成为对称密钥加密中最安全、最流行的算法之一。</p>
+<p><strong>加密原理：</strong>AES属于对称密码算法中的<strong>分组加密算法（块加密）</strong>，原理是将明文分成n个128位的字节块，分别进行加密，当明文块不足128位时会通过双方统一的填充方案进行<strong>填充（PKCS5Padding）</strong>。密钥的长度可以是128位、192位和256位。每个明文数据块都经过 aes 加密后，所有密文块串联在一起形成完整的密文。</p>
+</blockquote>
+<ul>
+<li><p><strong>AES加密算法的主要步骤：</strong></p>
+<ol>
+<li><strong>轮密钥生成（Key Expansion）：</strong><ul>
+<li>根据输入的密钥长度（128位、192位或256位），生成扩展密钥。这些扩展密钥将在后续的轮函数中使用。</li>
+</ul>
+</li>
+<li><strong>初始轮（Initial Round）：</strong><ul>
+<li>将明文与扩展密钥进行初始轮的加法运算。</li>
+</ul>
+</li>
+<li><strong>AES的核心是多轮处理（Rounds），每一轮包括以下四个步骤：</strong><ul>
+<li><strong>字节替代（SubBytes）：</strong> 使用一个固定的8x8的替代盒（S盒），将每个字节替换为另一个字节。</li>
+<li><strong>行移位（ShiftRows）：</strong> 对状态矩阵的每一行进行循环左移。第一行不移动，第二行左移一个字节，第三行左移两个字节，第四行左移三个字节。</li>
+<li><strong>列混淆（MixColumns）：</strong> 利用矩阵运算对状态矩阵的每一列进行混淆。</li>
+<li><strong>轮密钥加（AddRoundKey）：</strong> 将当前轮的轮密钥与状态矩阵进行按位异或运算。</li>
+</ul>
+</li>
+<li><strong>最终轮（Final Round）：</strong><ul>
+<li>在最后一轮中，省略MixColumns步骤，只执行SubBytes、ShiftRows和AddRoundKey。</li>
+</ul>
+</li>
+<li><strong>逆操作（Inverse Operations）：</strong><ul>
+<li>为了实现解密，需要对加密过程中的每个步骤进行逆操作。逆操作包括逆字节替代、逆行移位、逆列混淆和逆轮密钥加。</li>
+</ul>
+</li>
+</ol>
+</li>
+<li><p><strong>注意：AES在不同的密钥长度下有不同的轮数</strong></p>
+<ul>
+<li>10轮（128位密钥）</li>
+<li>12轮（192位密钥）</li>
+<li>14轮（256位密钥）</li>
+</ul>
+</li>
+<li><p><strong>AES加密过程的伪代码：</strong></p>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Input: 明文块，密钥（128位、192位或256位）</span><br><span class="line">Output: 密文块</span><br><span class="line"></span><br><span class="line">1. 轮密钥生成</span><br><span class="line">2. 初始轮：明文块与扩展密钥进行初始轮的加法运算</span><br><span class="line">3. 多轮处理（Rounds）：</span><br><span class="line">   a. 字节替代</span><br><span class="line">   b. 行移位</span><br><span class="line">   c. 列混淆（除了最后一轮）</span><br><span class="line">   d. 轮密钥加</span><br><span class="line">4. 最终轮：字节替代、行移位、轮密钥加</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>JavaScript 实现 AES（<a class="link"   target="_blank" rel="noopener" href="https://jzsc.mohurd.gov.cn/data/company" >测试网站1<i class="fas fa-external-link-alt"></i></a>，<a class="link"   target="_blank" rel="noopener" href="https://www.kanzhun.com/search/?query=python%E7%88%AC%E8%99%AB&type=0" >测试网站2<i class="fas fa-external-link-alt"></i></a>）：</strong></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">var crypto = require(&#x27;crypto-js&#x27;)</span><br><span class="line"></span><br><span class="line">// 加密</span><br><span class="line">function desencrypt(text, key, iv) &#123;</span><br><span class="line">    key = crypto.enc.Utf8.parse(key);</span><br><span class="line">    iv = crypto.enc.Utf8.parse(iv);</span><br><span class="line">    text = crypto.enc.Utf8.parse(text);</span><br><span class="line">    // CBC 加密模式，Pkcs7 填充方式</span><br><span class="line">    let encrypted = crypto.AES.encrypt(text, key, &#123;</span><br><span class="line">        iv: iv,</span><br><span class="line">        mode: crypto.mode.CBC,</span><br><span class="line">        padding: crypto.pad.Pkcs7</span><br><span class="line">    &#125;);</span><br><span class="line">    return encrypted.toString();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 解密</span><br><span class="line">function desdecrypt(destext, key, iv) &#123;</span><br><span class="line">    key = crypto.enc.Utf8.parse(key);</span><br><span class="line">    iv = crypto.enc.Utf8.parse(iv);</span><br><span class="line">    // CBC 加密模式，Pkcs7 填充方式</span><br><span class="line">    let decrypted = crypto.AES.decrypt(destext, key, &#123;</span><br><span class="line">        iv: iv,</span><br><span class="line">        mode: crypto.mode.CBC,</span><br><span class="line">        padding: crypto.pad.Pkcs7</span><br><span class="line">    &#125;);</span><br><span class="line">    return decrypted.toString(crypto.enc.Utf8);  // 指定解密后的编码格式</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var text = &quot;I love Python!&quot;  // 待加密对象</span><br><span class="line">var desKey = &quot;12345678&quot;  // 密钥，64位，8字节</span><br><span class="line">var desIv = &quot;0123456789ABCDEF&quot;  // 初始向量</span><br><span class="line"></span><br><span class="line">var encryptedData = desencrypt(text, desKey, desIv)</span><br><span class="line">var decryptedData = desdecrypt(encryptedData, desKey, desIv)</span><br><span class="line"></span><br><span class="line">console.log(&quot;加密字符串: &quot;, encryptedData)  // SDP09JftXrC4ox/qrhMqCA==</span><br><span class="line">console.log(&quot;解密字符串: &quot;, decryptedData)  // I love Python!</span><br></pre></td></tr></table></figure>
+
+<h4 id="4-问题记录"><a href="#4-问题记录" class="headerlink" title="4. 问题记录"></a>4. 问题记录</h4><p><img  
+                       lazyload
+                       alt="image"
+                       data-src="https://osswcf.oss-cn-shanghai.aliyuncs.com/2024/01/1705305792-d589788b4e3e049.png"
+                       
+                 ></p>
+<ul>
+<li><strong>问题：</strong>解密后的数据不符合预期的 UTF-8 编码格式，导致解析失败</li>
+<li><strong>可能原因：</strong><ol>
+<li>密文 text 是否是通过正确的加密过程生成的</li>
+<li>密钥 key 和初始向量 iv 在加密和解密过程中是否保持一致</li>
+</ol>
+</li>
+<li><strong>解决：</strong>查看代码中是否有其他地方对 text、key 或 iv 参数进行了赋值修改，因为 js 是可以在同一作用域的不同位置对同一数据进行多次赋值的</li>
+</ul>
+<h2 id="三、魔改算法"><a href="#三、魔改算法" class="headerlink" title="三、魔改算法"></a>三、魔改算法</h2><blockquote>
+<p><strong>魔改（魔改算法）：</strong>通常是指对已有的算法进行修改或改进的过程。这个过程可能包括调整参数、改变某些步骤、添加新的元素，或者以其他方式对算法进行修改，以满足特定的需求或优化特定的性能指标。</p>
+</blockquote>
+<ul>
+<li><strong>判断是否是魔改算法：</strong>观察算法库对象中的有没有一系列常用的标准算法，大致可以推断出是否是魔改算法，<strong>是则需要将与魔改算法库对象定义相关的所有代码都要扣下来，包括自执行方法（<a class="link"   target="_blank" rel="noopener" href="https://www.aigei.com/sound/class/role#resContainer" >测试网站<i class="fas fa-external-link-alt"></i></a>）</strong></li>
+</ul>
+<p><img  
+                       lazyload
+                       alt="image"
+                       data-src="https://osswcf.oss-cn-shanghai.aliyuncs.com/2024/01/1705416451-06c29a72f2c50f6.png"
+                       
+                 ></p>
+<h2 id="四、非对称加密算法"><a href="#四、非对称加密算法" class="headerlink" title="四、非对称加密算法"></a>四、非对称加密算法</h2><blockquote>
+<p><strong>非对称加密算法的基本思想：</strong>对称加密使用相同的密钥进行加密和解密，而非对称加密使用一对密钥，包括公钥和私钥，分别用于加密和解密。如果用公钥加密信息，只有用私钥才能解密。反之亦然，用私钥加密的信息只能用对应的公钥进行解密。这种关系使得公钥可以安全地分享给其他人，而私钥则必须保持秘密。</p>
+<p><strong>常见的非对称加密算法：RSA（Rivest-Shamir-Adleman*）、DSA、ECC（椭圆曲线密码学）</strong></p>
+<p><strong>可用于数字签名领域：</strong>验证消息的完整性和来源。发送方使用私钥对消息进行签名，而接收方可以使用发送方的公钥来验证签名。这确保了消息在传输过程中没有被篡改，并且确定是由私钥持有者生成的。</p>
+</blockquote>
+<h4 id="1-RSA"><a href="#1-RSA" class="headerlink" title="1. RSA"></a>1. RSA</h4><blockquote>
+<p><strong>RSA（Rivest-Shamir-Adleman）：</strong>是一种非对称加密算法，于1977年提出。RSA算法基于数论的难题，特别是大数分解的难度，其安全性依赖于质数因子分解的困难性。在RSA中，<strong>相同的明文每次生成的密文值都是不一样的</strong>，每次加密都会采用不同的填充和随机数，以确保生成的密文在统计上看起来是随机的。</p>
+</blockquote>
+<ul>
+<li><p><strong>RSA加密算法的主要步骤：</strong></p>
+<ol>
+<li><p><strong>密钥生成：</strong></p>
+<ul>
+<li><strong>选择两个大质数p和q：</strong>这两个质数越大，破解RSA就越困难。</li>
+<li><strong>计算n：</strong>计算n &#x3D; p * q，n是两个质数的乘积。</li>
+<li><strong>计算欧拉函数φ(n)：</strong>计算φ(n) &#x3D; (p-1)(q-1)。</li>
+<li><strong>选择公钥e：</strong>选择一个满足1 &lt; e &lt; φ(n)且与φ(n)互质的数，通常选择65537。</li>
+<li><strong>计算私钥d：</strong>计算满足(e * d) mod φ(n) &#x3D; 1的私钥d。</li>
+</ul>
+<p>公钥是(n, e)，私钥是(n, d)。公钥可以公开，私钥必须保密。</p>
+</li>
+<li><p><strong>加密过程：</strong></p>
+<ul>
+<li>Alice拥有Bob的公钥(n, e)。</li>
+<li>Alice将明文M转换为整数m，确保0 &lt; m &lt; n。</li>
+<li>Alice计算密文C，其中C ≡ m^e (mod n)。</li>
+<li>Alice将密文C发送给Bob。</li>
+</ul>
+<p>加密过程利用了模幂运算，即将明文的整数形式m，通过取e次方并对n取模得到密文C。这个操作使得只有私钥持有者才能轻松解密消息。</p>
+</li>
+<li><p><strong>解密过程：</strong></p>
+<ul>
+<li>Bob使用私钥(n, d)。</li>
+<li>Bob计算明文m，其中m ≡ C^d (mod n)。</li>
+<li>Bob将整数m转换为明文M。</li>
+</ul>
+<p>解密过程利用了模幂运算，与加密过程相反，通过将密文的整数形式C，取d次方并对n取模得到原始的明文。</p>
+</li>
+<li><p><strong>安全性基础：</strong></p>
+<ul>
+<li>RSA的安全性建立在大整数分解的困难性基础上，即将n分解为其两个大质因数p和q。</li>
+<li>当n足够大时，对n进行分解变得非常耗时，因此使得破解RSA成为一项艰巨的任务。</li>
+</ul>
+</li>
+<li><p><strong>性能注意事项：</strong></p>
+<ul>
+<li>由于RSA的加密和解密操作相对耗时，通常不直接用于加密大量数据。通常，RSA用于安全地交换对称密钥，而对称密钥用于实际的数据加密。</li>
+</ul>
+</li>
+</ol>
+</li>
+<li><p><strong>RSE加密过程的伪代码：</strong></p>
+<ol>
+<li><p><strong>密钥生成：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"># 选择两个大素数 p 和 q</span><br><span class="line"># generate_large_prime 是生成大素数的函数</span><br><span class="line">p = generate_large_prime()</span><br><span class="line">q = generate_large_prime()</span><br><span class="line"></span><br><span class="line"># 计算 n = p * q</span><br><span class="line">n = p * q</span><br><span class="line"></span><br><span class="line"># 计算欧拉函数 φ(n) = (p-1) * (q-1)</span><br><span class="line">phi_n = (p - 1) * (q - 1)</span><br><span class="line"></span><br><span class="line"># 选择一个与 φ(n) 互质的整数 e（公钥）</span><br><span class="line"># choose_coprime 是选择与另一个数互质的函数</span><br><span class="line">e = choose_coprime(phi_n)</span><br><span class="line"></span><br><span class="line"># 计算 e 对于 φ(n) 的模反元素 d（私钥）</span><br><span class="line"># modular_inverse 是计算模反元素的函数</span><br><span class="line">d = modular_inverse(e, phi_n)</span><br><span class="line"></span><br><span class="line"># 返回公钥 (n, e) 和私钥 (n, d)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>加密：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># 接收公钥 (n, e) 和明文消息 M</span><br><span class="line"># 将明文消息 M 转换为整数 m，确保 m &lt; n</span><br><span class="line"></span><br><span class="line"># 计算密文 C = m^e mod n</span><br><span class="line"># modular_pow 是计算模幂的函数</span><br><span class="line">ciphertext = modular_pow(m, e, n)</span><br><span class="line"></span><br><span class="line"># 返回密文 C</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>解密：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># 接收私钥 (n, d) 和密文消息 C</span><br><span class="line"></span><br><span class="line"># 计算明文消息 M = C^d mod n</span><br><span class="line">plaintext = modular_pow(ciphertext, d, n)</span><br><span class="line"></span><br><span class="line"># 返回明文消息 M</span><br></pre></td></tr></table></figure></li>
+</ol>
+</li>
+</ul>
+<h4 id="2-JS-实现-RSA"><a href="#2-JS-实现-RSA" class="headerlink" title="2. JS 实现 RSA"></a>2. JS 实现 RSA</h4><blockquote>
+<p><strong>RSA算法 js 调试技巧（<a class="link"   target="_blank" rel="noopener" href="https://login.10086.cn/html/login/email_login.html" >测试网站1<i class="fas fa-external-link-alt"></i></a>、<a class="link"   target="_blank" rel="noopener" href="https://passport.suning.com/ids/login" >测试网站2<i class="fas fa-external-link-alt"></i></a>、<a class="link"   target="_blank" rel="noopener" href="http://birdreport.cn/home/activity/page.html" >测试网站3<i class="fas fa-external-link-alt"></i></a>）：</strong></p>
+<ol>
+<li>观察密文长度是否为 88、172、344 的特殊长度（密文值变化，但长度固定），以判断是否是RSA算法</li>
+<li>网页一般会使用 <strong>jsencrypt</strong> 库，node 中也有 <strong>jsencrypt</strong> 库，不同于 <strong>node-rsa</strong> 库，<strong>搜索关键字</strong> <code>JSEncrypt(</code>、<code>new JSEncrypt()</code>、<code>setPublicKey</code>、<code>setPrivateKey</code>、<code>setkey</code>、<code>getPublicKey</code></li>
+</ol>
+<p>私钥长度</p>
+<p>公钥长度</p>
+<p>明文长度</p>
+<p>密文长度</p>
+<p>428</p>
+<p>128</p>
+<p>1~53</p>
+<p>88</p>
+<p>812</p>
+<p>216</p>
+<p>1~117</p>
+<p>172</p>
+<p>1588</p>
+<p>392</p>
+<p>1~245</p>
+<p>344</p>
+</blockquote>
+<ul>
+<li><strong>JavaScript 实现 RSA：</strong><ul>
+<li><strong><code>const JSEncrypt = require(&#39;jsencrypt&#39;);</code></strong></li>
+<li><strong><code>const NodeRSA = require(&#39;node-rsa&#39;);</code></strong></li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">// 引用 node-rsa 加密模块（npm install node-rsa --save）</span><br><span class="line">var NodeRSA = require(&#x27;node-rsa&#x27;);</span><br><span class="line"></span><br><span class="line">function rsaEncrypt() &#123;</span><br><span class="line">    pubKey = new NodeRSA(publicKey, &#x27;pkcs8-public&#x27;);</span><br><span class="line">    var encryptedData = pubKey.encrypt(text, &#x27;base64&#x27;, &#x27;utf8&#x27;);</span><br><span class="line">    return encryptedData</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function rsaDecrypt() &#123;</span><br><span class="line">    priKey = new NodeRSA(privatekey, &#x27;pkcs8-private&#x27;);</span><br><span class="line">    var decryptedData = priKey.decrypt(encryptedData, &#x27;utf8&#x27;);</span><br><span class="line">    return decryptedData</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var key = new NodeRSA(&#123;b: 512&#125;);                    //生成512位秘钥</span><br><span class="line">var publicKey = key.exportKey(&#x27;pkcs8-public&#x27;);    //导出公钥</span><br><span class="line">var privatekey = key.exportKey(&#x27;pkcs8-private&#x27;);  //导出私钥</span><br><span class="line">var text = &quot;I love Python!&quot;</span><br><span class="line"></span><br><span class="line">var encryptedData = rsaEncrypt()</span><br><span class="line">var decryptedData = rsaDecrypt()</span><br><span class="line"></span><br><span class="line">console.log(&quot;公钥:\n&quot;, publicKey)</span><br><span class="line">console.log(&quot;私钥:\n&quot;, privatekey)</span><br><span class="line">console.log(&quot;加密字符串: &quot;, encryptedData)</span><br><span class="line">console.log(&quot;解密字符串: &quot;, decryptedData)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>Python 实现 RSA：</strong></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">import rsa</span><br><span class="line">import base64</span><br><span class="line"></span><br><span class="line">def rsa_encrypt(pu_key, t):</span><br><span class="line">    # 公钥加密</span><br><span class="line">    rsas = rsa.encrypt(t.encode(&quot;utf-8&quot;), pu_key)</span><br><span class="line">    return base64.b64encode(rsas)</span><br><span class="line"></span><br><span class="line">def rsa_decrypt(pr_key, t):</span><br><span class="line">    # 私钥解密</span><br><span class="line">    rsas = rsa.decrypt(base64.b64decode(t), pr_key).decode(&quot;utf-8&quot;)</span><br><span class="line">    return rsas</span><br><span class="line"></span><br><span class="line">if __name__ == &quot;__main__&quot;:</span><br><span class="line">    public_key, private_key = rsa.newkeys(512)  # 生成公钥、私钥</span><br><span class="line">    print(&#x27;公钥：&#x27;, public_key)</span><br><span class="line">    print(&#x27;私钥：&#x27;, private_key)</span><br><span class="line">    text = &#x27;I love Python!&#x27;  # 加密对象</span><br><span class="line">    encrypted_str = rsa_encrypt(public_key, text)</span><br><span class="line">    print(&#x27;加密字符串：&#x27;, encrypted_str)</span><br><span class="line">    decrypted_str = rsa_decrypt(private_key, encrypted_str)</span><br><span class="line">    print(&#x27;解密字符串：&#x27;, decrypted_str)</span><br></pre></td></tr></table></figure>
+
+<h2 id="五、SM国密系列算法"><a href="#五、SM国密系列算法" class="headerlink" title="五、SM国密系列算法"></a>五、SM国密系列算法</h2><blockquote>
+<p><strong>SM国密：</strong>SM国密算法系列是中国国家密码管理局（State Cryptography Administration，简称SCA）发布的一系列密码算法标准，旨在保障信息安全和国家安全。这一系列算法包括对称加密算法、非对称加密算法、数字签名算法等多个方面，其中SM2、SM3和SM4是其中最为重要的代表。</p>
+</blockquote>
+<h4 id="1-SM2"><a href="#1-SM2" class="headerlink" title="1. SM2"></a>1. SM2</h4><blockquote>
+<p><strong>SM2（椭圆曲线公钥密码算法）：</strong>SM2是一种<strong>非对称加密算法</strong>，基于椭圆曲线密码学，采用了椭圆曲线数字签名算法（ECDSA）的变种，适用于数字签名、密钥交换等场景。<strong>SM2提供的安全性相当于RSA算法</strong>，该算法采用椭圆曲线上的点运算，计算速度更快，且使用了更短的密钥长度，提高了加密和解密的效率。</p>
+<p><strong>算法流程：</strong></p>
+<ol>
+<li>密钥生成：生成公私钥对</li>
+<li>签名：利用私钥对消息进行签名</li>
+<li>验证：利用公钥验证签名的合法性</li>
+<li>密钥协商：两方利用各自的私钥和对方的公钥协商出共享密钥</li>
+</ol>
+</blockquote>
+<ul>
+<li><strong>JavaScript 实现 SM2（<a class="link"   target="_blank" rel="noopener" href="https://fuwu.nhsa.gov.cn/nationalHallSt/#/search/medical?code=90000&flag=false&gbFlag=true" >测试网站<i class="fas fa-external-link-alt"></i></a>）：</strong></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">// npm install sm-crypto --save</span><br><span class="line">const sm2 = require(&#x27;sm-crypto&#x27;).sm2</span><br><span class="line"></span><br><span class="line">// SM2非对称加密的结果由`C1、C2、C3`三部分组成，</span><br><span class="line">// C1是生成随机数的计算出的椭圆曲线点，C2是密文数据，C3是 SM3 的摘要值；</span><br><span class="line">// sm-crypto支持设置cipherMode，即`C1、C2、C3`的排列顺序，</span><br><span class="line">// 默认为1，对应C1C3C2（新标准）；0对应C1C2C3（旧标准）</span><br><span class="line">const cipherMode = 1</span><br><span class="line"></span><br><span class="line">// 获取密钥对</span><br><span class="line">let keypair = sm2.generateKeyPairHex()</span><br><span class="line">let publicKey = keypair.publicKey   // 公钥</span><br><span class="line">let privateKey = keypair.privateKey // 私钥</span><br><span class="line"></span><br><span class="line">let msgString = &quot;this is the data to be encrypted&quot;</span><br><span class="line">let encryptData = sm2.doEncrypt(msgString, publicKey, cipherMode)    // 加密结果</span><br><span class="line">let decryptData = sm2.doDecrypt(encryptData, privateKey, cipherMode) // 解密结果</span><br><span class="line"></span><br><span class="line">console.log(&quot;encryptData: &quot;, encryptData)</span><br><span class="line">console.log(&quot;decryptData: &quot;, decryptData)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>Python 实现 SM2：</strong></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">from gmssl import sm2</span><br><span class="line"></span><br><span class="line"># 16 进制的公钥和私钥</span><br><span class="line">private_key = &#x27;00B9AB0B828FF68872F21A837FC303668428DEA11DCD1B24429D0C99E24EED83D5&#x27;</span><br><span class="line">public_key = &#x27;B9C9A6E04E9C91F7BA880429273747D7EF5DDEB0BB2FF6317EB00BEF331A83081A6994B8993F3F5D6EADDDB81872266C87C018FB4162F5AF347B483E24620207&#x27;</span><br><span class="line">sm2_crypt = sm2.CryptSM2(public_key=public_key, private_key=private_key)</span><br><span class="line"></span><br><span class="line"># 待加密数据和加密后数据为 bytes 类型</span><br><span class="line">data = b&quot;this is the data to be encrypted&quot;</span><br><span class="line">enc_data = sm2_crypt.encrypt(data)</span><br><span class="line">dec_data = sm2_crypt.decrypt(enc_data)</span><br><span class="line"></span><br><span class="line">print(&#x27;enc_data: &#x27;, enc_data.hex())</span><br><span class="line">print(&#x27;dec_data: &#x27;, dec_data)</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-SM3"><a href="#2-SM3" class="headerlink" title="2. SM3"></a>2. SM3</h4><blockquote>
+<p><strong>SM3（密码杂凑算法）：</strong>SM3是一种<strong>哈希算法</strong>，用于生成固定长度256位的消息摘要，适用于数字签名、消息认证码等场景。<strong>SM3提供的安全性相当于SHA-256算法</strong>，输出长度为32字节即<strong>64长度</strong>，该算法在性能上更有优势，同时具有抗碰撞特性，保证了足够的安全性。</p>
+<p><strong>算法流程：</strong></p>
+<ol>
+<li>填充：将消息填充到满足特定要求的长度</li>
+<li>消息扩展：将填充后的消息划分成512比特的消息块，并进行消息扩展</li>
+<li>压缩：通过迭代压缩函数，对消息块进行处理</li>
+<li>输出：最终得到256比特的消息摘要</li>
+</ol>
+</blockquote>
+<ul>
+<li><strong>JavaScript 实现 SM3：</strong></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">const sm3 = require(&#x27;sm-crypto&#x27;).sm3;</span><br><span class="line"></span><br><span class="line">const data = &#x27;Hello, SM3!&#x27;;</span><br><span class="line">const hash = sm3(data);</span><br><span class="line"></span><br><span class="line">console.log(&#x27;SM3 Hash:&#x27;, hash);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>Python 实现 SM3：</strong></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">from gmssl import sm3, func</span><br><span class="line"></span><br><span class="line">def sm3_hash(message):</span><br><span class="line">    # python实现需要把编码数据转换成列表</span><br><span class="line">    hash_hex = sm3.sm3_hash(func.bytes_to_list(message))</span><br><span class="line">    print(hash_hex)</span><br><span class="line"></span><br><span class="line">if __name__ == &#x27;__main__&#x27;:</span><br><span class="line">    message = b&quot;123&quot;  # bytes类型</span><br><span class="line">    sm3_hash(message)</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-SM4"><a href="#3-SM4" class="headerlink" title="3. SM4"></a>3. SM4</h4><blockquote>
+<p><strong>SM4（分组密码算法）：</strong>SM4是一种<strong>对称加密算法</strong>，采用32位分组长度和128位密钥长度，用于块加密和流加密，适用于数据加密、数据完整性验证等场景。<strong>SM4提供的安全性相当于AES算法</strong>，该算法的设计参考了现代分组密码的设计原则，采用了Feistel网络结构，结合替代-置换网络（SPN）结构，使其在安全性和性能之间取得了良好的平衡，同时实现了相对高的加密和解密速度。</p>
+<p><strong>算法流程：</strong></p>
+<ol>
+<li>密钥扩展：生成轮密钥</li>
+<li>初始置换：对输入数据进行初步置换</li>
+<li>轮函数：采用非线性的S盒替代、线性的P盒变换等操作</li>
+<li>轮运算：通过32轮迭代，实现加密或解密操作</li>
+<li>逆初始置换：对输出数据进行逆置换，得到最终结果</li>
+</ol>
+</blockquote>
+<ul>
+<li><strong>JavaScript 实现 SM4（<a class="link"   target="_blank" rel="noopener" href="https://fuwu.nhsa.gov.cn/nationalHallSt/#/search/medical?code=90000&flag=false&gbFlag=true" >测试网站<i class="fas fa-external-link-alt"></i></a>）：</strong></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">const sm4 = require(&#x27;sm-crypto&#x27;).sm4;</span><br><span class="line"></span><br><span class="line">// 设置SM4密钥（128位，16字节）</span><br><span class="line">const key = &#x27;0123456789ABCDEF0123456789ABCDEF&#x27;;</span><br><span class="line">// 设置SM4加解密模式（ecb、cbc、ctr等）</span><br><span class="line">const mode = &#x27;ecb&#x27;;</span><br><span class="line"></span><br><span class="line">// 加密数据</span><br><span class="line">const plaintext = &#x27;Hello, SM4!&#x27;;</span><br><span class="line">const ciphertext = sm4.encrypt(plaintext, key, &#123;mode&#125;);</span><br><span class="line">console.log(&#x27;Encrypted:&#x27;, ciphertext);</span><br><span class="line"></span><br><span class="line">// 解密数据</span><br><span class="line">const decryptedText = sm4.decrypt(ciphertext, key, &#123;mode&#125;);</span><br><span class="line">console.log(&#x27;Decrypted:&#x27;, decryptedText);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>Python 实现 SM4：</strong></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">from gmssl import sm4, func</span><br><span class="line"></span><br><span class="line"># 创建SM4加密对象</span><br><span class="line">sm4_crypt = sm4.CryptSM4()</span><br><span class="line"></span><br><span class="line">data = b&quot;Hello, SM4!&quot;  # 加密数据</span><br><span class="line">key = b&#x27;0123456789ABCDEF0123456789ABCDEF&#x27;  # 密钥</span><br><span class="line"></span><br><span class="line"># 加密数据</span><br><span class="line">sm4_crypt.set_key(key, sm4.SM4_ENCRYPT)  # 设置加密密钥</span><br><span class="line">ciphertext = sm4_crypt.crypt_ecb(func.bytes_to_list(data))</span><br><span class="line">encrypted_data = bytes(func.list_to_bytes(ciphertext))</span><br><span class="line"></span><br><span class="line"># 解密数据</span><br><span class="line">sm4_crypt.set_key(key, sm4.SM4_DECRYPT)  # 设置解密密钥</span><br><span class="line">decrypted_data = sm4_crypt.crypt_ecb(ciphertext)</span><br><span class="line">decrypted_data = bytes(func.list_to_bytes(decrypted_data))</span><br><span class="line"></span><br><span class="line">print(&quot;原始数据:&quot;, data.decode(&quot;utf-8&quot;))</span><br><span class="line">print(&quot;加密后的数据:&quot;, encrypted_data.hex())</span><br><span class="line">print(&quot;解密后的数据:&quot;, decrypted_data.decode(&quot;utf-8&quot;))</span><br></pre></td></tr></table></figure>
+                    
+                </div>
+
+                
+                        
+<div class="post-copyright-info-container border-box">
+    <div class="copyright-info-content border-box">
+        <div class="copyright-info-top border-box">
+            <div class="copyright-post-title border-box text-ellipsis">
+                05_JS逆向_加密算法
+            </div>
+
+            <div class="copyright-post-link border-box text-ellipsis">
+                2024/01/15/05-js逆向-加密算法/
+            </div>
+        </div>
+
+        <div class="copyright-info-bottom border-box">
+            <div class="copyright-post-author bottom-item">
+                <div class="type">
+                    作者
+                </div>
+                <div class="content">xfblog</div>
+            </div>
+
+            <div class="post-time bottom-item">
+                <div class="type">
+                    发布于
+                </div>
+                <div class="content">2024-01-15 00:00</div>
+            </div>
+
+
+            <div class="post-license bottom-item">
+                <div class="type">
+                    许可
+                </div>
+                <div class="content tooltip" data-tooltip-content="CC BY-NC-SA 4.0">
+                    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hans" target="_blank">
+                        
+                            <i class="fa-brands fa-creative-commons"></i>
+                            <i class="fa-brands fa-creative-commons-by"></i>
+                            <i class="fa-brands fa-creative-commons-nc"></i>
+                            <i class="fa-brands fa-creative-commons-sa"></i>
+                        
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <i class="copyright-bg fa-solid fa-copyright"></i>
+    </div>
+    <div class="copy-copyright-info flex-center tooltip" data-tooltip-content="复制版权信息" data-tooltip-offset-y="-2px">
+        <i class="fa-solid fa-copy"></i>
+    </div>
+</div>
+
+                
+
+                <div class="post-bottom-tags-and-share border-box">
+                    <div>
+                        
+                            <ul class="post-tags-box border-box">
+                                
+                                    <li class="tag-item border-box">
+                                        <i class="icon fas fa-hashtag"></i>&nbsp;<a href="/tags/Python/">Python</a>
+                                    </li>
+                                
+                                    <li class="tag-item border-box">
+                                        <i class="icon fas fa-hashtag"></i>&nbsp;<a href="/tags/%E7%88%AC%E8%99%AB/">爬虫</a>
+                                    </li>
+                                
+                            </ul>
+                        
+                    </div>
+                    <div>
+                        
+                            <div class="post-share-container border-box">
+    <ul class="share-list-wrap border-box">
+        <li class="qq share-item border-box flex-center tooltip"
+            data-tooltip-content="分享到 QQ"
+        >
+            <i class="fa-brands fa-qq"></i>
+        </li>
+        <li class="wechat share-item border-box flex-center tooltip tooltip-img"
+            data-tooltip-content="分享到微信"
+            data-tooltip-img-tip="微信扫一扫"
+            data-tooltip-img-style="background-color: #fff; top: -10px; padding: 0.6rem 0.6rem 0.1rem 0.6rem;"
+        >
+            <i class="fa-brands fa-weixin"></i>
+        </li>
+        <li class="weibo share-item border-box flex-center tooltip"
+            data-tooltip-content="分享到微博"
+        >
+            <i class="fa-brands fa-weibo"></i>
+        </li>
+    </ul>
+</div>
+
+                        
+                    </div>
+                </div>
+
+                
+                    
+
+<div class="reward-author-container border-box flex-center">
+    <div class="reward-btn border-box flex-center tooltip tooltip-img"
+            data-tooltip-img-url="/images/zfb.jpg"
+            data-tooltip-img-trigger="click"
+            data-tooltip-img-style="top: -6px;"
+    >
+        <i class="fa-solid fa-gift"></i>&nbsp;创作不易，打赏随意，您的支持是我更新的动力💪！
+    </div>
+</div>
+
+                
+
+                
+                    <div class="post-nav border-box">
+                        
+                            <div class="prev-post">
+                                <a class="prev"
+                                   rel="prev"
+                                   href="/2024/03/11/06-js%E9%80%86%E5%90%91-%E6%8A%80%E6%9C%AF%E4%B8%93%E9%A2%98/"
+                                   title="06_JS逆向_技术专题"
+                                >
+                                    <span class="left arrow-icon flex-center">
+                                        <i class="fas fa-chevron-left"></i>
+                                    </span>
+                                    <span class="title flex-center">
+                                        <span class="post-nav-title-item text-ellipsis">06_JS逆向_技术专题</span>
+                                        <span class="post-nav-item">上一篇</span>
+                                    </span>
+                                </a>
+                            </div>
+                        
+                        
+                            <div class="next-post">
+                                <a class="next"
+                                   rel="next"
+                                   href="/2024/01/01/04-js%E9%80%86%E5%90%91-%E8%A1%A5%E7%8E%AF%E5%A2%83%E4%B8%93%E9%A2%98/"
+                                   title="04_JS逆向_补环境专题"
+                                >
+                                    <span class="title flex-center">
+                                        <span class="post-nav-title-item text-ellipsis">04_JS逆向_补环境专题</span>
+                                        <span class="post-nav-item">下一篇</span>
+                                    </span>
+                                    <span class="right arrow-icon flex-center">
+                                        <i class="fas fa-chevron-right"></i>
+                                    </span>
+                                </a>
+                            </div>
+                        
+                    </div>
+                
+
+                
+                    
+
+
+
+
+
+
+                
+            </div>
+        </div>
+
+        
+            <div class="pc-post-toc right-toc">
+                <div class="post-toc-wrap border-box">
+    <div class="post-toc border-box">
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E5%93%88%E5%B8%8C%E6%91%98%E8%A6%81%E7%AE%97%E6%B3%95"><span class="nav-text">一、哈希摘要算法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-MD5"><span class="nav-text">1. MD5</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-SHA"><span class="nav-text">2. SHA</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-HMAC"><span class="nav-text">3. HMAC</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95"><span class="nav-text">二、对称加密算法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E7%AE%97%E6%B3%95%E5%B7%A5%E4%BD%9C%E6%A8%A1%E5%BC%8F"><span class="nav-text">1. 算法工作模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-DES"><span class="nav-text">2. DES</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-AES"><span class="nav-text">3. AES</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95"><span class="nav-text">4. 问题记录</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E9%AD%94%E6%94%B9%E7%AE%97%E6%B3%95"><span class="nav-text">三、魔改算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E9%9D%9E%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95"><span class="nav-text">四、非对称加密算法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-RSA"><span class="nav-text">1. RSA</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-JS-%E5%AE%9E%E7%8E%B0-RSA"><span class="nav-text">2. JS 实现 RSA</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%94%E3%80%81SM%E5%9B%BD%E5%AF%86%E7%B3%BB%E5%88%97%E7%AE%97%E6%B3%95"><span class="nav-text">五、SM国密系列算法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-SM2"><span class="nav-text">1. SM2</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-SM3"><span class="nav-text">2. SM3</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-SM4"><span class="nav-text">3. SM4</span></a></li></ol></li></ol></li></ol>
+    </div>
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+        </div>
+
+        <div class="page-main-content-bottom border-box">
+            
+<footer class="footer border-box">
+    <div class="copyright-info info-item">
+    Copyright&nbsp;&copy;&nbsp;<span>2021</span>&nbsp;-&nbsp;2024&nbsp;<a href="https://xfblog.cn/" target="_self">小傅博客</a>&nbsp;-&nbsp;All&nbsp;rights&nbsp;reserved.&nbsp;&nbsp;&nbsp;&nbsp;
+    
+            <!-- &nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;&nbsp;<a href="/">xfblog</a> -->
+        
+    </div>
+
+    <!-- <div class="theme-info info-item">
+        由&nbsp;<a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;驱动&nbsp;&&nbsp;主题&nbsp;<a class="keep-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep</a>
+    </div> -->
+
+    
+
+    
+
+    
+        <div class="record-info info-item">
+            
+                
+                    <div class="record-item border-box">
+                        <a class=""
+                           target="_blank"
+                           href="https://beian.miit.gov.cn"
+                        >
+                            蜀ICP备2021021033号-1
+                        </a>
+                    </div>
+                
+            
+                
+                    <div class="record-item border-box">
+                        <a class=""
+                           target="_blank"
+                           href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=51138102000134"
+                        >
+                            川公网安备 51138102000134号
+                        </a>
+                    </div>
+                
+            
+        </div>&nbsp;&nbsp;&nbsp;&nbsp;
+    
+</footer>
+
+        </div>
+    </div>
+
+    <!-- post tools -->
+    
+        <div class="post-tools right-toc">
+            <div class="post-tools-container border-box">
+    <ul class="post-tools-list border-box">
+        <!-- PC encrypt again -->
+        
+
+        <!-- PC TOC show toggle -->
+        
+            <li class="tools-item flex-center toggle-show-toc">
+                <i class="fas fa-list"></i>
+            </li>
+        
+
+        <!-- PC go comment -->
+        
+
+        <!-- PC full screen -->
+        <li class="tools-item flex-center full-screen">
+            <i class="fa-solid fa-expand"></i>
+        </li>
+    </ul>
+</div>
+
+        </div>
+    
+
+    <!-- side tools -->
+    <div class="side-tools">
+        <div class="side-tools-container border-box ">
+    <ul class="side-tools-list side-tools-show-handle border-box">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <!-- toggle mode -->
+        
+            <li class="tools-item tool-toggle-theme-mode flex-center">
+                <i class="fas fa-moon"></i>
+            </li>
+        
+
+        <!-- rss -->
+        
+            <li class="tools-item rss flex-center">
+                <a class="flex-center"
+                   href="/atom.xml"
+                   target="_blank"
+                >
+                    <i class="fas fa-rss"></i>
+                </a>
+            </li>
+        
+
+        <!-- to bottom -->
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list border-box">
+        
+            <li class="tools-item toggle-show-toc-tablet flex-center">
+                <i class="fas fa-list"></i>
+            </li>
+        
+
+        
+
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+
+        <li class="tools-item tool-scroll-to-top flex-center show-arrow">
+            <i class="arrow fas fa-arrow-up"></i>
+            <span class="percent"></span>
+        </li>
+    </ul>
+</div>
+
+    </div>
+
+    <!-- image mask -->
+    <div class="zoom-in-image-mask">
+    <img class="zoom-in-image">
+</div>
+
+
+    <!-- local search -->
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="close-popup-btn">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+    <!-- tablet toc -->
+    
+        <div class="tablet-post-toc-mask">
+            <div class="tablet-post-toc">
+                <div class="post-toc-wrap border-box">
+    <div class="post-toc border-box">
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E5%93%88%E5%B8%8C%E6%91%98%E8%A6%81%E7%AE%97%E6%B3%95"><span class="nav-text">一、哈希摘要算法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-MD5"><span class="nav-text">1. MD5</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-SHA"><span class="nav-text">2. SHA</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-HMAC"><span class="nav-text">3. HMAC</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95"><span class="nav-text">二、对称加密算法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E7%AE%97%E6%B3%95%E5%B7%A5%E4%BD%9C%E6%A8%A1%E5%BC%8F"><span class="nav-text">1. 算法工作模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-DES"><span class="nav-text">2. DES</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-AES"><span class="nav-text">3. AES</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95"><span class="nav-text">4. 问题记录</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E9%AD%94%E6%94%B9%E7%AE%97%E6%B3%95"><span class="nav-text">三、魔改算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E9%9D%9E%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95"><span class="nav-text">四、非对称加密算法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-RSA"><span class="nav-text">1. RSA</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-JS-%E5%AE%9E%E7%8E%B0-RSA"><span class="nav-text">2. JS 实现 RSA</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%94%E3%80%81SM%E5%9B%BD%E5%AF%86%E7%B3%BB%E5%88%97%E7%AE%97%E6%B3%95"><span class="nav-text">五、SM国密系列算法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-SM2"><span class="nav-text">1. SM2</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-SM3"><span class="nav-text">2. SM3</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-SM4"><span class="nav-text">3. SM4</span></a></li></ol></li></ol></li></ol>
+    </div>
+</div>
+
+            </div>
+        </div>
+    
+</main>
+
+
+
+
+
+<!-- common js -->
+<script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.2.5/source/js/utils.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.2.5/source/js/header-shrink.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.2.5/source/js/back2top.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.2.5/source/js/toggle-theme.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.2.5/source/js/code-block.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.2.5/source/js/main.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.2.5/source/js/libs/anime.min.js"></script>
+
+<!-- local search -->
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.2.5/source/js/local-search.js"></script>
+
+
+<!-- lazyload -->
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.2.5/source/js/lazyload.js"></script>
+
+
+<div class="pjax">
+    <!-- home page -->
+    
+
+    <!-- post page -->
+    
+        <!-- post-helper -->
+        <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.2.5/source/js/post/post-helper.js"></script>
+
+        <!-- toc -->
+        
+            <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.2.5/source/js/post/toc.js"></script>
+        
+
+        <!-- copyright-info -->
+        
+            <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.2.5/source/js/post/copyright-info.js"></script>
+        
+
+        <!-- share -->
+        
+            <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.2.5/source/js/post/share.js"></script>
+        
+    
+
+    <!-- categories page -->
+    
+
+    <!-- links page -->
+    
+
+    <!-- photos page -->
+    
+
+    <!-- tools page -->
+    
+</div>
+
+<!-- mermaid -->
+
+
+<!-- pjax -->
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.2.5/source/js/libs/pjax.min.js"></script>
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            KEEP.utils.pjaxProgressBarStart()
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            KEEP.utils.pjaxProgressBarEnd()
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'))
+            KEEP.initExecute()
+        });
+    });
+</script>
+
+
+
+
+    
+        
+            
+<script class="custom-inject-js" src="/js/run_time.js" data-pjax></script>
+
+        
+    
+        
+            
+<script class="custom-inject-js" src="/js/code_click_copy.js" data-pjax></script>
+
+        
+    
+
+</body>
+</html>

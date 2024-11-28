@@ -1,0 +1,942 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="xfblog">
+    
+    <title>
+        
+            09_C_结构体与共用体 |
+        
+        XFBLOG.CN
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+        <link rel="shortcut icon" href="/images/favicon.png">
+    
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.2.5/source/font/css/fontawesome.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.2.5/source/font/css/regular.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.2.5/source/font/css/solid.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.2.5/source/font/css/brands.min.css">
+    
+        
+            
+                
+<link rel="stylesheet" href="/css/custom-1.css">
+
+            
+        
+    
+    <script class="keep-theme-configurations">
+    const KEEP = window.KEEP || {}
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"zh-CN","path":"search.xml"}
+    KEEP.theme_config = {"base_info":{"primary_color":"#0066cc","title":"XFBLOG.CN","author":"xfblog","avatar":"/images/avatar.jpeg","logo":"/images/logo.png","favicon":"/images/favicon.png"},"menu":{"home":"/ || fa-solid fa-home","archives":"/archives || fa-solid fa-box-archive","categories":"/categories || fa-solid fa-layer-group","links":"/links || fa-solid fa-link","about":"/about || fa-solid fa-circle-info"},"first_screen":{"enable":true,"background_img":"/images/home_light.jpg","background_img_dark":"/images/home_dark.jpg","description":null,"hitokoto":false},"social_contact":{"enable":true,"links":{"github":"https://github.com/Chuanfu-Wei","weixin":null,"qq":null,"weibo":null,"zhihu":null,"twitter":null,"x":null,"facebook":null,"email":null}},"scroll":{"progress_bar":false,"percent":true,"hide_header":true},"home":{"announcement":"版权声明：本站所有文章均为 xfblog.cn 小傅原创，请遵循 CC 4.0 BY-SA 版权协议，转载请附上原文出处链接及本声明。","category":true,"tag":true,"post_datetime":"created","post_datetime_format":"YYYY-MM-DD"},"post":{"author_badge":{"enable":true,"level_badge":true,"custom_badge":["One","Two","Three"]},"word_count":{"wordcount":true,"min2read":true},"datetime_format":"YYYY-MM-DD","copyright_info":true,"share":true,"reward":{"enable":true,"img_link":"/images/zfb.jpg","text":"创作不易，打赏随意，您的支持是我更新的动力💪！"}},"code_block":{"tools":{"enable":true,"style":"default"},"highlight_theme":"obsidian"},"toc":{"enable":true,"number":false,"expand_all":true,"init_open":true,"layout":"right"},"website_count":{"busuanzi_count":{"enable":true,"site_uv":false,"site_pv":false,"page_pv":true}},"local_search":{"enable":true,"preload":true},"comment":{"enable":false,"use":"valine","valine":{"appid":null,"appkey":null,"server_urls":null,"placeholder":null},"gitalk":{"github_id":null,"github_admins":null,"repository":null,"client_id":null,"client_secret":null,"proxy":null},"twikoo":{"env_id":null,"region":null,"version":"1.6.36"},"waline":{"server_url":null,"reaction":false,"version":"3.2.1"},"giscus":{"repo":null,"repo_id":null,"category":"Announcements","category_id":null,"reactions_enabled":false},"artalk":{"server":null},"disqus":{"shortname":null}},"rss":{"enable":true},"lazyload":{"enable":true},"cdn":{"enable":true,"provider":"jsdelivr"},"pjax":{"enable":true},"footer":{"since":2021,"word_count":false,"site_deploy":{"enable":false,"provider":"github","url":null},"record":{"enable":true,"list":[{"code":"蜀ICP备2021021033号-1","link":"https://beian.miit.gov.cn"},{"code":"川公网安备 51138102000134号","link":"http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=51138102000134"}]}},"inject":{"enable":true,"css":["/css/custom-1.css"],"js":["/js/run_time.js","/js/code_click_copy.js"]},"root":"","source_data":{},"version":"4.2.5"}
+    KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"}
+    KEEP.language_code_block = {"copy":"复制代码","copied":"已复制","fold":"折叠代码块","folded":"已折叠"}
+    KEEP.language_copy_copyright = {"copy":"复制版权信息","copied":"已复制","title":"原文标题","author":"原文作者","link":"原文链接"}
+  </script>
+<meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="Keep" type="application/atom+xml">
+</head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <i class="pjax-progress-icon fas fa-circle-notch fa-spin"></i>
+    
+</div>
+
+
+
+<main class="page-container border-box">
+    <!-- home first screen  -->
+    
+
+    <!-- page content -->
+    <div class="page-main-content border-box">
+        <div class="page-main-content-top">
+            
+<header class="header-wrapper">
+
+    <div class="border-box header-content">
+        <div class="left flex-start border-box">
+            
+                <a class="logo-image border-box" href="/">
+                    <img src="/images/logo.png">
+                </a>
+            
+            <a class="site-name border-box" href="/">
+               XFBLOG.CN
+            </a>
+        </div>
+
+        <div class="right border-box">
+            <div class="pc border-box">
+                <ul class="menu-list border-box">
+                    
+                        
+                        <li class="menu-item flex-start border-box">
+                            <a class="menu-text-color border-box" href="/">
+                                
+                                    <i class="menu-text-color menu-icon fa-solid fa-home"></i>
+                                
+                                首页
+                                
+                            </a>
+                            
+                        </li>
+                    
+                        
+                        <li class="menu-item flex-start border-box">
+                            <a class="menu-text-color border-box" href="/archives">
+                                
+                                    <i class="menu-text-color menu-icon fa-solid fa-box-archive"></i>
+                                
+                                归档
+                                
+                            </a>
+                            
+                        </li>
+                    
+                        
+                        <li class="menu-item flex-start border-box">
+                            <a class="menu-text-color border-box" href="/categories">
+                                
+                                    <i class="menu-text-color menu-icon fa-solid fa-layer-group"></i>
+                                
+                                分类
+                                
+                            </a>
+                            
+                        </li>
+                    
+                        
+                        <li class="menu-item flex-start border-box">
+                            <a class="menu-text-color border-box" href="/links">
+                                
+                                    <i class="menu-text-color menu-icon fa-solid fa-link"></i>
+                                
+                                友链
+                                
+                            </a>
+                            
+                        </li>
+                    
+                        
+                        <li class="menu-item flex-start border-box">
+                            <a class="menu-text-color border-box" href="/about">
+                                
+                                    <i class="menu-text-color menu-icon fa-solid fa-circle-info"></i>
+                                
+                                关于
+                                
+                            </a>
+                            
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="menu-text-color fas search fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile border-box flex-start">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list border-box">
+            
+                
+                <li class="drawer-menu-item border-box not-sub-menu">
+                    <label class="drawer-menu-label border-box">
+                        <a class="drawer-menu-text-color left-side flex-start border-box" href="/">
+                            
+                                <span class="menu-icon-wrap border-box flex-center">
+                                    <i class="drawer-menu-text-color menu-icon fa-solid fa-home"></i>
+                                </span>
+                            
+                            首页
+                        </a>
+                        
+                    </label>
+                    
+                </li>
+            
+                
+                <li class="drawer-menu-item border-box not-sub-menu">
+                    <label class="drawer-menu-label border-box">
+                        <a class="drawer-menu-text-color left-side flex-start border-box" href="/archives">
+                            
+                                <span class="menu-icon-wrap border-box flex-center">
+                                    <i class="drawer-menu-text-color menu-icon fa-solid fa-box-archive"></i>
+                                </span>
+                            
+                            归档
+                        </a>
+                        
+                    </label>
+                    
+                </li>
+            
+                
+                <li class="drawer-menu-item border-box not-sub-menu">
+                    <label class="drawer-menu-label border-box">
+                        <a class="drawer-menu-text-color left-side flex-start border-box" href="/categories">
+                            
+                                <span class="menu-icon-wrap border-box flex-center">
+                                    <i class="drawer-menu-text-color menu-icon fa-solid fa-layer-group"></i>
+                                </span>
+                            
+                            分类
+                        </a>
+                        
+                    </label>
+                    
+                </li>
+            
+                
+                <li class="drawer-menu-item border-box not-sub-menu">
+                    <label class="drawer-menu-label border-box">
+                        <a class="drawer-menu-text-color left-side flex-start border-box" href="/links">
+                            
+                                <span class="menu-icon-wrap border-box flex-center">
+                                    <i class="drawer-menu-text-color menu-icon fa-solid fa-link"></i>
+                                </span>
+                            
+                            友链
+                        </a>
+                        
+                    </label>
+                    
+                </li>
+            
+                
+                <li class="drawer-menu-item border-box not-sub-menu">
+                    <label class="drawer-menu-label border-box">
+                        <a class="drawer-menu-text-color left-side flex-start border-box" href="/about">
+                            
+                                <span class="menu-icon-wrap border-box flex-center">
+                                    <i class="drawer-menu-text-color menu-icon fa-solid fa-circle-info"></i>
+                                </span>
+                            
+                            关于
+                        </a>
+                        
+                    </label>
+                    
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle border-box">
+
+            <div class="main-content border-box">
+                
+
+                    
+<div class="fade-in-down-animation">
+    <div class="post-page-container border-box">
+        <div class="post-content-container border-box">
+            
+
+            <div class="post-content-bottom border-box">
+                
+                    <div class="post-title">
+                        09_C_结构体与共用体
+                    </div>
+                
+
+                
+                    <div class="post-header border-box">
+                        
+                            <div class="avatar-box border-box">
+                                <img src="/images/avatar.jpeg">
+                            </div>
+                        
+                        <div class="info-box">
+                            <div class="author border-box">
+                                <span class="name">xfblog</span>
+                                
+                                    <span class="author-badge">Lv3</span>
+                                
+                            </div>
+                            <div class="meta-info border-box">
+                                
+
+<div class="post-meta-info-container border-box post">
+    <div class="post-meta-info border-box">
+        
+
+        
+            <span class="meta-info-item post-create-date">
+                <i class="icon fa-solid fa-calendar-plus"></i>&nbsp;
+                <span class="datetime">2022-02-01</span>
+            </span>
+
+            
+                <span class="meta-info-item post-update-date">
+                    <i class="icon fa-solid fa-file-pen"></i>&nbsp;
+                    <span class="datetime" data-updated="Wed Nov 27 2024 16:28:39 GMT+0800">2024-11-27</span>
+                </span>
+            
+        
+
+        
+            <span class="meta-info-item post-category border-box"><i class="icon fas fa-folder"></i>&nbsp;
+                <ul class="post-category-ul">
+                    
+                            <li class="category-item"><a href="/categories/C%E8%AF%AD%E8%A8%80/">C语言</a></li>
+                        
+                    
+                </ul>
+            </span>
+        
+
+        
+            <span class="post-tag meta-info-item border-box">
+                <ul class="post-tag-ul">
+                    
+                            <li class="tag-item"><span class="tag-separator"><i class="icon fas fa-hashtag"></i></span><a href="/tags/C%E8%AF%AD%E8%A8%80/">C语言</a></li>
+                        
+                    
+                </ul>
+            </span>
+        
+
+        
+        
+            <span class="meta-info-item post-wordcount">
+                <i class="icon fas fa-file-word"></i>&nbsp;<span>2.6k 字</span>
+            </span>
+        
+        
+            <span class="meta-info-item post-min2read">
+                <i class="icon fas fa-clock"></i>&nbsp;<span>10 分钟</span>
+            </span>
+        
+        
+            <span class="meta-info-item post-pv">
+                <i class="icon fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+            </span>
+        
+    </div>
+
+    
+</div>
+
+                            </div>
+                        </div>
+                    </div>
+                
+
+                <div class="post-content keep-markdown-body ">
+                    
+
+                    
+                         <blockquote>
+<p>C语言结构体（Struct）从本质上讲是一种自定义的数据类型，只不过这种数据类型比较复杂，是由 int、char、float 等基本类型组成的；你可以认为结构体是一种聚合类型。 在实际开发中，我们可以将一组类型不同、但是用来描述同一件事物的变量放到结构体中。例如：在校学生有姓名、年龄、身高、成绩等属性，有了结构体后，我们就不需要再定义多个变量了，可以将它们都放到结构体中。 结构体与共用体这一章的概念比较抽象，请大家结合案例一起学习，不然只看笔记可能会比较容易理解错误或混淆概念</p>
+</blockquote>
+<h2 id="一、结构体"><a href="#一、结构体" class="headerlink" title="一、结构体"></a>一、结构体</h2><h4 id="1-结构体概述"><a href="#1-结构体概述" class="headerlink" title="1. 结构体概述"></a>1. 结构体概述</h4><ul>
+<li>语法：struct 结构体名{ 成员列表 };</li>
+<li>作用：用于定义一些复杂数据类型，把一些有内在联系的不同变量放在一起，封装成一个整体</li>
+<li>说明：<ol>
+<li>结构体也是一种数据类型，叫做结构体类型</li>
+<li>定义结构体时，末尾的分号不可以省略！</li>
+</ol>
+</li>
+</ul>
+<h4 id="2-定义结构体类型变量的方法"><a href="#2-定义结构体类型变量的方法" class="headerlink" title="2. 定义结构体类型变量的方法"></a>2. 定义结构体类型变量的方法</h4><ul>
+<li>语法：<ol>
+<li>先再前面定义结构体类型，再定义结构体类型变量：struct 结构体名 变量名列表;</li>
+<li>定义结构体类型时，一起定义结构体类型变量，即：struct 结构体名{…}变量名表列;</li>
+</ol>
+</li>
+<li>说明：<ol>
+<li>定义结构体变量时，[struct+结构体名]就可以看成一个类型名，是一个整体，同int,char等类型名是一个意思</li>
+<li>如果定义时省略结构体名且同时定义了结构体变量，那后续就不能再定义结构体变量了</li>
+<li>使用结构体，一般先定义结构体，再定义结构体类型变量</li>
+<li>结构体内也是可以嵌套结构体的</li>
+<li>结构体内的成员名，可以与程序中的变量名相同，是一个局部概念</li>
+</ol>
+</li>
+</ul>
+<h4 id="3-结构体类型变量的引用"><a href="#3-结构体类型变量的引用" class="headerlink" title="3. 结构体类型变量的引用"></a>3. 结构体类型变量的引用</h4><ul>
+<li>引用方式：结构体变量名.成员名</li>
+<li>注意：不能将结构体的所有成员当做一个整体被结构体变量引用，只能对结构体中的各个成员分别引用</li>
+<li>说明：<ol>
+<li>“.”号叫结构成员运算符，优先级与()相同</li>
+<li>如果成员也有结构体类型，则需要使用若干个成员运算符，只能对最低级成员进行赋值或存取</li>
+<li>成员变量就可以像普通变量一样进行各种运算</li>
+<li>成员变量也是有地址的，可以使用指针</li>
+</ol>
+</li>
+</ul>
+<h4 id="4-结构体变量的初始化"><a href="#4-结构体变量的初始化" class="headerlink" title="4. 结构体变量的初始化"></a>4. 结构体变量的初始化</h4><ul>
+<li>struct jgtdy c3 &#x3D; {1001, “张三”, 1, 18, 4, 22, 2021};</li>
+</ul>
+
+#### 5\. 结构体数组
+
+*   定义结构体数组：
+    1.  在定义结构体的时候一起定义结构体数组，即：struct 结构体名{...}数组名\[\];
+    2.  单独在函数中定义，即：struct 结构体名 数组名\[\];
+    3.  定义结构体数组时初始化：struct 结构体名 数组名\[3\]={{...},{...},{...}};
+
+<h4 id="6-结构体指针"><a href="#6-结构体指针" class="headerlink" title="6. 结构体指针"></a>6. 结构体指针</h4><ul>
+<li>说明：结构体变量的指针，指向该结构体变量所占内存段的起始地址，可以直接通过结构体变量访问成员，也可以通过结构体变量的指针来访问成员：<ol>
+<li>(_ps).age &#x3D; 18; &#x2F;&#x2F;因为.优先级高于\_，所以要用括号括起来</li>
+<li>ps-&gt;sex &#x3D; 0; &#x2F;&#x2F;其中-&gt;叫做”指向结构体运算符”，优先级也是最高的</li>
+</ol>
+</li>
+<li>注意：指针可以指向数组首地址，也可以指向数组某一个元素的地址，但是不能指向数组元素中的结构体成员</li>
+</ul>
+<h4 id="7-用指向结构体的指针做函数参数"><a href="#7-用指向结构体的指针做函数参数" class="headerlink" title="7. 用指向结构体的指针做函数参数"></a>7. 用指向结构体的指针做函数参数</h4><ul>
+<li>见例子</li>
+</ul>
+<h2 id="二、共用体-联合"><a href="#二、共用体-联合" class="headerlink" title="二、共用体(联合)"></a>二、共用体(联合)</h2><h4 id="1-结构体与共用体的区别："><a href="#1-结构体与共用体的区别：" class="headerlink" title="1. 结构体与共用体的区别："></a>1. 结构体与共用体的区别：</h4><ul>
+<li>结构体的各个成员会占用不同的内存，互相之间没有影响，其内存是所有成员之和；而共用体中所有成员占用的是同一段内存，修改一个成员会影响其余所有成员，其内存是最长的成员长度</li>
+</ul>
+<h4 id="2-共用体概述"><a href="#2-共用体概述" class="headerlink" title="2. 共用体概述"></a>2. 共用体概述</h4><ul>
+<li>语法：union 共用体名{ 成员列表 };</li>
+<li>作用：把几种不同类型的变量存放到同一段内存单元中(同一个内存地址开始的单元中)</li>
+<li>说明：共用体与结构体的定义、引用均相似，也可单独定义变量，且也用.号引用</li>
+</ul>
+<h4 id="3-共用体类型的特点"><a href="#3-共用体类型的特点" class="headerlink" title="3. 共用体类型的特点"></a>3. 共用体类型的特点</h4><ol>
+<li>共用体变量的地址和其成员的地址都是同一地址</li>
+<li>同一段内存存放的是几种不同类型的成员，但每一个瞬间只能存放其中一种，即只有一个能起作用，并不能都存在或都起作用</li>
+<li>在程序代码中，最后给哪一个共用体成员赋值，哪个成员就起作用，能够访问的只是最后一次被赋值的成员，在对一个新的成员赋值后原有的成员就失去作用</li>
+<li>共用体变量不能在定义时初始化，也不能对共用体变量名赋值；不能企图引用变量名来得到一个值</li>
+<li>不能把共用体变量作为函数参数，也不能让函数带回共用体变量</li>
+</ol>
+<h2 id="三、枚举类型"><a href="#三、枚举类型" class="headerlink" title="三、枚举类型"></a>三、枚举类型</h2><ul>
+<li>语法：定义关键字为enum，定义方式与结构体共用体相似，这里就不再次介绍</li>
+<li>说明：<ol>
+<li>枚举：就是将值一一列出来</li>
+<li>定义枚举时里面的成员叫”枚举常量”，值不能改变</li>
+<li>枚举常量可以看成整型常量，占4个字节，且系统会对其进行从0开始的对应值</li>
+<li>可以直接给枚举变量类型赋值</li>
+<li>定义枚举类型时，里面的枚举常量可以直接赋值(整数)，其后面的常量值会依次加一</li>
+<li>枚举值也可以作比较，其实枚举值就是整型值，是可以互通的</li>
+<li>枚举值可以被赋给一个整型</li>
+</ol>
+</li>
+</ul>
+<h2 id="四、用typedef定义类型"><a href="#四、用typedef定义类型" class="headerlink" title="四、用typedef定义类型"></a>四、用typedef定义类型</h2><ul>
+<li>语法：typedef 原类型名 新类型名;</li>
+<li>作用：定义新的类型名代替已有的类型名</li>
+<li>说明：<ol>
+<li>类型别名一般用大写</li>
+<li>typedef是用来定义类型名的，不是用来定义变量的</li>
+<li>typedef是编译的时候处理的</li>
+<li>typedef主要作用：提高程序的通用性和可移植性</li>
+</ol>
+</li>
+</ul>
+<h2 id="五、本文案例"><a href="#五、本文案例" class="headerlink" title="五、本文案例"></a>五、本文案例</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">#include &lt;string.h&gt;</span><br><span class="line"></span><br><span class="line">// 声明：本文件函数 + 外部函数 + 外部全局变量(extern)</span><br><span class="line">struct date</span><br><span class="line">&#123;</span><br><span class="line">    int year;</span><br><span class="line">    int month;</span><br><span class="line">    int day;</span><br><span class="line">&#125;;</span><br><span class="line">struct jgtdy</span><br><span class="line">&#123;</span><br><span class="line">    int num;</span><br><span class="line">    char name[100];</span><br><span class="line">    int sex;</span><br><span class="line">    int age;</span><br><span class="line">    struct date birthday; //结构体内嵌套结构体，定义(struct date)结构体变量作为此结构体成员</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">void func(struct jgtdy *pp); //由于形参里包含结构体指针，要用到结构体，所以这个函数声明必须写在结构体声明下面</span><br><span class="line"></span><br><span class="line">union person</span><br><span class="line">&#123;</span><br><span class="line">    int phone;</span><br><span class="line">    char add[255];</span><br><span class="line">    char name[30];</span><br><span class="line">&#125;;</span><br><span class="line">enum color</span><br><span class="line">&#123;</span><br><span class="line">    RED,</span><br><span class="line">    GREEN,</span><br><span class="line">    BLUE = 37,</span><br><span class="line">    YELLOW</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">int main(int argc, char const *argv[])</span><br><span class="line">&#123;</span><br><span class="line">    // 例1：</span><br><span class="line">    struct jgtdy a1, b2;                                  //定义两个结构体变量</span><br><span class="line">    a1.num = 195562140;                                   //结构体成员的引用赋值</span><br><span class="line">    a1.birthday.day = 15;                                 //嵌套结构体成员的引用赋值</span><br><span class="line">    int *p = &amp;a1.num;                                     //使用指针变量指向结构体成员，以引用赋值</span><br><span class="line">    struct jgtdy c3 = &#123;1001, &quot;张三&quot;, 1, 18, 2021, 4, 22&#125;; //结构体变量的定义初始化</span><br><span class="line">    printf(&quot;例1：a1.num=%d；a1.birthday.day=%d；*p=%d；c3.name=%s\n&quot;, a1.num, a1.birthday.day, *p, c3.name);</span><br><span class="line"></span><br><span class="line">    // 例2：</span><br><span class="line">    struct jgtdy stu[3]; //定义结构体数组，同普通数组一样可以引用stu[0]--stu[2]</span><br><span class="line">    struct jgtdy stu1[] = &#123;</span><br><span class="line">        &#123;1111, &quot;小明&quot;, 1, 20, 2001, 5, 19&#125;,</span><br><span class="line">        &#123;2222, &quot;小红&quot;, 0, 20, 2001, 5, 21&#125;,</span><br><span class="line">        &#123;3333, &quot;小李&quot;, 1, 20, 2001, 7, 15&#125;&#125;; //结构体数组的定义初始化</span><br><span class="line">    printf(&quot;例2：小红明年的年龄为%d岁\n&quot;, ++stu1[1].age);</span><br><span class="line"></span><br><span class="line">    // 例3：</span><br><span class="line">    struct jgtdy ss;</span><br><span class="line">    struct jgtdy *ps = &amp;ss;</span><br><span class="line">    strcpy(ss.name, &quot;小傅&quot;); //由于上面定义的name为字符串数组，所以不能直接对其赋值，因为name代表的是数组首地址</span><br><span class="line">    // strcpy(dest,src); strcpy函数作用是把src的字符串复制到dest，如果dest长度小于src，则会造成缓冲溢出的情况</span><br><span class="line">    (*ps).sex = 0; //因为.优先级高于*，所以要用括号括起来</span><br><span class="line">    ps-&gt;age = 18;  //这里的&quot;-&gt;&quot;叫做&quot;指向结构体运算符&quot;，优先级也是最高的，只有地址可以指向，可以用这个符号，变量不行！</span><br><span class="line">    printf(&quot;例3：ss.name=%s；(*ps).sex=%d；ps-&gt;age=%d\n&quot;, ss.name, ss.sex, ss.age);</span><br><span class="line"></span><br><span class="line">    // 例4：</span><br><span class="line">    struct jgtdy *pa = stu1; //定义结构体指针指向例2定义的结构体数组首地址</span><br><span class="line">    printf(&quot;例4：循环输出数组每个元素的name值：&quot;);</span><br><span class="line">    for (int i = 0; i &lt; sizeof(stu1) / sizeof(stu1[0]); i++)</span><br><span class="line">        printf(&quot;%s  &quot;, (pa++)-&gt;name);</span><br><span class="line">    printf(&quot;\n&quot;);</span><br><span class="line"></span><br><span class="line">    // 例5：</span><br><span class="line">    func(pa); //指向结构体的指针做函数参数</span><br><span class="line">    printf(&quot;例5：pa-&gt;age=%d\n&quot;, pa-&gt;age);</span><br><span class="line"></span><br><span class="line">    // 例6：</span><br><span class="line">    union person per; //共用体变量的定义赋值引用</span><br><span class="line">    per.phone = 123456789;</span><br><span class="line">    strcpy(per.add, &quot;四川省成都市&quot;);</span><br><span class="line">    printf(&quot;例6：per.phone=%d；per.add=%s\n&quot;, per.phone, per.add);</span><br><span class="line">    //通过运行结果很清楚的知道，per.phone赋值已经失去作用，原因是因为对per,add进行了赋值，他们的地址为同一地址</span><br><span class="line"></span><br><span class="line">    // 例7：</span><br><span class="line">    enum color cor; //枚举类型的定义赋值</span><br><span class="line">    cor = BLUE; //可以直接给枚举变量类型赋值</span><br><span class="line">    printf(&quot;例7：cor = %d\n&quot;, cor);</span><br><span class="line"></span><br><span class="line">    // typedef定义新的类型名代替已有的类型名</span><br><span class="line">    typedef int INTEDER;</span><br><span class="line">    INTEDER num = 20; // 定义一个整型变量</span><br><span class="line">    typedef struct date</span><br><span class="line">    &#123;</span><br><span class="line">        int year;</span><br><span class="line">        int month;</span><br><span class="line">        int day;</span><br><span class="line">    &#125; DATE;     // 定义结构体类型并将类型名struct date替换为DATE</span><br><span class="line">    DATE birth; // 定义一个结构体变量</span><br><span class="line">    DATE *pp;   // 定义一个结构体指针</span><br><span class="line"></span><br><span class="line">    // typedef特殊常用定义</span><br><span class="line">    typedef int NUM[100];     // 定义NUM为整型数组类型</span><br><span class="line">    NUM n = &#123;2001, 7, 15&#125;;    // 即int n[100] = &#123;2001, 7, 15&#125;;</span><br><span class="line">    typedef int *POINT;       // 定义POINT为整型指针类型</span><br><span class="line">    POINT pint = n;           // 即char *p = n;</span><br><span class="line">    typedef int (*POINTER)(); // 定义POINTER为指向函数的指针类型，返回值是整型值</span><br><span class="line">    POINTER pfunc;</span><br><span class="line"></span><br><span class="line">    system(&quot;pause&quot;);</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br><span class="line">void func(struct jgtdy *pp)</span><br><span class="line">&#123;</span><br><span class="line">    pp-&gt;age = 18;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+                    
+                </div>
+
+                
+                        
+<div class="post-copyright-info-container border-box">
+    <div class="copyright-info-content border-box">
+        <div class="copyright-info-top border-box">
+            <div class="copyright-post-title border-box text-ellipsis">
+                09_C_结构体与共用体
+            </div>
+
+            <div class="copyright-post-link border-box text-ellipsis">
+                2022/02/01/09-c-结构体与共用体/
+            </div>
+        </div>
+
+        <div class="copyright-info-bottom border-box">
+            <div class="copyright-post-author bottom-item">
+                <div class="type">
+                    作者
+                </div>
+                <div class="content">xfblog</div>
+            </div>
+
+            <div class="post-time bottom-item">
+                <div class="type">
+                    发布于
+                </div>
+                <div class="content">2022-02-01 00:00</div>
+            </div>
+
+
+            <div class="post-license bottom-item">
+                <div class="type">
+                    许可
+                </div>
+                <div class="content tooltip" data-tooltip-content="CC BY-NC-SA 4.0">
+                    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hans" target="_blank">
+                        
+                            <i class="fa-brands fa-creative-commons"></i>
+                            <i class="fa-brands fa-creative-commons-by"></i>
+                            <i class="fa-brands fa-creative-commons-nc"></i>
+                            <i class="fa-brands fa-creative-commons-sa"></i>
+                        
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <i class="copyright-bg fa-solid fa-copyright"></i>
+    </div>
+    <div class="copy-copyright-info flex-center tooltip" data-tooltip-content="复制版权信息" data-tooltip-offset-y="-2px">
+        <i class="fa-solid fa-copy"></i>
+    </div>
+</div>
+
+                
+
+                <div class="post-bottom-tags-and-share border-box">
+                    <div>
+                        
+                            <ul class="post-tags-box border-box">
+                                
+                                    <li class="tag-item border-box">
+                                        <i class="icon fas fa-hashtag"></i>&nbsp;<a href="/tags/C%E8%AF%AD%E8%A8%80/">C语言</a>
+                                    </li>
+                                
+                            </ul>
+                        
+                    </div>
+                    <div>
+                        
+                            <div class="post-share-container border-box">
+    <ul class="share-list-wrap border-box">
+        <li class="qq share-item border-box flex-center tooltip"
+            data-tooltip-content="分享到 QQ"
+        >
+            <i class="fa-brands fa-qq"></i>
+        </li>
+        <li class="wechat share-item border-box flex-center tooltip tooltip-img"
+            data-tooltip-content="分享到微信"
+            data-tooltip-img-tip="微信扫一扫"
+            data-tooltip-img-style="background-color: #fff; top: -10px; padding: 0.6rem 0.6rem 0.1rem 0.6rem;"
+        >
+            <i class="fa-brands fa-weixin"></i>
+        </li>
+        <li class="weibo share-item border-box flex-center tooltip"
+            data-tooltip-content="分享到微博"
+        >
+            <i class="fa-brands fa-weibo"></i>
+        </li>
+    </ul>
+</div>
+
+                        
+                    </div>
+                </div>
+
+                
+                    
+
+<div class="reward-author-container border-box flex-center">
+    <div class="reward-btn border-box flex-center tooltip tooltip-img"
+            data-tooltip-img-url="/images/zfb.jpg"
+            data-tooltip-img-trigger="click"
+            data-tooltip-img-style="top: -6px;"
+    >
+        <i class="fa-solid fa-gift"></i>&nbsp;创作不易，打赏随意，您的支持是我更新的动力💪！
+    </div>
+</div>
+
+                
+
+                
+                    <div class="post-nav border-box">
+                        
+                            <div class="prev-post">
+                                <a class="prev"
+                                   rel="prev"
+                                   href="/2022/03/01/10-c-%E4%BD%8D%E8%BF%90%E7%AE%97/"
+                                   title="10_C_位运算"
+                                >
+                                    <span class="left arrow-icon flex-center">
+                                        <i class="fas fa-chevron-left"></i>
+                                    </span>
+                                    <span class="title flex-center">
+                                        <span class="post-nav-title-item text-ellipsis">10_C_位运算</span>
+                                        <span class="post-nav-item">上一篇</span>
+                                    </span>
+                                </a>
+                            </div>
+                        
+                        
+                            <div class="next-post">
+                                <a class="next"
+                                   rel="next"
+                                   href="/2022/01/01/08-5-c-main%E5%87%BD%E6%95%B0%E5%8F%82%E6%95%B0%E5%92%8C%E6%8C%87%E5%90%91%E6%8C%87%E9%92%88%E7%9A%84%E6%8C%87%E9%92%88-%E6%80%BB%E7%BB%93/"
+                                   title="08-5_C_main函数参数和指向指针的指针_总结"
+                                >
+                                    <span class="title flex-center">
+                                        <span class="post-nav-title-item text-ellipsis">08-5_C_main函数参数和指向指针的指针_总结</span>
+                                        <span class="post-nav-item">下一篇</span>
+                                    </span>
+                                    <span class="right arrow-icon flex-center">
+                                        <i class="fas fa-chevron-right"></i>
+                                    </span>
+                                </a>
+                            </div>
+                        
+                    </div>
+                
+
+                
+                    
+
+
+
+
+
+
+                
+            </div>
+        </div>
+
+        
+            <div class="pc-post-toc right-toc">
+                <div class="post-toc-wrap border-box">
+    <div class="post-toc border-box">
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E7%BB%93%E6%9E%84%E4%BD%93"><span class="nav-text">一、结构体</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E7%BB%93%E6%9E%84%E4%BD%93%E6%A6%82%E8%BF%B0"><span class="nav-text">1. 结构体概述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E5%AE%9A%E4%B9%89%E7%BB%93%E6%9E%84%E4%BD%93%E7%B1%BB%E5%9E%8B%E5%8F%98%E9%87%8F%E7%9A%84%E6%96%B9%E6%B3%95"><span class="nav-text">2. 定义结构体类型变量的方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E7%BB%93%E6%9E%84%E4%BD%93%E7%B1%BB%E5%9E%8B%E5%8F%98%E9%87%8F%E7%9A%84%E5%BC%95%E7%94%A8"><span class="nav-text">3. 结构体类型变量的引用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-%E7%BB%93%E6%9E%84%E4%BD%93%E5%8F%98%E9%87%8F%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="nav-text">4. 结构体变量的初始化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-%E7%BB%93%E6%9E%84%E4%BD%93%E6%8C%87%E9%92%88"><span class="nav-text">6. 结构体指针</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-%E7%94%A8%E6%8C%87%E5%90%91%E7%BB%93%E6%9E%84%E4%BD%93%E7%9A%84%E6%8C%87%E9%92%88%E5%81%9A%E5%87%BD%E6%95%B0%E5%8F%82%E6%95%B0"><span class="nav-text">7. 用指向结构体的指针做函数参数</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E5%85%B1%E7%94%A8%E4%BD%93-%E8%81%94%E5%90%88"><span class="nav-text">二、共用体(联合)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E7%BB%93%E6%9E%84%E4%BD%93%E4%B8%8E%E5%85%B1%E7%94%A8%E4%BD%93%E7%9A%84%E5%8C%BA%E5%88%AB%EF%BC%9A"><span class="nav-text">1. 结构体与共用体的区别：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E5%85%B1%E7%94%A8%E4%BD%93%E6%A6%82%E8%BF%B0"><span class="nav-text">2. 共用体概述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E5%85%B1%E7%94%A8%E4%BD%93%E7%B1%BB%E5%9E%8B%E7%9A%84%E7%89%B9%E7%82%B9"><span class="nav-text">3. 共用体类型的特点</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E6%9E%9A%E4%B8%BE%E7%B1%BB%E5%9E%8B"><span class="nav-text">三、枚举类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E7%94%A8typedef%E5%AE%9A%E4%B9%89%E7%B1%BB%E5%9E%8B"><span class="nav-text">四、用typedef定义类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%94%E3%80%81%E6%9C%AC%E6%96%87%E6%A1%88%E4%BE%8B"><span class="nav-text">五、本文案例</span></a></li></ol>
+    </div>
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+        </div>
+
+        <div class="page-main-content-bottom border-box">
+            
+<footer class="footer border-box">
+    <div class="copyright-info info-item">
+    Copyright&nbsp;&copy;&nbsp;<span>2021</span>&nbsp;-&nbsp;2024&nbsp;<a href="https://xfblog.cn/" target="_self">小傅博客</a>&nbsp;-&nbsp;All&nbsp;rights&nbsp;reserved.&nbsp;&nbsp;&nbsp;&nbsp;
+    
+            <!-- &nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;&nbsp;<a href="/">xfblog</a> -->
+        
+    </div>
+
+    <!-- <div class="theme-info info-item">
+        由&nbsp;<a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;驱动&nbsp;&&nbsp;主题&nbsp;<a class="keep-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep</a>
+    </div> -->
+
+    
+
+    
+
+    
+        <div class="record-info info-item">
+            
+                
+                    <div class="record-item border-box">
+                        <a class=""
+                           target="_blank"
+                           href="https://beian.miit.gov.cn"
+                        >
+                            蜀ICP备2021021033号-1
+                        </a>
+                    </div>
+                
+            
+                
+                    <div class="record-item border-box">
+                        <a class=""
+                           target="_blank"
+                           href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=51138102000134"
+                        >
+                            川公网安备 51138102000134号
+                        </a>
+                    </div>
+                
+            
+        </div>&nbsp;&nbsp;&nbsp;&nbsp;
+    
+</footer>
+
+        </div>
+    </div>
+
+    <!-- post tools -->
+    
+        <div class="post-tools right-toc">
+            <div class="post-tools-container border-box">
+    <ul class="post-tools-list border-box">
+        <!-- PC encrypt again -->
+        
+
+        <!-- PC TOC show toggle -->
+        
+            <li class="tools-item flex-center toggle-show-toc">
+                <i class="fas fa-list"></i>
+            </li>
+        
+
+        <!-- PC go comment -->
+        
+
+        <!-- PC full screen -->
+        <li class="tools-item flex-center full-screen">
+            <i class="fa-solid fa-expand"></i>
+        </li>
+    </ul>
+</div>
+
+        </div>
+    
+
+    <!-- side tools -->
+    <div class="side-tools">
+        <div class="side-tools-container border-box ">
+    <ul class="side-tools-list side-tools-show-handle border-box">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <!-- toggle mode -->
+        
+            <li class="tools-item tool-toggle-theme-mode flex-center">
+                <i class="fas fa-moon"></i>
+            </li>
+        
+
+        <!-- rss -->
+        
+            <li class="tools-item rss flex-center">
+                <a class="flex-center"
+                   href="/atom.xml"
+                   target="_blank"
+                >
+                    <i class="fas fa-rss"></i>
+                </a>
+            </li>
+        
+
+        <!-- to bottom -->
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list border-box">
+        
+            <li class="tools-item toggle-show-toc-tablet flex-center">
+                <i class="fas fa-list"></i>
+            </li>
+        
+
+        
+
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+
+        <li class="tools-item tool-scroll-to-top flex-center show-arrow">
+            <i class="arrow fas fa-arrow-up"></i>
+            <span class="percent"></span>
+        </li>
+    </ul>
+</div>
+
+    </div>
+
+    <!-- image mask -->
+    <div class="zoom-in-image-mask">
+    <img class="zoom-in-image">
+</div>
+
+
+    <!-- local search -->
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="close-popup-btn">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+    <!-- tablet toc -->
+    
+        <div class="tablet-post-toc-mask">
+            <div class="tablet-post-toc">
+                <div class="post-toc-wrap border-box">
+    <div class="post-toc border-box">
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E7%BB%93%E6%9E%84%E4%BD%93"><span class="nav-text">一、结构体</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E7%BB%93%E6%9E%84%E4%BD%93%E6%A6%82%E8%BF%B0"><span class="nav-text">1. 结构体概述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E5%AE%9A%E4%B9%89%E7%BB%93%E6%9E%84%E4%BD%93%E7%B1%BB%E5%9E%8B%E5%8F%98%E9%87%8F%E7%9A%84%E6%96%B9%E6%B3%95"><span class="nav-text">2. 定义结构体类型变量的方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E7%BB%93%E6%9E%84%E4%BD%93%E7%B1%BB%E5%9E%8B%E5%8F%98%E9%87%8F%E7%9A%84%E5%BC%95%E7%94%A8"><span class="nav-text">3. 结构体类型变量的引用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-%E7%BB%93%E6%9E%84%E4%BD%93%E5%8F%98%E9%87%8F%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="nav-text">4. 结构体变量的初始化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-%E7%BB%93%E6%9E%84%E4%BD%93%E6%8C%87%E9%92%88"><span class="nav-text">6. 结构体指针</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-%E7%94%A8%E6%8C%87%E5%90%91%E7%BB%93%E6%9E%84%E4%BD%93%E7%9A%84%E6%8C%87%E9%92%88%E5%81%9A%E5%87%BD%E6%95%B0%E5%8F%82%E6%95%B0"><span class="nav-text">7. 用指向结构体的指针做函数参数</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E5%85%B1%E7%94%A8%E4%BD%93-%E8%81%94%E5%90%88"><span class="nav-text">二、共用体(联合)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E7%BB%93%E6%9E%84%E4%BD%93%E4%B8%8E%E5%85%B1%E7%94%A8%E4%BD%93%E7%9A%84%E5%8C%BA%E5%88%AB%EF%BC%9A"><span class="nav-text">1. 结构体与共用体的区别：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E5%85%B1%E7%94%A8%E4%BD%93%E6%A6%82%E8%BF%B0"><span class="nav-text">2. 共用体概述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E5%85%B1%E7%94%A8%E4%BD%93%E7%B1%BB%E5%9E%8B%E7%9A%84%E7%89%B9%E7%82%B9"><span class="nav-text">3. 共用体类型的特点</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E6%9E%9A%E4%B8%BE%E7%B1%BB%E5%9E%8B"><span class="nav-text">三、枚举类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E7%94%A8typedef%E5%AE%9A%E4%B9%89%E7%B1%BB%E5%9E%8B"><span class="nav-text">四、用typedef定义类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%94%E3%80%81%E6%9C%AC%E6%96%87%E6%A1%88%E4%BE%8B"><span class="nav-text">五、本文案例</span></a></li></ol>
+    </div>
+</div>
+
+            </div>
+        </div>
+    
+</main>
+
+
+
+
+
+<!-- common js -->
+<script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.2.5/source/js/utils.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.2.5/source/js/header-shrink.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.2.5/source/js/back2top.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.2.5/source/js/toggle-theme.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.2.5/source/js/code-block.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.2.5/source/js/main.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.2.5/source/js/libs/anime.min.js"></script>
+
+<!-- local search -->
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.2.5/source/js/local-search.js"></script>
+
+
+<!-- lazyload -->
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.2.5/source/js/lazyload.js"></script>
+
+
+<div class="pjax">
+    <!-- home page -->
+    
+
+    <!-- post page -->
+    
+        <!-- post-helper -->
+        <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.2.5/source/js/post/post-helper.js"></script>
+
+        <!-- toc -->
+        
+            <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.2.5/source/js/post/toc.js"></script>
+        
+
+        <!-- copyright-info -->
+        
+            <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.2.5/source/js/post/copyright-info.js"></script>
+        
+
+        <!-- share -->
+        
+            <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.2.5/source/js/post/share.js"></script>
+        
+    
+
+    <!-- categories page -->
+    
+
+    <!-- links page -->
+    
+
+    <!-- photos page -->
+    
+
+    <!-- tools page -->
+    
+</div>
+
+<!-- mermaid -->
+
+
+<!-- pjax -->
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.2.5/source/js/libs/pjax.min.js"></script>
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            KEEP.utils.pjaxProgressBarStart()
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            KEEP.utils.pjaxProgressBarEnd()
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'))
+            KEEP.initExecute()
+        });
+    });
+</script>
+
+
+
+
+    
+        
+            
+<script class="custom-inject-js" src="/js/run_time.js" data-pjax></script>
+
+        
+    
+        
+            
+<script class="custom-inject-js" src="/js/code_click_copy.js" data-pjax></script>
+
+        
+    
+
+</body>
+</html>

@@ -1,0 +1,946 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="xfblog">
+    
+    <title>
+        
+            05_Python_数据结构 |
+        
+        XFBLOG.CN
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+        <link rel="shortcut icon" href="/images/favicon.png">
+    
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.2.5/source/font/css/fontawesome.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.2.5/source/font/css/regular.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.2.5/source/font/css/solid.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.2.5/source/font/css/brands.min.css">
+    
+        
+            
+                
+<link rel="stylesheet" href="/css/custom-1.css">
+
+            
+        
+    
+    <script class="keep-theme-configurations">
+    const KEEP = window.KEEP || {}
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"zh-CN","path":"search.xml"}
+    KEEP.theme_config = {"base_info":{"primary_color":"#0066cc","title":"XFBLOG.CN","author":"xfblog","avatar":"/images/avatar.jpeg","logo":"/images/logo.png","favicon":"/images/favicon.png"},"menu":{"home":"/ || fa-solid fa-home","archives":"/archives || fa-solid fa-box-archive","categories":"/categories || fa-solid fa-layer-group","links":"/links || fa-solid fa-link","about":"/about || fa-solid fa-circle-info"},"first_screen":{"enable":true,"background_img":"/images/home_light.jpg","background_img_dark":"/images/home_dark.jpg","description":null,"hitokoto":false},"social_contact":{"enable":true,"links":{"github":"https://github.com/Chuanfu-Wei","weixin":null,"qq":null,"weibo":null,"zhihu":null,"twitter":null,"x":null,"facebook":null,"email":null}},"scroll":{"progress_bar":false,"percent":true,"hide_header":true},"home":{"announcement":"版权声明：本站所有文章均为 xfblog.cn 小傅原创，请遵循 CC 4.0 BY-SA 版权协议，转载请附上原文出处链接及本声明。","category":true,"tag":true,"post_datetime":"created","post_datetime_format":"YYYY-MM-DD"},"post":{"author_badge":{"enable":true,"level_badge":true,"custom_badge":["One","Two","Three"]},"word_count":{"wordcount":true,"min2read":true},"datetime_format":"YYYY-MM-DD","copyright_info":true,"share":true,"reward":{"enable":true,"img_link":"/images/zfb.jpg","text":"创作不易，打赏随意，您的支持是我更新的动力💪！"}},"code_block":{"tools":{"enable":true,"style":"default"},"highlight_theme":"obsidian"},"toc":{"enable":true,"number":false,"expand_all":true,"init_open":true,"layout":"right"},"website_count":{"busuanzi_count":{"enable":true,"site_uv":false,"site_pv":false,"page_pv":true}},"local_search":{"enable":true,"preload":true},"comment":{"enable":false,"use":"valine","valine":{"appid":null,"appkey":null,"server_urls":null,"placeholder":null},"gitalk":{"github_id":null,"github_admins":null,"repository":null,"client_id":null,"client_secret":null,"proxy":null},"twikoo":{"env_id":null,"region":null,"version":"1.6.36"},"waline":{"server_url":null,"reaction":false,"version":"3.2.1"},"giscus":{"repo":null,"repo_id":null,"category":"Announcements","category_id":null,"reactions_enabled":false},"artalk":{"server":null},"disqus":{"shortname":null}},"rss":{"enable":true},"lazyload":{"enable":true},"cdn":{"enable":true,"provider":"jsdelivr"},"pjax":{"enable":true},"footer":{"since":2021,"word_count":false,"site_deploy":{"enable":false,"provider":"github","url":null},"record":{"enable":true,"list":[{"code":"蜀ICP备2021021033号-1","link":"https://beian.miit.gov.cn"},{"code":"川公网安备 51138102000134号","link":"http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=51138102000134"}]}},"inject":{"enable":true,"css":["/css/custom-1.css"],"js":["/js/run_time.js","/js/code_click_copy.js"]},"root":"","source_data":{},"version":"4.2.5"}
+    KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"}
+    KEEP.language_code_block = {"copy":"复制代码","copied":"已复制","fold":"折叠代码块","folded":"已折叠"}
+    KEEP.language_copy_copyright = {"copy":"复制版权信息","copied":"已复制","title":"原文标题","author":"原文作者","link":"原文链接"}
+  </script>
+<meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="Keep" type="application/atom+xml">
+</head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <i class="pjax-progress-icon fas fa-circle-notch fa-spin"></i>
+    
+</div>
+
+
+
+<main class="page-container border-box">
+    <!-- home first screen  -->
+    
+
+    <!-- page content -->
+    <div class="page-main-content border-box">
+        <div class="page-main-content-top">
+            
+<header class="header-wrapper">
+
+    <div class="border-box header-content">
+        <div class="left flex-start border-box">
+            
+                <a class="logo-image border-box" href="/">
+                    <img src="/images/logo.png">
+                </a>
+            
+            <a class="site-name border-box" href="/">
+               XFBLOG.CN
+            </a>
+        </div>
+
+        <div class="right border-box">
+            <div class="pc border-box">
+                <ul class="menu-list border-box">
+                    
+                        
+                        <li class="menu-item flex-start border-box">
+                            <a class="menu-text-color border-box" href="/">
+                                
+                                    <i class="menu-text-color menu-icon fa-solid fa-home"></i>
+                                
+                                首页
+                                
+                            </a>
+                            
+                        </li>
+                    
+                        
+                        <li class="menu-item flex-start border-box">
+                            <a class="menu-text-color border-box" href="/archives">
+                                
+                                    <i class="menu-text-color menu-icon fa-solid fa-box-archive"></i>
+                                
+                                归档
+                                
+                            </a>
+                            
+                        </li>
+                    
+                        
+                        <li class="menu-item flex-start border-box">
+                            <a class="menu-text-color border-box" href="/categories">
+                                
+                                    <i class="menu-text-color menu-icon fa-solid fa-layer-group"></i>
+                                
+                                分类
+                                
+                            </a>
+                            
+                        </li>
+                    
+                        
+                        <li class="menu-item flex-start border-box">
+                            <a class="menu-text-color border-box" href="/links">
+                                
+                                    <i class="menu-text-color menu-icon fa-solid fa-link"></i>
+                                
+                                友链
+                                
+                            </a>
+                            
+                        </li>
+                    
+                        
+                        <li class="menu-item flex-start border-box">
+                            <a class="menu-text-color border-box" href="/about">
+                                
+                                    <i class="menu-text-color menu-icon fa-solid fa-circle-info"></i>
+                                
+                                关于
+                                
+                            </a>
+                            
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="menu-text-color fas search fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile border-box flex-start">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list border-box">
+            
+                
+                <li class="drawer-menu-item border-box not-sub-menu">
+                    <label class="drawer-menu-label border-box">
+                        <a class="drawer-menu-text-color left-side flex-start border-box" href="/">
+                            
+                                <span class="menu-icon-wrap border-box flex-center">
+                                    <i class="drawer-menu-text-color menu-icon fa-solid fa-home"></i>
+                                </span>
+                            
+                            首页
+                        </a>
+                        
+                    </label>
+                    
+                </li>
+            
+                
+                <li class="drawer-menu-item border-box not-sub-menu">
+                    <label class="drawer-menu-label border-box">
+                        <a class="drawer-menu-text-color left-side flex-start border-box" href="/archives">
+                            
+                                <span class="menu-icon-wrap border-box flex-center">
+                                    <i class="drawer-menu-text-color menu-icon fa-solid fa-box-archive"></i>
+                                </span>
+                            
+                            归档
+                        </a>
+                        
+                    </label>
+                    
+                </li>
+            
+                
+                <li class="drawer-menu-item border-box not-sub-menu">
+                    <label class="drawer-menu-label border-box">
+                        <a class="drawer-menu-text-color left-side flex-start border-box" href="/categories">
+                            
+                                <span class="menu-icon-wrap border-box flex-center">
+                                    <i class="drawer-menu-text-color menu-icon fa-solid fa-layer-group"></i>
+                                </span>
+                            
+                            分类
+                        </a>
+                        
+                    </label>
+                    
+                </li>
+            
+                
+                <li class="drawer-menu-item border-box not-sub-menu">
+                    <label class="drawer-menu-label border-box">
+                        <a class="drawer-menu-text-color left-side flex-start border-box" href="/links">
+                            
+                                <span class="menu-icon-wrap border-box flex-center">
+                                    <i class="drawer-menu-text-color menu-icon fa-solid fa-link"></i>
+                                </span>
+                            
+                            友链
+                        </a>
+                        
+                    </label>
+                    
+                </li>
+            
+                
+                <li class="drawer-menu-item border-box not-sub-menu">
+                    <label class="drawer-menu-label border-box">
+                        <a class="drawer-menu-text-color left-side flex-start border-box" href="/about">
+                            
+                                <span class="menu-icon-wrap border-box flex-center">
+                                    <i class="drawer-menu-text-color menu-icon fa-solid fa-circle-info"></i>
+                                </span>
+                            
+                            关于
+                        </a>
+                        
+                    </label>
+                    
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle border-box">
+
+            <div class="main-content border-box">
+                
+
+                    
+<div class="fade-in-down-animation">
+    <div class="post-page-container border-box">
+        <div class="post-content-container border-box">
+            
+
+            <div class="post-content-bottom border-box">
+                
+                    <div class="post-title">
+                        05_Python_数据结构
+                    </div>
+                
+
+                
+                    <div class="post-header border-box">
+                        
+                            <div class="avatar-box border-box">
+                                <img src="/images/avatar.jpeg">
+                            </div>
+                        
+                        <div class="info-box">
+                            <div class="author border-box">
+                                <span class="name">xfblog</span>
+                                
+                                    <span class="author-badge">Lv3</span>
+                                
+                            </div>
+                            <div class="meta-info border-box">
+                                
+
+<div class="post-meta-info-container border-box post">
+    <div class="post-meta-info border-box">
+        
+
+        
+            <span class="meta-info-item post-create-date">
+                <i class="icon fa-solid fa-calendar-plus"></i>&nbsp;
+                <span class="datetime">2023-04-01</span>
+            </span>
+
+            
+                <span class="meta-info-item post-update-date">
+                    <i class="icon fa-solid fa-file-pen"></i>&nbsp;
+                    <span class="datetime" data-updated="Wed Nov 27 2024 16:23:37 GMT+0800">2024-11-27</span>
+                </span>
+            
+        
+
+        
+            <span class="meta-info-item post-category border-box"><i class="icon fas fa-folder"></i>&nbsp;
+                <ul class="post-category-ul">
+                    
+                            <li class="category-item"><a href="/categories/Python/">Python</a></li>
+                        
+                    
+                </ul>
+            </span>
+        
+
+        
+            <span class="post-tag meta-info-item border-box">
+                <ul class="post-tag-ul">
+                    
+                            <li class="tag-item"><span class="tag-separator"><i class="icon fas fa-hashtag"></i></span><a href="/tags/Python/">Python</a></li>
+                        
+                    
+                </ul>
+            </span>
+        
+
+        
+        
+            <span class="meta-info-item post-wordcount">
+                <i class="icon fas fa-file-word"></i>&nbsp;<span>2.9k 字</span>
+            </span>
+        
+        
+            <span class="meta-info-item post-min2read">
+                <i class="icon fas fa-clock"></i>&nbsp;<span>12 分钟</span>
+            </span>
+        
+        
+            <span class="meta-info-item post-pv">
+                <i class="icon fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+            </span>
+        
+    </div>
+
+    
+</div>
+
+                            </div>
+                        </div>
+                    </div>
+                
+
+                <div class="post-content keep-markdown-body ">
+                    
+
+                    
+                         <h2 id="一、评判算法的优劣标准"><a href="#一、评判算法的优劣标准" class="headerlink" title="一、评判算法的优劣标准"></a>一、评判算法的优劣标准</h2><h4 id="1-时间复杂度"><a href="#1-时间复杂度" class="headerlink" title="1. 时间复杂度"></a>1. 时间复杂度</h4><ul>
+<li>简介：时间复杂度是用来<strong>估计</strong>算法运行时间的一个式子（<strong>单位</strong>）</li>
+<li>知识点：<ol>
+<li>一般来说，时间复杂度高的算法比复杂度低的算法慢</li>
+<li>按效率排序：**<code>O(1) &lt; O(\log n) &lt; O(n) &lt; O(n\log n) &lt; O(n^2) &lt; O(n^2\log n) &lt; O(n^3)</code>**</li>
+<li>复杂问题的时间复杂度：<code>O(n!)</code>、<code>O(2^n)</code>、<code>O(n^n)</code>……</li>
+</ol>
+</li>
+<li>常用快速判断算法复杂度：<ol>
+<li>确定问题规模<code>n</code></li>
+<li>循环减半过程—<code>logn</code></li>
+<li>k层关于n的循环—<code>n^k</code></li>
+</ol>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">print(&#x27;hello world&#x27;)  # O(1)</span><br><span class="line"></span><br><span class="line">for i range(n):  # O(n)</span><br><span class="line">    print(&#x27;hello world&#x27;)</span><br><span class="line"></span><br><span class="line">for i in range(n):  # O(n^2)</span><br><span class="line">    for j in range(n):</span><br><span class="line">        print(&#x27;hello world&#x27;)</span><br><span class="line"></span><br><span class="line">for i in range(n):  # O(n^3)</span><br><span class="line">    for j in range(n):</span><br><span class="line">        for j in range(n):</span><br><span class="line">            print(&#x27;hello world&#x27;)</span><br><span class="line"></span><br><span class="line"># 注意：这里时间复杂度不是O(3)！正解O(1)</span><br><span class="line"># 1. 因为时间复杂度本就是一个估计、大概的概念</span><br><span class="line"># 2. 其次O(1)是一个单位的概念，好比&quot;秒&quot;</span><br><span class="line">print(&#x27;hello world&#x27;)</span><br><span class="line">print(&#x27;hello python&#x27;)</span><br><span class="line">print(&#x27;hello nihao&#x27;)</span><br><span class="line"></span><br><span class="line"># 注意：这里时间复杂度也不是O(n(n+1))即O(n^2+n)！正解：O(n^2)</span><br><span class="line"># 由于时间复杂度本就是一个大概的概念，所以n是可以被忽略（类似求极限抓大头）</span><br><span class="line">for i in range(n):</span><br><span class="line">    print(&#x27;hello world&#x27;)</span><br><span class="line">    for j in range(n):</span><br><span class="line">        print(&#x27;hello world&#x27;)</span><br><span class="line"></span><br><span class="line"># n=64时输出：64 32 16 8 4 2 有2^6=64 log底2^64=6</span><br><span class="line"># 时间复杂度记为O(log底2^n)或O(logn)</span><br><span class="line"># 当算法过程出现循环折半的时候，复杂度式子中会出现logn</span><br><span class="line">while n &gt; 1:</span><br><span class="line">    print(n)</span><br><span class="line">    n = n // 2</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-空间复杂度"><a href="#2-空间复杂度" class="headerlink" title="2. 空间复杂度"></a>2. 空间复杂度</h4><ul>
+<li>简介：用来评估算法内存占用大小的式子</li>
+<li>空间复杂度的表示方式与时间复杂度完全一样：<ol>
+<li>算法使用了几个变量：<code>O(1)</code></li>
+<li>算法使用了长度为n的一维列表：<code>O(n)</code></li>
+<li>算法使用了m行n列的二维列表：<code>O(mn)</code></li>
+</ol>
+</li>
+</ul>
+<h4 id="3-汉诺塔问题"><a href="#3-汉诺塔问题" class="headerlink" title="3. 汉诺塔问题"></a>3. 汉诺塔问题</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/env python3</span><br><span class="line"># -*- coding:utf-8 -*-</span><br><span class="line">&quot;&quot;&quot;汉诺塔问题</span><br><span class="line">传说：大梵天创造世界的时候做了三根金刚石柱子，</span><br><span class="line">     在一根柱子上从下往上按照大小顺序摞着64片黄金圆盘，</span><br><span class="line">     大梵天命令婆罗门把圆盘从下面开始按大小顺序重新摆放在另一根柱子上。</span><br><span class="line">     64跟柱子移动完毕之日，就是世界毁灭之时！</span><br><span class="line">规则：</span><br><span class="line">    小圆盘上不能放大圆盘，在三根柱子之间一次只能移动一个圆盘</span><br><span class="line">&quot;&quot;&quot;</span><br><span class="line"></span><br><span class="line">&quot;&quot;&quot;分析</span><br><span class="line">n个盘子时：</span><br><span class="line">    1. 把n-1个圆盘从A经过C移动到B</span><br><span class="line">    2. 把第n个圆盘从A移动到C</span><br><span class="line">    3. 把n-1个圆盘从B经过A移动到C</span><br><span class="line">&quot;&quot;&quot;</span><br><span class="line"></span><br><span class="line">def hanoi(n, a, b, c):</span><br><span class="line">    if n &gt; 0:</span><br><span class="line">        hanoi(n - 1, a, c, b)</span><br><span class="line">        print(&quot;移动%s最上方的盘子至%s&quot; % (a, c))</span><br><span class="line">        hanoi(n - 1, b, a, c)</span><br><span class="line"></span><br><span class="line">hanoi(3, &#x27;A&#x27;, &#x27;B&#x27;, &#x27;C&#x27;)</span><br><span class="line">&quot;&quot;&quot;输出：</span><br><span class="line">移动A最上方的盘子至C</span><br><span class="line">移动A最上方的盘子至B</span><br><span class="line">移动C最上方的盘子至B</span><br><span class="line">移动A最上方的盘子至C</span><br><span class="line">移动B最上方的盘子至A</span><br><span class="line">移动B最上方的盘子至C</span><br><span class="line">移动A最上方的盘子至C</span><br><span class="line">&quot;&quot;&quot;</span><br><span class="line"></span><br><span class="line">&quot;&quot;&quot;总结：</span><br><span class="line">汉诺塔移动次数的递推式：h(x)=2h(x-1)+1</span><br><span class="line">h(64)=18446744073709551615</span><br><span class="line">假设婆罗门每秒钟搬一个盘子，则总共需要5800亿年</span><br><span class="line">&quot;&quot;&quot;</span><br></pre></td></tr></table></figure>
+
+<h2 id="二、八大排序和查找算法"><a href="#二、八大排序和查找算法" class="headerlink" title="二、八大排序和查找算法"></a>二、八大排序和查找算法</h2><h4 id="1-顺序查找"><a href="#1-顺序查找" class="headerlink" title="1. 顺序查找"></a>1. 顺序查找</h4><ul>
+<li>简介：顺序查找也叫线性查找，从列表第一个元素开始，顺序进行搜索，直到找到元素或搜索到列表最后一个元素为止（<strong>对象有序无序都可以，所以内置函数index()使用的是顺序查找</strong>）</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/env python3</span><br><span class="line"># -*- coding:utf-8 -*-</span><br><span class="line"></span><br><span class="line"># 顺序查找，时间复杂度：O(n)</span><br><span class="line">def linear_search(li, value):</span><br><span class="line">    for index, v in enumerate(li):</span><br><span class="line">        if v == value:</span><br><span class="line">            return index</span><br><span class="line">    return None</span><br><span class="line"></span><br><span class="line">L = [32, 64, 3, 25, 9, 34, 7, 15, 27, 66]</span><br><span class="line">print(linear_search(L, 7))  # 6</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-二分查找"><a href="#2-二分查找" class="headerlink" title="2. 二分查找"></a>2. 二分查找</h4><ul>
+<li>简介：二分查找又叫折半查找，从有序列表的初始候选区li[0:n]开始，通过对待查找的值与候选区中间值的比较，可以使候选区减少一半（<strong>对象一定是有序列表！</strong>）</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/env python3</span><br><span class="line"># -*- coding:utf-8 -*-</span><br><span class="line">import time</span><br><span class="line"></span><br><span class="line"># 函数装饰器，用于计算不同查找方法的查找时间</span><br><span class="line">def cal_time(func):</span><br><span class="line">    def wrapper(*args, **kwargs):</span><br><span class="line">        start = time.time()</span><br><span class="line">        result = func(*args, **kwargs)</span><br><span class="line">        end = time.time()</span><br><span class="line">        print(&quot;%s查找时间为：%s&quot; % (func.__name__, end - start))</span><br><span class="line">        return result</span><br><span class="line"></span><br><span class="line">    return wrapper</span><br><span class="line"></span><br><span class="line"># 顺序查找，时间复杂度：O(n)</span><br><span class="line">@cal_time</span><br><span class="line">def linear_search(li, value):</span><br><span class="line">    for index, v in enumerate(li):</span><br><span class="line">        if v == value:</span><br><span class="line">            return index</span><br><span class="line">    else:</span><br><span class="line">        return None</span><br><span class="line"></span><br><span class="line"># 二分查找，时间复杂度：O(logn)</span><br><span class="line">@cal_time</span><br><span class="line">def binary_search(li, value):</span><br><span class="line">    left = 0</span><br><span class="line">    right = len(li) - 1</span><br><span class="line">    while left &lt;= right:  # 候选区有值</span><br><span class="line">        mid = (left + right) // 2</span><br><span class="line">        if li[mid] == value:</span><br><span class="line">            return mid</span><br><span class="line">        elif li[mid] &gt; value:  # mid在待查找的值的右边，修改right位置</span><br><span class="line">            right = mid - 1</span><br><span class="line">        else:  # mid在待查找的值的左边，修改left位置</span><br><span class="line">            left = mid + 1</span><br><span class="line">    else:</span><br><span class="line">        return None</span><br><span class="line"></span><br><span class="line">li = list(range(100000))</span><br><span class="line">linear_search(li, 21715)  # linear_search查找时间为：0.0005478858947753906</span><br><span class="line">binary_search(li, 21715)  # binary_search查找时间为：3.814697265625e-06</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-冒泡排序"><a href="#3-冒泡排序" class="headerlink" title="3. 冒泡排序"></a>3. 冒泡排序</h4><ul>
+<li>简介：列表每两个相邻的数，如果前面比后面大，则交换这两个数。一趟排序完成后，则无序区减少一个数，有序区增加一个数（**时间复杂度为<code>O(n^2)</code>**）</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/env python3</span><br><span class="line"># -*- coding:utf-8 -*-</span><br><span class="line">import random</span><br><span class="line"></span><br><span class="line">def bubble_sort(li):</span><br><span class="line">    # 每走一趟排好一个数，且最后一次不用排，所以总共应该是n-1趟</span><br><span class="line">    for i in range(len(li) - 1):  # i表示第i趟</span><br><span class="line">        flag = False</span><br><span class="line">        # 指针在无序区比较至倒数第二个数时停下，同时与最后一个数比较后，</span><br><span class="line">        # 由于后面是有序区就不会再继续往后走了，所以指针每次应该走n-i-1次</span><br><span class="line">        for j in range(len(li) - i - 1):</span><br><span class="line">            if li[j] &gt; li[j + 1]:</span><br><span class="line">                li[j], li[j + 1] = li[j + 1], li[j]</span><br><span class="line">                flag = True</span><br><span class="line">        # 如果flag在某一趟中没有被改变，说明这一趟走完都没有数进行交换，</span><br><span class="line">        # 则说明此时列表已经完成排序了，所以为了算法优化，没必要继续后面的循环了</span><br><span class="line">        if not flag:</span><br><span class="line">            return li</span><br><span class="line"></span><br><span class="line"># 列表生成式：随机生成10个零到一百的数</span><br><span class="line">li = [random.randint(0, 100) for i in range(10)]</span><br><span class="line">print(li)  # [73, 27, 85, 22, 66, 87, 4, 16, 91, 40]</span><br><span class="line">print(bubble_sort(li))  # [4, 16, 22, 27, 40, 66, 73, 85, 87, 91]</span><br></pre></td></tr></table></figure>
+
+<h4 id="4-选择排序"><a href="#4-选择排序" class="headerlink" title="4. 选择排序"></a>4. 选择排序</h4><ul>
+<li>简介：一趟排序记录最小的数，放到第一个位置；再一趟排序记录记录列表无序区最小的数，放到第二个位置（**时间复杂度为<code>O(n^2)</code>**）</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/env python3</span><br><span class="line"># -*- coding:utf-8 -*-</span><br><span class="line">import random</span><br><span class="line"></span><br><span class="line">def select_sort(li):</span><br><span class="line">    for i in range(len(li) - 1):  # i即第i趟</span><br><span class="line">        min_index = i  # 第一次最小值索引就定为无序区的第一个数的索引</span><br><span class="line">        for j in range(i + 1, len(li)):  # 在无序区中指针的循环次数，i+1是因为不跟自己比</span><br><span class="line">            if li[j] &lt; li[min_index]:</span><br><span class="line">                min_index = j  # 得到每趟无序区中最小值的索引</span><br><span class="line">        if min_index != i:</span><br><span class="line">            li[i], li[min_index] = li[min_index], li[i]</span><br><span class="line">    return li</span><br><span class="line"></span><br><span class="line">li = [random.randint(0, 100) for i in range(10)]</span><br><span class="line">print(li)  # [87, 93, 28, 62, 13, 34, 28, 22, 53, 87]</span><br><span class="line">print(select_sort(li))  # [13, 22, 28, 28, 34, 53, 62, 87, 87, 93]</span><br></pre></td></tr></table></figure>
+
+<h4 id="5-插入排序"><a href="#5-插入排序" class="headerlink" title="5. 插入排序"></a>5. 插入排序</h4><ul>
+<li>简介：初始化有序区只有一张牌，每次从无序区摸一张牌，插入到手里已有牌的正确位置，类似打牌（**时间复杂度为<code>O(n^2)</code>**）</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/env python3</span><br><span class="line"># -*- coding:utf-8 -*-</span><br><span class="line">import random</span><br><span class="line"></span><br><span class="line">def insert_sort(li):</span><br><span class="line">    for i in range(1, len(li)):  # i即这一趟从列表抽出的元素的下标</span><br><span class="line">        tmp = li[i]  # 为了防止被覆盖，需要记录抽出的值</span><br><span class="line">        # j即用来指向被比较的元素的下标，只要j位置的值比i位置的值大，</span><br><span class="line">        # 那么就把j位置的元素往后移一个位置，同时j再往前走一个位置</span><br><span class="line">        j = i - 1</span><br><span class="line">        # j=0时，走完循环j=-1，此时说明j已经处于整个列表的最前面了，</span><br><span class="line">        # 说明这个抽出的元素是整个列表中最小的，则可以将tmp的值插入索引为0的位置即可</span><br><span class="line">        while li[j] &gt; tmp and j &gt; -1:</span><br><span class="line">            li[j + 1] = li[j]</span><br><span class="line">            j -= 1</span><br><span class="line">        # 循环结束后，则找到了插入tmp值的正确位置，即此时j位置的后面</span><br><span class="line">        li[j + 1] = tmp</span><br><span class="line">    return li</span><br><span class="line"></span><br><span class="line">li = [random.randint(0, 100) for i in range(10)]</span><br><span class="line">print(li)  # [80, 76, 58, 19, 28, 25, 60, 76, 16, 37]</span><br><span class="line">print(insert_sort(li))  # [16, 19, 25, 28, 37, 58, 60, 76, 76, 80]</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>一般来说，一台电脑运算效率大约为<code>10^7</code>次&#x2F;秒钟</p>
+<p>如果一个函数的时间复杂度为<code>O(n^2)</code>，对一个有10000个元素的列表进行排序，则<code>n^2=10^8</code></p>
+<p>那么对10000个元素排序大约需要<code>10^8/10^7</code>=10秒钟，可见效率是非常慢的，那就要看接下来的NB三人组</p>
+</blockquote>
+<h4 id="6-快速排序"><a href="#6-快速排序" class="headerlink" title="6. 快速排序"></a>6. 快速排序</h4><ul>
+<li>简介：取一个元素p（第一个元素），使元素p归位；列表被p分成两部分，左边都比p小，右边都比p大；最后递归完成排序（**时间复杂度为<code>O(n\log n)</code>**）</li>
+<li>最坏时间复杂度：当使用快速排序对一个完全倒序排好的序列进行排序时，经过推算此时的算法时间复杂度最高，接近<code>O(n^2)</code></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/env python3</span><br><span class="line"># -*- coding:utf-8 -*-</span><br><span class="line">import random</span><br><span class="line"></span><br><span class="line">def partition(li, left, right):</span><br><span class="line">    tmp = li[left]  # 用left而不是0，是因为可能切片的第一个元素索引不为0</span><br><span class="line">    while left &lt; right:</span><br><span class="line">            # 内循环使指针的移动</span><br><span class="line">        while left &lt; right and li[right] &gt;= tmp:  # 从右边找比tmp小的数</span><br><span class="line">            right -= 1  # 只要比tmp值大，就往左走一个</span><br><span class="line">        li[left] = li[right]  # 循环结束则找到了比tmp值小的数，把右边的值写到左边的空位处</span><br><span class="line">        while left &lt; right and li[left] &lt;= tmp:  # 从左边找比tmp大的数</span><br><span class="line">            left += 1</span><br><span class="line">        li[right] = li[left]  # 循环结束则找到了比tmp值大的数，把左边的值写到右边的空位处</span><br><span class="line"></span><br><span class="line">    li[left] = tmp</span><br><span class="line">    return left</span><br><span class="line"></span><br><span class="line"># 递归完成快速排序</span><br><span class="line">def quick_sort(li, left, right):</span><br><span class="line">    if left &lt; right:  # 至少有两个元素</span><br><span class="line">        mid = partition(li, left, right)</span><br><span class="line">        quick_sort(li, left, mid - 1)</span><br><span class="line">        quick_sort(li, mid + 1, right)</span><br><span class="line">    return li</span><br><span class="line"></span><br><span class="line">li = [random.randint(0, 10) for i in range(9)]</span><br><span class="line">print(li)</span><br><span class="line">print(quick_sort(li, 0, len(li) - 1))</span><br></pre></td></tr></table></figure>
+
+<h4 id="7-堆排序"><a href="#7-堆排序" class="headerlink" title="7. 堆排序"></a>7. 堆排序</h4><h2 id="三、七大数据结构"><a href="#三、七大数据结构" class="headerlink" title="三、七大数据结构"></a>三、七大数据结构</h2><h4 id="1-数据结构介绍"><a href="#1-数据结构介绍" class="headerlink" title="1. 数据结构介绍"></a>1. 数据结构介绍</h4><blockquote>
+<p><strong>程序 &#x3D; 数据结构 + 算法</strong></p>
+</blockquote>
+<ul>
+<li><p>简介：数据结构是指<strong>相互之间存在着一种或多种关系的数据元素的集合</strong>和<strong>该集合中数据元素之间的关系组成</strong>。简单来说，<strong>数据结构就是设计数据以何种方式组织并存储在计算机中</strong></p>
+</li>
+<li><p><strong>数据结构按照其逻辑结构可分为线性结构、树结构、图结构</strong></p>
+<ul>
+<li>线性结构：数据结构中的元素存在一对一的相互关系</li>
+<li>树结构：数据结构中的元素存在一对多的相互关系</li>
+<li>图结构：数据结构中的元素存在多对多的相互关系</li>
+</ul>
+</li>
+</ul>
+<h4 id="2-栈"><a href="#2-栈" class="headerlink" title="2. 栈"></a>2. 栈</h4><ul>
+<li>简介：栈（Stack）是一个数据集合，可以理解为只能在一端进行插入或删除操作的列表</li>
+<li>栈的特点：<strong>后进先出</strong> - LIFO（last-in，first-out）</li>
+<li>栈的概念：栈顶、栈底</li>
+<li>栈的基本操作：<img  
+                       lazyload
+                       alt="image"
+                       data-src="https://osswcf.oss-cn-shanghai.aliyuncs.com/2022/11/1667711175-04a9aa01bf69433.jpg"
+                       
+                 ><ul>
+<li>进栈（压栈）：push</li>
+<li>出栈：pop</li>
+<li>取栈顶：gettop</li>
+</ul>
+</li>
+</ul>
+<h4 id="3-队列"><a href="#3-队列" class="headerlink" title="3. 队列"></a>3. 队列</h4><ul>
+<li>简介：队列（Queue）是一个数据集合，仅允许在列表的一端进行插入，另一端进行删除。（类似排队）</li>
+<li>队列的特点：<strong>先进先出</strong> - FIFO（first-in，first-out）</li>
+<li>队列的基本操作：<ul>
+<li>进队（入队）：进入插入的一端称为队尾，插入动作称为进队或入队</li>
+<li>出队：进行删除的一端称为队头，删除动作称为出队</li>
+</ul>
+</li>
+</ul>
+
+                    
+                </div>
+
+                
+                        
+<div class="post-copyright-info-container border-box">
+    <div class="copyright-info-content border-box">
+        <div class="copyright-info-top border-box">
+            <div class="copyright-post-title border-box text-ellipsis">
+                05_Python_数据结构
+            </div>
+
+            <div class="copyright-post-link border-box text-ellipsis">
+                2023/04/01/python-数据结构/
+            </div>
+        </div>
+
+        <div class="copyright-info-bottom border-box">
+            <div class="copyright-post-author bottom-item">
+                <div class="type">
+                    作者
+                </div>
+                <div class="content">xfblog</div>
+            </div>
+
+            <div class="post-time bottom-item">
+                <div class="type">
+                    发布于
+                </div>
+                <div class="content">2023-04-01 00:00</div>
+            </div>
+
+
+            <div class="post-license bottom-item">
+                <div class="type">
+                    许可
+                </div>
+                <div class="content tooltip" data-tooltip-content="CC BY-NC-SA 4.0">
+                    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hans" target="_blank">
+                        
+                            <i class="fa-brands fa-creative-commons"></i>
+                            <i class="fa-brands fa-creative-commons-by"></i>
+                            <i class="fa-brands fa-creative-commons-nc"></i>
+                            <i class="fa-brands fa-creative-commons-sa"></i>
+                        
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <i class="copyright-bg fa-solid fa-copyright"></i>
+    </div>
+    <div class="copy-copyright-info flex-center tooltip" data-tooltip-content="复制版权信息" data-tooltip-offset-y="-2px">
+        <i class="fa-solid fa-copy"></i>
+    </div>
+</div>
+
+                
+
+                <div class="post-bottom-tags-and-share border-box">
+                    <div>
+                        
+                            <ul class="post-tags-box border-box">
+                                
+                                    <li class="tag-item border-box">
+                                        <i class="icon fas fa-hashtag"></i>&nbsp;<a href="/tags/Python/">Python</a>
+                                    </li>
+                                
+                            </ul>
+                        
+                    </div>
+                    <div>
+                        
+                            <div class="post-share-container border-box">
+    <ul class="share-list-wrap border-box">
+        <li class="qq share-item border-box flex-center tooltip"
+            data-tooltip-content="分享到 QQ"
+        >
+            <i class="fa-brands fa-qq"></i>
+        </li>
+        <li class="wechat share-item border-box flex-center tooltip tooltip-img"
+            data-tooltip-content="分享到微信"
+            data-tooltip-img-tip="微信扫一扫"
+            data-tooltip-img-style="background-color: #fff; top: -10px; padding: 0.6rem 0.6rem 0.1rem 0.6rem;"
+        >
+            <i class="fa-brands fa-weixin"></i>
+        </li>
+        <li class="weibo share-item border-box flex-center tooltip"
+            data-tooltip-content="分享到微博"
+        >
+            <i class="fa-brands fa-weibo"></i>
+        </li>
+    </ul>
+</div>
+
+                        
+                    </div>
+                </div>
+
+                
+                    
+
+<div class="reward-author-container border-box flex-center">
+    <div class="reward-btn border-box flex-center tooltip tooltip-img"
+            data-tooltip-img-url="/images/zfb.jpg"
+            data-tooltip-img-trigger="click"
+            data-tooltip-img-style="top: -6px;"
+    >
+        <i class="fa-solid fa-gift"></i>&nbsp;创作不易，打赏随意，您的支持是我更新的动力💪！
+    </div>
+</div>
+
+                
+
+                
+                    <div class="post-nav border-box">
+                        
+                            <div class="prev-post">
+                                <a class="prev"
+                                   rel="prev"
+                                   href="/2023/04/30/Git%E5%91%BD%E4%BB%A4%E9%80%9F%E6%9F%A5%E8%A1%A8/"
+                                   title="Git命令速查表"
+                                >
+                                    <span class="left arrow-icon flex-center">
+                                        <i class="fas fa-chevron-left"></i>
+                                    </span>
+                                    <span class="title flex-center">
+                                        <span class="post-nav-title-item text-ellipsis">Git命令速查表</span>
+                                        <span class="post-nav-item">上一篇</span>
+                                    </span>
+                                </a>
+                            </div>
+                        
+                        
+                            <div class="next-post">
+                                <a class="next"
+                                   rel="next"
+                                   href="/2023/03/01/python-%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/"
+                                   title="04_Python_正则表达式"
+                                >
+                                    <span class="title flex-center">
+                                        <span class="post-nav-title-item text-ellipsis">04_Python_正则表达式</span>
+                                        <span class="post-nav-item">下一篇</span>
+                                    </span>
+                                    <span class="right arrow-icon flex-center">
+                                        <i class="fas fa-chevron-right"></i>
+                                    </span>
+                                </a>
+                            </div>
+                        
+                    </div>
+                
+
+                
+                    
+
+
+
+
+
+
+                
+            </div>
+        </div>
+
+        
+            <div class="pc-post-toc right-toc">
+                <div class="post-toc-wrap border-box">
+    <div class="post-toc border-box">
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E8%AF%84%E5%88%A4%E7%AE%97%E6%B3%95%E7%9A%84%E4%BC%98%E5%8A%A3%E6%A0%87%E5%87%86"><span class="nav-text">一、评判算法的优劣标准</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6"><span class="nav-text">1. 时间复杂度</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E7%A9%BA%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6"><span class="nav-text">2. 空间复杂度</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E6%B1%89%E8%AF%BA%E5%A1%94%E9%97%AE%E9%A2%98"><span class="nav-text">3. 汉诺塔问题</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E5%85%AB%E5%A4%A7%E6%8E%92%E5%BA%8F%E5%92%8C%E6%9F%A5%E6%89%BE%E7%AE%97%E6%B3%95"><span class="nav-text">二、八大排序和查找算法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E9%A1%BA%E5%BA%8F%E6%9F%A5%E6%89%BE"><span class="nav-text">1. 顺序查找</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE"><span class="nav-text">2. 二分查找</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F"><span class="nav-text">3. 冒泡排序</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-%E9%80%89%E6%8B%A9%E6%8E%92%E5%BA%8F"><span class="nav-text">4. 选择排序</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F"><span class="nav-text">5. 插入排序</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F"><span class="nav-text">6. 快速排序</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-%E5%A0%86%E6%8E%92%E5%BA%8F"><span class="nav-text">7. 堆排序</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E4%B8%83%E5%A4%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="nav-text">三、七大数据结构</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%BB%8B%E7%BB%8D"><span class="nav-text">1. 数据结构介绍</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E6%A0%88"><span class="nav-text">2. 栈</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E9%98%9F%E5%88%97"><span class="nav-text">3. 队列</span></a></li></ol></li></ol></li></ol>
+    </div>
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+        </div>
+
+        <div class="page-main-content-bottom border-box">
+            
+<footer class="footer border-box">
+    <div class="copyright-info info-item">
+    Copyright&nbsp;&copy;&nbsp;<span>2021</span>&nbsp;-&nbsp;2024&nbsp;<a href="https://xfblog.cn/" target="_self">小傅博客</a>&nbsp;-&nbsp;All&nbsp;rights&nbsp;reserved.&nbsp;&nbsp;&nbsp;&nbsp;
+    
+            <!-- &nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;&nbsp;<a href="/">xfblog</a> -->
+        
+    </div>
+
+    <!-- <div class="theme-info info-item">
+        由&nbsp;<a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;驱动&nbsp;&&nbsp;主题&nbsp;<a class="keep-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep</a>
+    </div> -->
+
+    
+
+    
+
+    
+        <div class="record-info info-item">
+            
+                
+                    <div class="record-item border-box">
+                        <a class=""
+                           target="_blank"
+                           href="https://beian.miit.gov.cn"
+                        >
+                            蜀ICP备2021021033号-1
+                        </a>
+                    </div>
+                
+            
+                
+                    <div class="record-item border-box">
+                        <a class=""
+                           target="_blank"
+                           href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=51138102000134"
+                        >
+                            川公网安备 51138102000134号
+                        </a>
+                    </div>
+                
+            
+        </div>&nbsp;&nbsp;&nbsp;&nbsp;
+    
+</footer>
+
+        </div>
+    </div>
+
+    <!-- post tools -->
+    
+        <div class="post-tools right-toc">
+            <div class="post-tools-container border-box">
+    <ul class="post-tools-list border-box">
+        <!-- PC encrypt again -->
+        
+
+        <!-- PC TOC show toggle -->
+        
+            <li class="tools-item flex-center toggle-show-toc">
+                <i class="fas fa-list"></i>
+            </li>
+        
+
+        <!-- PC go comment -->
+        
+
+        <!-- PC full screen -->
+        <li class="tools-item flex-center full-screen">
+            <i class="fa-solid fa-expand"></i>
+        </li>
+    </ul>
+</div>
+
+        </div>
+    
+
+    <!-- side tools -->
+    <div class="side-tools">
+        <div class="side-tools-container border-box ">
+    <ul class="side-tools-list side-tools-show-handle border-box">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <!-- toggle mode -->
+        
+            <li class="tools-item tool-toggle-theme-mode flex-center">
+                <i class="fas fa-moon"></i>
+            </li>
+        
+
+        <!-- rss -->
+        
+            <li class="tools-item rss flex-center">
+                <a class="flex-center"
+                   href="/atom.xml"
+                   target="_blank"
+                >
+                    <i class="fas fa-rss"></i>
+                </a>
+            </li>
+        
+
+        <!-- to bottom -->
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list border-box">
+        
+            <li class="tools-item toggle-show-toc-tablet flex-center">
+                <i class="fas fa-list"></i>
+            </li>
+        
+
+        
+
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+
+        <li class="tools-item tool-scroll-to-top flex-center show-arrow">
+            <i class="arrow fas fa-arrow-up"></i>
+            <span class="percent"></span>
+        </li>
+    </ul>
+</div>
+
+    </div>
+
+    <!-- image mask -->
+    <div class="zoom-in-image-mask">
+    <img class="zoom-in-image">
+</div>
+
+
+    <!-- local search -->
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="close-popup-btn">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+    <!-- tablet toc -->
+    
+        <div class="tablet-post-toc-mask">
+            <div class="tablet-post-toc">
+                <div class="post-toc-wrap border-box">
+    <div class="post-toc border-box">
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E8%AF%84%E5%88%A4%E7%AE%97%E6%B3%95%E7%9A%84%E4%BC%98%E5%8A%A3%E6%A0%87%E5%87%86"><span class="nav-text">一、评判算法的优劣标准</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6"><span class="nav-text">1. 时间复杂度</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E7%A9%BA%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6"><span class="nav-text">2. 空间复杂度</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E6%B1%89%E8%AF%BA%E5%A1%94%E9%97%AE%E9%A2%98"><span class="nav-text">3. 汉诺塔问题</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E5%85%AB%E5%A4%A7%E6%8E%92%E5%BA%8F%E5%92%8C%E6%9F%A5%E6%89%BE%E7%AE%97%E6%B3%95"><span class="nav-text">二、八大排序和查找算法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E9%A1%BA%E5%BA%8F%E6%9F%A5%E6%89%BE"><span class="nav-text">1. 顺序查找</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE"><span class="nav-text">2. 二分查找</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F"><span class="nav-text">3. 冒泡排序</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-%E9%80%89%E6%8B%A9%E6%8E%92%E5%BA%8F"><span class="nav-text">4. 选择排序</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F"><span class="nav-text">5. 插入排序</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F"><span class="nav-text">6. 快速排序</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-%E5%A0%86%E6%8E%92%E5%BA%8F"><span class="nav-text">7. 堆排序</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E4%B8%83%E5%A4%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="nav-text">三、七大数据结构</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%BB%8B%E7%BB%8D"><span class="nav-text">1. 数据结构介绍</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E6%A0%88"><span class="nav-text">2. 栈</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E9%98%9F%E5%88%97"><span class="nav-text">3. 队列</span></a></li></ol></li></ol></li></ol>
+    </div>
+</div>
+
+            </div>
+        </div>
+    
+</main>
+
+
+
+
+
+<!-- common js -->
+<script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.2.5/source/js/utils.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.2.5/source/js/header-shrink.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.2.5/source/js/back2top.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.2.5/source/js/toggle-theme.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.2.5/source/js/code-block.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.2.5/source/js/main.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.2.5/source/js/libs/anime.min.js"></script>
+
+<!-- local search -->
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.2.5/source/js/local-search.js"></script>
+
+
+<!-- lazyload -->
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.2.5/source/js/lazyload.js"></script>
+
+
+<div class="pjax">
+    <!-- home page -->
+    
+
+    <!-- post page -->
+    
+        <!-- post-helper -->
+        <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.2.5/source/js/post/post-helper.js"></script>
+
+        <!-- toc -->
+        
+            <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.2.5/source/js/post/toc.js"></script>
+        
+
+        <!-- copyright-info -->
+        
+            <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.2.5/source/js/post/copyright-info.js"></script>
+        
+
+        <!-- share -->
+        
+            <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.2.5/source/js/post/share.js"></script>
+        
+    
+
+    <!-- categories page -->
+    
+
+    <!-- links page -->
+    
+
+    <!-- photos page -->
+    
+
+    <!-- tools page -->
+    
+</div>
+
+<!-- mermaid -->
+
+
+<!-- pjax -->
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.2.5/source/js/libs/pjax.min.js"></script>
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            KEEP.utils.pjaxProgressBarStart()
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            KEEP.utils.pjaxProgressBarEnd()
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'))
+            KEEP.initExecute()
+        });
+    });
+</script>
+
+
+
+
+    
+        
+            
+<script class="custom-inject-js" src="/js/run_time.js" data-pjax></script>
+
+        
+    
+        
+            
+<script class="custom-inject-js" src="/js/code_click_copy.js" data-pjax></script>
+
+        
+    
+
+</body>
+</html>
