@@ -1,0 +1,1129 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="xfblog">
+    
+    <title>
+        
+            JS逆向_1_基础入门 |
+        
+        XFBLOG.CN
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+        <link rel="shortcut icon" href="/images/favicon.webp">
+    
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.2.5/source/font/css/fontawesome.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.2.5/source/font/css/regular.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.2.5/source/font/css/solid.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.2.5/source/font/css/brands.min.css">
+    
+        
+            
+                
+<link rel="stylesheet" href="/css/custom-1.css">
+
+            
+        
+    
+    <script class="keep-theme-configurations">
+    const KEEP = window.KEEP || {}
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"zh-CN","path":"search.xml"}
+    KEEP.theme_config = {"base_info":{"primary_color":"#0066cc","title":"XFBLOG.CN","author":"xfblog","avatar":"/images/avatar.webp","logo":"/images/logo.webp","favicon":"/images/favicon.webp"},"menu":{"home":"/ || fa-solid fa-home","archives":"/archives || fa-solid fa-box-archive","categories":"/categories || fa-solid fa-layer-group","links":"/links || fa-solid fa-link","about":"/about || fa-solid fa-circle-info"},"first_screen":{"enable":true,"background_img":"/images/home_light.webp","background_img_dark":"/images/home_dark.webp","description":null,"hitokoto":false},"social_contact":{"enable":true,"links":{"github":"https://github.com/xfblogcn","weixin":null,"qq":null,"weibo":null,"zhihu":null,"twitter":null,"x":null,"facebook":null,"email":null}},"scroll":{"progress_bar":false,"percent":true,"hide_header":true},"home":{"announcement":"版权声明：本站所有文章均为 xfblog.cn 小傅原创，请遵循 CC 4.0 BY-SA 版权协议，转载请附上原文出处链接及本声明。","category":true,"tag":true,"post_datetime":"created","post_datetime_format":"YYYY-MM-DD"},"post":{"author_badge":{"enable":true,"level_badge":true,"custom_badge":["One","Two","Three"]},"word_count":{"wordcount":true,"min2read":true},"datetime_format":"YYYY-MM-DD","copyright_info":true,"share":true,"reward":{"enable":true,"img_link":"/images/zfb.webp","text":"创作不易，打赏随意，您的支持是我更新的动力💪！"}},"code_block":{"tools":{"enable":true,"style":"default"},"highlight_theme":"obsidian"},"toc":{"enable":true,"number":false,"expand_all":true,"init_open":true,"layout":"right"},"website_count":{"busuanzi_count":{"enable":true,"site_uv":false,"site_pv":false,"page_pv":true}},"local_search":{"enable":true,"preload":true},"comment":{"enable":false,"use":"valine","valine":{"appid":null,"appkey":null,"server_urls":null,"placeholder":null},"gitalk":{"github_id":null,"github_admins":null,"repository":null,"client_id":null,"client_secret":null,"proxy":null},"twikoo":{"env_id":null,"region":null,"version":"1.6.36"},"waline":{"server_url":null,"reaction":false,"version":"3.2.1"},"giscus":{"repo":null,"repo_id":null,"category":"Announcements","category_id":null,"reactions_enabled":false},"artalk":{"server":null},"disqus":{"shortname":null}},"rss":{"enable":true},"lazyload":{"enable":true},"cdn":{"enable":true,"provider":"jsdelivr"},"pjax":{"enable":true},"footer":{"since":2021,"word_count":false,"site_deploy":{"enable":false,"provider":"github","url":null},"record":{"enable":true,"list":[{"code":"蜀ICP备2021021033号-1","link":"https://beian.miit.gov.cn"},{"code":"川公网安备 51138102000134号","link":"http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=51138102000134"}]}},"inject":{"enable":true,"css":["/css/custom-1.css"],"js":["/js/run_time.js","/js/code_click_copy.js","/js/copyrightpro.js"]},"root":"","source_data":{},"version":"4.2.5"}
+    KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"}
+    KEEP.language_code_block = {"copy":"复制代码","copied":"已复制","fold":"折叠代码块","folded":"已折叠"}
+    KEEP.language_copy_copyright = {"copy":"复制版权信息","copied":"已复制","title":"原文标题","author":"原文作者","link":"原文链接"}
+  </script>
+<meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="Keep" type="application/atom+xml">
+</head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <i class="pjax-progress-icon fas fa-circle-notch fa-spin"></i>
+    
+</div>
+
+
+
+<main class="page-container border-box">
+    <!-- home first screen  -->
+    
+
+    <!-- page content -->
+    <div class="page-main-content border-box">
+        <div class="page-main-content-top">
+            
+<header class="header-wrapper">
+
+    <div class="border-box header-content">
+        <div class="left flex-start border-box">
+            
+                <a class="logo-image border-box" href="/">
+                    <img src="/images/logo.webp">
+                </a>
+            
+            <a class="site-name border-box" href="/">
+               XFBLOG.CN
+            </a>
+        </div>
+
+        <div class="right border-box">
+            <div class="pc border-box">
+                <ul class="menu-list border-box">
+                    
+                        
+                        <li class="menu-item flex-start border-box">
+                            <a class="menu-text-color border-box" href="/">
+                                
+                                    <i class="menu-text-color menu-icon fa-solid fa-home"></i>
+                                
+                                首页
+                                
+                            </a>
+                            
+                        </li>
+                    
+                        
+                        <li class="menu-item flex-start border-box">
+                            <a class="menu-text-color border-box" href="/archives">
+                                
+                                    <i class="menu-text-color menu-icon fa-solid fa-box-archive"></i>
+                                
+                                归档
+                                
+                            </a>
+                            
+                        </li>
+                    
+                        
+                        <li class="menu-item flex-start border-box">
+                            <a class="menu-text-color border-box" href="/categories">
+                                
+                                    <i class="menu-text-color menu-icon fa-solid fa-layer-group"></i>
+                                
+                                分类
+                                
+                            </a>
+                            
+                        </li>
+                    
+                        
+                        <li class="menu-item flex-start border-box">
+                            <a class="menu-text-color border-box" href="/links">
+                                
+                                    <i class="menu-text-color menu-icon fa-solid fa-link"></i>
+                                
+                                友链
+                                
+                            </a>
+                            
+                        </li>
+                    
+                        
+                        <li class="menu-item flex-start border-box">
+                            <a class="menu-text-color border-box" href="/about">
+                                
+                                    <i class="menu-text-color menu-icon fa-solid fa-circle-info"></i>
+                                
+                                关于
+                                
+                            </a>
+                            
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="menu-text-color fas search fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile border-box flex-start">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list border-box">
+            
+                
+                <li class="drawer-menu-item border-box not-sub-menu">
+                    <label class="drawer-menu-label border-box">
+                        <a class="drawer-menu-text-color left-side flex-start border-box" href="/">
+                            
+                                <span class="menu-icon-wrap border-box flex-center">
+                                    <i class="drawer-menu-text-color menu-icon fa-solid fa-home"></i>
+                                </span>
+                            
+                            首页
+                        </a>
+                        
+                    </label>
+                    
+                </li>
+            
+                
+                <li class="drawer-menu-item border-box not-sub-menu">
+                    <label class="drawer-menu-label border-box">
+                        <a class="drawer-menu-text-color left-side flex-start border-box" href="/archives">
+                            
+                                <span class="menu-icon-wrap border-box flex-center">
+                                    <i class="drawer-menu-text-color menu-icon fa-solid fa-box-archive"></i>
+                                </span>
+                            
+                            归档
+                        </a>
+                        
+                    </label>
+                    
+                </li>
+            
+                
+                <li class="drawer-menu-item border-box not-sub-menu">
+                    <label class="drawer-menu-label border-box">
+                        <a class="drawer-menu-text-color left-side flex-start border-box" href="/categories">
+                            
+                                <span class="menu-icon-wrap border-box flex-center">
+                                    <i class="drawer-menu-text-color menu-icon fa-solid fa-layer-group"></i>
+                                </span>
+                            
+                            分类
+                        </a>
+                        
+                    </label>
+                    
+                </li>
+            
+                
+                <li class="drawer-menu-item border-box not-sub-menu">
+                    <label class="drawer-menu-label border-box">
+                        <a class="drawer-menu-text-color left-side flex-start border-box" href="/links">
+                            
+                                <span class="menu-icon-wrap border-box flex-center">
+                                    <i class="drawer-menu-text-color menu-icon fa-solid fa-link"></i>
+                                </span>
+                            
+                            友链
+                        </a>
+                        
+                    </label>
+                    
+                </li>
+            
+                
+                <li class="drawer-menu-item border-box not-sub-menu">
+                    <label class="drawer-menu-label border-box">
+                        <a class="drawer-menu-text-color left-side flex-start border-box" href="/about">
+                            
+                                <span class="menu-icon-wrap border-box flex-center">
+                                    <i class="drawer-menu-text-color menu-icon fa-solid fa-circle-info"></i>
+                                </span>
+                            
+                            关于
+                        </a>
+                        
+                    </label>
+                    
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle border-box">
+
+            <div class="main-content border-box">
+                
+
+                    
+<div class="fade-in-down-animation">
+    <div class="post-page-container border-box">
+        <div class="post-content-container border-box">
+            
+
+            <div class="post-content-bottom border-box">
+                
+                    <div class="post-title">
+                        JS逆向_1_基础入门
+                    </div>
+                
+
+                
+                    <div class="post-header border-box">
+                        
+                            <div class="avatar-box border-box">
+                                <img src="/images/avatar.webp">
+                            </div>
+                        
+                        <div class="info-box">
+                            <div class="author border-box">
+                                <span class="name">xfblog</span>
+                                
+                                    <span class="author-badge">Lv3</span>
+                                
+                            </div>
+                            <div class="meta-info border-box">
+                                
+
+<div class="post-meta-info-container border-box post">
+    <div class="post-meta-info border-box">
+        
+
+        
+            <span class="meta-info-item post-create-date">
+                <i class="icon fa-solid fa-calendar-plus"></i>&nbsp;
+                <span class="datetime">2024-01-01</span>
+            </span>
+
+            
+                <span class="meta-info-item post-update-date">
+                    <i class="icon fa-solid fa-file-pen"></i>&nbsp;
+                    <span class="datetime" data-updated="Tue Dec 03 2024 17:29:03 GMT+0800">2024-12-03</span>
+                </span>
+            
+        
+
+        
+            <span class="meta-info-item post-category border-box"><i class="icon fas fa-folder"></i>&nbsp;
+                <ul class="post-category-ul">
+                    
+                            <li class="category-item"><a href="/categories/%E7%88%AC%E8%99%AB/">爬虫</a></li>
+                        
+                    
+                </ul>
+            </span>
+        
+
+        
+            <span class="post-tag meta-info-item border-box">
+                <ul class="post-tag-ul">
+                    
+                            <li class="tag-item"><span class="tag-separator"><i class="icon fas fa-hashtag"></i></span><a href="/tags/JS%E9%80%86%E5%90%91/">JS逆向</a></li>
+                        
+                    
+                            <li class="tag-item"><span class="tag-separator"><i class="icon fas fa-hashtag"></i></span><a href="/tags/%E7%88%AC%E8%99%AB/">爬虫</a></li>
+                        
+                    
+                            <li class="tag-item"><span class="tag-separator"><i class="icon fas fa-hashtag"></i></span><a href="/tags/Python/">Python</a></li>
+                        
+                    
+                </ul>
+            </span>
+        
+
+        
+        
+            <span class="meta-info-item post-wordcount">
+                <i class="icon fas fa-file-word"></i>&nbsp;<span>4.8k 字</span>
+            </span>
+        
+        
+            <span class="meta-info-item post-min2read">
+                <i class="icon fas fa-clock"></i>&nbsp;<span>19 分钟</span>
+            </span>
+        
+        
+            <span class="meta-info-item post-pv">
+                <i class="icon fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+            </span>
+        
+    </div>
+
+    
+</div>
+
+                            </div>
+                        </div>
+                    </div>
+                
+
+                <div class="post-content keep-markdown-body ">
+                    
+
+                    
+                         <h2 id="一、JS调试技巧"><a href="#一、JS调试技巧" class="headerlink" title="一、JS调试技巧"></a>一、JS调试技巧</h2><blockquote>
+<p>在页面中右击 dom 元素标签 –&gt; 存储为全局变量 –&gt; dir(temp1) –&gt; 即可快速查看标签的一些属性（js 对象属性）</p>
+</blockquote>
+<h3 id="1-浏览器开发者工具"><a href="#1-浏览器开发者工具" class="headerlink" title="1. 浏览器开发者工具"></a>1. 浏览器开发者工具</h3><ul>
+<li><strong>设置：</strong>偏好设置 –&gt; 开启 “源代码&#x2F;来源” 下的 <strong>“在匿名和内容脚本中搜索”</strong></li>
+<li><strong>应用面板：</strong>可以查看和删除 Cookie 信息</li>
+<li><strong>源代码面板：</strong><ol>
+<li><strong>网页：</strong>当前网站加载的源代码位置</li>
+<li><strong>替换：</strong>替换网站源代码，实现访问网站时不走服务器所返回的文件，而是直接走自己替换的本地文件</li>
+<li><strong>替换步骤：</strong>网络面板 –&gt; 选择加载的源代码文件右击 –&gt; <strong>在”来源”面板中打开</strong> –&gt; 右击文件 –&gt; <strong>替换内容</strong> –&gt; 授权 –&gt; 更改代码 –&gt; 保存刷新网页</li>
+<li><strong>代码段：</strong>可以编写多段测试代码</li>
+</ol>
+</li>
+</ul>
+<h3 id="2-断点定位"><a href="#2-断点定位" class="headerlink" title="2. 断点定位"></a>2. 断点定位</h3><blockquote>
+<p><strong>普通断点调试按钮：</strong></p>
+<ol>
+<li>暂停&#x2F;继续执行脚本</li>
+<li>不进入函数内部</li>
+<li>进入函数内部</li>
+<li>跳出当前函数</li>
+<li>单步调试，适用于异步</li>
+<li>关闭&#x2F;启动断点（关闭后XHR断点处还是会停住）</li>
+</ol>
+<p><strong>日志断点：</strong>用于输出每一次经过断点时的某些数据，只输出数据，不截停代码。使用时不需要输出语句，直接写变量或字符串，多个用逗号隔开</p>
+<p><strong>条件断点：</strong>用于只断住某个数据在某个条件下的代码</p>
+</blockquote>
+<ul>
+<li><p><strong>DOM事件断点定位加密：</strong></p>
+<ul>
+<li>已有事件断点：元素面板 –&gt; 选择元素 –&gt; 右侧”事件监听器” –&gt; 选择事件定位js文件 –&gt; 断点并调试（<a class="link"   href="https://oauth.d.cn/auth/goLogin.html"  target="_blank" rel="noopener">测试网站<i class="fas fa-external-link-alt"></i></a>）</li>
+<li>添加元素断点：元素面板 –&gt; 选择元素 –&gt; 右击元素代码 –&gt; “发生中断的条件” –&gt; 选择事件</li>
+</ul>
+</li>
+<li><p><strong>XHR请求断点定位加密：</strong></p>
+<ul>
+<li>网络面板 –&gt; 确认数据接口url –&gt; 源代码&#x2F;来源面板 –&gt; 右侧”XHR&#x2F;提取断点” –&gt; <strong>添加url域名后参数前的部分</strong> –&gt; 断点并调试（<a class="link"   href="https://oauth.d.cn/auth/goLogin.html"  target="_blank" rel="noopener">测试网站<i class="fas fa-external-link-alt"></i></a>）</li>
+</ul>
+</li>
+<li><p><strong>网站加载时间轴：</strong></p>
+</li>
+</ul>
+<img    
+                       lazyload
+                       alt="image"
+                       data-src="https://xfblog.cn/1705233309-ee68c835172c1b4.png"
+                        
+                 >
+
+<h3 id="3-方法栈（调用堆栈）"><a href="#3-方法栈（调用堆栈）" class="headerlink" title="3. 方法栈（调用堆栈）"></a>3. 方法栈（调用堆栈）</h3><ul>
+<li><p><strong>方法栈：</strong>当 JavaScript 执行函数时，会在方法栈中创建一个新的帧（frame），表示该函数的执行上下文。<strong>方法栈就是由一系列帧组成的</strong>，每个帧对应一个函数的执行上下文，帧的数量取决于当前代码中函数的调用深度，这些帧按照函数调用的顺序排列，即<strong>先进后出</strong>，构成了调用堆栈</p>
+</li>
+<li><p><strong>解释：</strong>当一个函数被调用时，一个新的帧被推入方法栈的顶部，该帧包含了函数的执行上下文信息，例如局部变量、参数、返回地址等。当函数执行完毕时，对应的帧从方法栈中弹出，控制流回到调用该函数的地方</p>
+</li>
+<li><p><strong>错误追踪：</strong>当 js 代码执行过程中发生错误时，错误信息中会包含一个<strong>堆栈跟踪（stack trace）</strong>，它显示了错误发生时方法栈的状态，其包括了函数调用的顺序，以及错误发生的地方</p>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">// 简单代码说明：在调用aa处打上断点，单步调试，可以观察调用堆栈</span><br><span class="line">function cc(a, b) &#123;</span><br><span class="line">    console.log(a + b)</span><br><span class="line">    console.log(&#x27;调用的cc函数&#x27;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function bb(a, b) &#123;</span><br><span class="line">    console.log(a + b)</span><br><span class="line">    cc()</span><br><span class="line">    console.log(&#x27;调用的bb函数&#x27;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function aa(a, b) &#123;</span><br><span class="line">    bb(a, b)</span><br><span class="line">    console.log(&#x27;调用的aa函数&#x27;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">aa(1, 2)</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-debugger-反调"><a href="#4-debugger-反调" class="headerlink" title="4. debugger 反调"></a>4. debugger 反调</h3><blockquote>
+<p><strong>反调手段：</strong></p>
+<ol>
+<li><strong>无限debugger：</strong>使用无限 debugger 阻止爬虫工具的正常操作，会导致浏览器调试器无法正常工作</li>
+<li><strong>防止格式化：</strong>代码必须压缩成一行，通过 RegExp + toString() 检测代码是否被格式化</li>
+<li><strong>死代码注入：</strong>在检测到代码被格式化后，造成卡死的情况就是通过死代码注入实现的</li>
+<li><strong>Web Worker 技术：</strong>加载 authProxy.html 页面执行 js 脚本用于禁止断点调试 <code>&lt;html debug=&quot;false&quot;&gt;</code></li>
+</ol>
+</blockquote>
+<ul>
+<li><p><strong>无限debugger解决办法（跟栈分析，置空栈底方法为主）：</strong></p>
+<ol>
+<li><p><strong>浏览器自带：</strong>右击 debugger 处 –&gt; “一律不在此处暂停” &#x2F; “添加条件断点”（false）</p>
+</li>
+<li><p><strong>置空调用方法：</strong>跟栈分析，找到源头的 debugger 方法是如何生成的，置空传入或调用的 debugger 方法</p>
+</li>
+<li><p><strong>替换文件</strong>：把 js 文件保存到本地修改，修改范围主要是将 debugger 相关的代码删除或者改写</p>
+</li>
+<li><p><strong>注入代码（Hook，特点是无限创造VM文件，造成浏览器卡死）：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">var _constructor = constructor;</span><br><span class="line">Function.prototype.constructor = function (s) &#123;</span><br><span class="line">    if (s == &quot;debugger&quot;) &#123;</span><br><span class="line">        console.log(s);</span><br><span class="line">        return null;</span><br><span class="line">    &#125;</span><br><span class="line">    return _constructor(s);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">var _Function = Function;</span><br><span class="line">Function = function (s) &#123;</span><br><span class="line">    if (s == &quot;debugger&quot;) &#123;</span><br><span class="line">        console.log(s);</span><br><span class="line">        return null;</span><br><span class="line">    &#125;</span><br><span class="line">    return _Function(s);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></li>
+</ol>
+</li>
+<li><p><strong>防止格式化解决办法：</strong></p>
+<ul>
+<li><strong>原理：</strong>一般是<strong>通过 RegExp正则匹配 + toString() 检测某些函数</strong>，是否有换行等格式化操作，返回布尔值</li>
+<li><strong>解决办法：</strong>替换文件，将正则的处理逻辑修改为 true 值</li>
+</ul>
+</li>
+<li><p><strong>死代码注入解决办法：</strong></p>
+<ul>
+<li><strong>原理：</strong>通过两个函数互相无限制调用，或者直接通过 while 写死循环，即 while (!![]) {}</li>
+<li><strong>解决办法：</strong>在正则检测返回为 false 时，继续往下调试，可以定位死代码注入的逻辑</li>
+</ul>
+</li>
+</ul>
+<h3 id="5-搜索关键字"><a href="#5-搜索关键字" class="headerlink" title="5. 搜索关键字"></a>5. 搜索关键字</h3><blockquote>
+<p>搜索关键字时不使用放大镜搜索，因为放大镜搜索是在所有请求接口里面搜索的；而是使用右上角三个点中的搜索（<strong>command+⌥+F</strong>），这个搜索是<strong>在源代码里面搜索</strong>的（<a class="link"   href="http://birdreport.cn/home/activity/page.html"  target="_blank" rel="noopener">测试网站<i class="fas fa-external-link-alt"></i></a>请求头的 <code>Requestid</code> 参数）</p>
+<p><strong>技巧：</strong>搜索关键字定位一般配合<strong>启动器-请求调用堆栈</strong>定位至关键文件，再定位其中的关键字</p>
+</blockquote>
+<ul>
+<li><p><strong>注意：关键字搜索一般是最里层的具体加密位置，通常需要看上几帧的栈，才是调用的位置</strong></p>
+</li>
+<li><p><strong>常用关键字：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1. Requestid、Requestid=、Requestid:、Requestid&#x27;、Requestid&quot;</span><br><span class="line">// setRequestHeader(&#x27;Requestid&#x27;,&#x27;xxx&#x27;)</span><br><span class="line">2. decrypt(、encrypt(</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>搜索不到的原因：</strong>代码混淆、关键字做拼接</p>
+</li>
+</ul>
+<h3 id="6-启动器定位"><a href="#6-启动器定位" class="headerlink" title="6. 启动器定位"></a>6. 启动器定位</h3><ul>
+<li><strong>使用：</strong>通过数据api接口的启动器定位加密，不常用，运气成分太大，概率太小，范围太大（<a class="link"   href="https://oauth.d.cn/auth/goLogin.html"  target="_blank" rel="noopener">测试网站<i class="fas fa-external-link-alt"></i></a>）</li>
+</ul>
+<h2 id="二、补环境"><a href="#二、补环境" class="headerlink" title="二、补环境"></a>二、补环境</h2><h3 id="1-基础补环境"><a href="#1-基础补环境" class="headerlink" title="1. 基础补环境"></a>1. 基础补环境</h3><blockquote>
+<p><strong>补环境重点之导出关键方法为全局方法：通过 window.aaa 直接将方法赋值全局对象，后续可直接调用</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">!(function getEnvironment(proxyArray) &#123;</span><br><span class="line">window = global;</span><br><span class="line">// 解决基本环境检测</span><br><span class="line">// delete global;</span><br><span class="line">// delete Buffer;</span><br><span class="line">exports = undefined;</span><br><span class="line">nullfunc = function (res) &#123; console.log(&quot;当前调用函数&quot;, &quot;参数为:&quot;, res); &#125;;</span><br><span class="line">// 脚本仅帮助补了大致环境，需要在此处补其余缺失环境</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">for (var i = 0; i &lt; proxyArray.length; i++) &#123;</span><br><span class="line">  var proxyName = proxyArray[i];</span><br><span class="line">  var handler = `</span><br><span class="line">      &#123;</span><br><span class="line">          get: function(target, property, receiver) &#123;</span><br><span class="line">              console.log(&quot;方法：get&quot;, &quot;  $&#123;proxyName&#125;&quot;+&quot;.&quot;+String(property), &quot;  属性值类型:&quot;, typeof target[property]);</span><br><span class="line">              return target[property];</span><br><span class="line">          &#125;,</span><br><span class="line">          set: function(target, property, value, receiver) &#123;</span><br><span class="line">              console.log(&quot;方法：SET&quot;, &quot;  $&#123;proxyName&#125;&quot;+&quot;.&quot;+String(property), &quot;  属性值类型:&quot;, typeof value);</span><br><span class="line">              return Reflect.set(...arguments);</span><br><span class="line">          &#125;</span><br><span class="line">      &#125;</span><br><span class="line">  `;</span><br><span class="line">  eval(`$&#123;proxyName&#125; = (function () &#123;</span><br><span class="line">      try &#123;</span><br><span class="line">          $&#123;proxyName&#125;;</span><br><span class="line">          return new Proxy($&#123;proxyName&#125;, $&#123;handler&#125;);</span><br><span class="line">      &#125; catch (e) &#123;</span><br><span class="line">          $&#123;proxyName&#125; = &#123;&#125;;</span><br><span class="line">          return new Proxy($&#123;proxyName&#125;, $&#123;handler&#125;);</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;)()`);</span><br><span class="line">&#125;</span><br><span class="line">&#125;)([&#x27;window&#x27;, &#x27;document&#x27;, &#x27;location&#x27;, &#x27;navigator&#x27;, &#x27;history&#x27;, &#x27;screen&#x27;]);</span><br></pre></td></tr></table></figure>
+</blockquote>
+<ul>
+<li><p><strong>常见环境检测：</strong></p>
+<ol>
+<li>exports 对象：在 Node.js 中 exports 是一个用于模块导出的对象，而在浏览器中是undefined</li>
+<li>全局对象：在浏览器中的全局对象是 window，而在 Node.js 中的全局对象是 global</li>
+</ol>
+</li>
+<li><p><strong>常见环境检测的方法：</strong></p>
+<ul>
+<li><strong>通过 IF 判断语句走错误环境逻辑：</strong>使代码在 node 环境下走与浏览器不一致的逻辑分支，从而返回误差数据（<strong>解决：补完整环境，或者分析网页走的逻辑，与网页保持一致</strong>）</li>
+<li><strong>通过 try 异常捕获不存在的环境：</strong>使代码缺少环境也不报错，从而逆向结果错误，返回错误数据（<strong>解决：直接输出异常的内容，根据异常补完整环境，或者直接把异常捕获的代码删除，将错误暴露出来</strong>）</li>
+</ul>
+</li>
+<li><p><strong>jsdom 补环境：</strong>jsdom 是一个 js 库，用于在 node.js 环境中模拟类似于浏览器环境中的 DOM API（文档对象模型）</p>
+<ul>
+<li>**环境安装：<code>npm install jsdom --save</code>、<code>npm install canvas --save</code>**（可能安装错误，<a class="link"   href="https://github.com/jsdom/jsdom/wiki/jsdom-%E4%B8%AD%E6%96%87%E6%96%87%E6%A1%A3"  target="_blank" rel="noopener">官网下载<i class="fas fa-external-link-alt"></i></a>）</li>
+<li>基本使用：</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">const jsdom = require(&quot;jsdom&quot;);</span><br><span class="line">const &#123;JSDOM&#125; = jsdom;</span><br><span class="line">const dom = new JSDOM();</span><br><span class="line">window = global;</span><br><span class="line">location = dom.window.location;</span><br><span class="line">navigator = dom.window.navigator;</span><br><span class="line">document = dom.window.document;</span><br><span class="line">location.href = &#x27;https://www.toutiao.com/&#x27;</span><br><span class="line">location.protocol = &#x27;https:&#x27;</span><br><span class="line">document.cookie=&#x27;......&#x27;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>selenium 补环境：</strong>创建一个本地 html 文件，将 js 代码写入，同时将需要调用的方法通过 window 对象导出为全局的，之后使用 selenium 请求此文件地址，并返回浏览器对象，再通过浏览器对象执行 js 代码调用方法即可</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">from selenium import webdriver</span><br><span class="line">import os</span><br><span class="line"></span><br><span class="line">PRO_DIR = os.path.dirname(os.path.abspath(__file__))</span><br><span class="line"></span><br><span class="line">def driver_sig(html_file):</span><br><span class="line">    option = webdriver.ChromeOptions()</span><br><span class="line">    option.add_argument(&#x27;--disable-blink-features=AutomationControlled&#x27;)</span><br><span class="line">    option.add_argument(&#x27;headless&#x27;)</span><br><span class="line">    driver = webdriver.Chrome(executable_path=&#x27;/Users/xfblog/Downloads/chrome-mac-arm64&#x27;, options=option)</span><br><span class="line">    driver.get(PRO_DIR + &#x27;\\&#x27; + html_file)</span><br><span class="line"></span><br><span class="line">    return driver</span><br><span class="line"></span><br><span class="line">html_file = &#x27;index.html&#x27;</span><br><span class="line">driv = driver_sig(html_file)</span><br><span class="line"></span><br><span class="line">print(driv.execute_script(&#x27;return window.aaa()&#x27;))</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>flask 实现接口：</strong></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">from selenium import webdriver</span><br><span class="line">import os</span><br><span class="line">from flask import Flask, jsonify</span><br><span class="line"></span><br><span class="line">PRO_DIR = os.path.dirname(os.path.abspath(__file__))</span><br><span class="line"></span><br><span class="line">def driver_sig(html_file):</span><br><span class="line">    option = webdriver.ChromeOptions()</span><br><span class="line">    option.add_argument(&#x27;--disable-blink-features=AutomationControlled&#x27;)</span><br><span class="line">    option.add_argument(&#x27;headless&#x27;)</span><br><span class="line">    driver = webdriver.Chrome(options=option)</span><br><span class="line">    driver.get(PRO_DIR + &#x27;\\&#x27; + html_file)</span><br><span class="line"></span><br><span class="line">    return driver</span><br><span class="line"></span><br><span class="line">html_file = &#x27;index.html&#x27;</span><br><span class="line">driv = driver_sig(html_file)</span><br><span class="line"></span><br><span class="line"># 创建 Flask 应用实例</span><br><span class="line">app = Flask(__name__)</span><br><span class="line"></span><br><span class="line"># 定义路由和视图函数（指定了该路由能够处理来自&#x27;/&#x27;路径的GET和POST请求）</span><br><span class="line">@app.route(&#x27;/&#x27;, methods=[&#x27;get&#x27;, &#x27;post&#x27;])</span><br><span class="line">def hello():</span><br><span class="line">    context = &#123;</span><br><span class="line">        # 加载本地地址 生成cookie值</span><br><span class="line">        &#x27;v&#x27;: driv.execute_script(&#x27;return window.aaa()&#x27;)</span><br><span class="line">    &#125;</span><br><span class="line">    # 返回cookie值（jsonify函数用于将Python对象转换为JSON格式的响应）</span><br><span class="line">    return jsonify(context=context)</span><br><span class="line"></span><br><span class="line"># 启动应用</span><br><span class="line">if __name__ == &#x27;__main__&#x27;:</span><br><span class="line">    app.run()</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-VM2-框架补环境"><a href="#2-VM2-框架补环境" class="headerlink" title="2. VM2 框架补环境"></a>2. VM2 框架补环境</h3><blockquote>
+<p><strong>vm2框架：</strong>VM2 是一个基于 Node.js 的 JavaScript 沙箱库，用于在一个安全的环境中执行 JavaScript 代码，提供了一种隔离 JavaScript 代码执行的方式，可以防止恶意代码对系统造成损害。</p>
+<p><strong>作用：</strong>vm2 提供了一个干净独立的沙盒环境，提供测试，打造了一个真实的浏览器环境，可以用于逆向环境</p>
+<p><strong>框架配置：</strong></p>
+<ol>
+<li><code>npm install vm2</code></li>
+<li><code>arch -arm64 brew install pkg-config cairo pango jpeg giflib librsvg</code></li>
+<li><code>npm install canvas</code></li>
+</ol>
+</blockquote>
+<ul>
+<li><strong>vm2框架使用教程：</strong><ol>
+<li><strong>run&#x2F;run.js：</strong>需要补环境的代码，即逆向代码（<strong>其中需要导出关键方法为 window 全局方法</strong>）</li>
+<li><strong>run&#x2F;lastDeal.js：</strong>调用 window 全局方法</li>
+<li><strong>config&#x2F;config.js：</strong>全局对象的某些基础属性配置（location.href、navigator.userAgent、cookie等）</li>
+<li><strong>&#x2F;main.js：</strong>主函数调用，保证逆向代码 run.js 文件路径配置正确</li>
+<li><strong>tools&#x2F;printLog.js（可选）</strong>：日志文件路径 filePath 配置（<strong>可以在 run&#x2F;log.txt 查看吐的环境</strong>）</li>
+</ol>
+</li>
+</ul>
+<h2 id="三、Python-与-JS-互调"><a href="#三、Python-与-JS-互调" class="headerlink" title="三、Python 与 JS 互调"></a>三、Python 与 JS 互调</h2><h3 id="1-pyexecjs-直接执行-js"><a href="#1-pyexecjs-直接执行-js" class="headerlink" title="1. pyexecjs 直接执行 js"></a>1. pyexecjs 直接执行 js</h3><blockquote>
+<p><strong>简介：</strong>PyExecJS 是一个用于在 Python 中执行 js 代码的库。它的设计目标是在不需要绑定到特定 JavaScript 引擎的情况下提供灵活性，直接利用系统中已经安装的 JavaScript 运行时，如 Node.js、Rhino 等（<code>pip install PyExecJS</code>）</p>
+</blockquote>
+<ul>
+<li><p><strong>execjs.get()：</strong></p>
+<ul>
+<li><p><strong>作用：</strong>用于获取系统中可用的 JavaScript 运行时环境</p>
+</li>
+<li><p><strong>返回值：</strong>返回一个 Runtime 对象，可以使用这个运行时环境对象来编译和执行 JavaScript 代码</p>
+</li>
+</ul>
+</li>
+<li><p><strong>Runtime.compile(source)：</strong></p>
+<ul>
+<li><strong>作用：</strong>用于编译 JavaScript 代码，接受字符串参数 source 表示要执行的 JavaScript 代码</li>
+<li><strong>返回值：</strong>返回一个 Context 对象，表示一个 JavaScript 上下文</li>
+</ul>
+</li>
+<li><p><strong>Context.call(name, *args)：</strong></p>
+<ul>
+<li><strong>作用：</strong>用于在 JavaScript 上下文中调用函数，接受一个函数名 name 和任意数量的参数 *args</li>
+<li><strong>返回值：</strong>返回被调用函数的返回值</li>
+</ul>
+</li>
+<li><p><strong>Context.eval(source)：</strong>用于在 JavaScript 上下文中执行一段 JavaScript 代码，并返回执行结果</p>
+</li>
+<li><p><strong>链式调用：<code>result = execjs.compile(open(&#39;./ceshi.js&#39;).read()).call(&#39;add&#39;, 1, 2)</code></strong></p>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">import execjs  # 注意，导入的库是execjs，而不是PyExecJS</span><br><span class="line"></span><br><span class="line"># 获取系统中可用的js运行时环境：node.js</span><br><span class="line">runtime = execjs.get()  # ExternalRuntime(Node.js (V8))</span><br><span class="line"></span><br><span class="line"># 编译js代码，返回Context对象</span><br><span class="line">context = runtime.compile(open(&#x27;./ceshi.js&#x27;).read())</span><br><span class="line"></span><br><span class="line"># 调用js函数</span><br><span class="line">print(context.call(&#x27;add&#x27;, 1, 2))  # 3，接受多个参数，指定函数名并传入函数参数</span><br><span class="line">print(context.eval(&quot;add(3, 4)&quot;))  # 7，接受一个参数，整个函数调用包含在字符串内</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-express-启动-node-服务"><a href="#2-express-启动-node-服务" class="headerlink" title="2. express 启动 node 服务"></a>2. express 启动 node 服务</h3><blockquote>
+<p><strong>为什么使用 express：</strong></p>
+<ul>
+<li>在浏览器环境中，process 对象是 undefined 的，而 process 是 nodejs 特有的系统级 API，用于访问与操作系统和当前运行环境相关的信息，<strong>在补环境时，如果需要检测需要定义为 undefined，此时如果使用 execjs 则会报错 <code>execjs._exceptions</code></strong></li>
+</ul>
+<p><strong>简介：</strong>Express.js 是一个流行的、基于 Node.js 的 Web 应用程序框架，简化了在 Node.js 中构建 Web 应用程序和 API 的过程</p>
+<p><strong>应用场景：</strong>客户只需要一个API接口，用于返回数据，而不需要项目的源代码</p>
+<p><strong>安装：<code>npm install express -S</code>（将Express安装为项目的生产环境依赖，即安装在项目这个局部）</strong></p>
+</blockquote>
+<ul>
+<li><strong>路由：</strong>Express通过路由将HTTP请求与特定的处理函数关联起来，可以根据不同的URL路径将不同的请求映射到相应的处理函数</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">// boss.js</span><br><span class="line"></span><br><span class="line">function get_cookie(seed, ts, code) &#123;</span><br><span class="line">    // 在这里实现生成 cookie 的逻辑</span><br><span class="line">    return &#123;</span><br><span class="line">        seed: seed,</span><br><span class="line">        ts: ts,</span><br><span class="line">        code: code,</span><br><span class="line">        cookie: &quot;这是一个生成的cookie&quot; // 这里只是一个示例，替换为实际逻辑</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 使用 module.exports 导出</span><br><span class="line">module.exports = &#123;</span><br><span class="line">    get_cookie</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">var express = require(&#x27;express&#x27;)</span><br><span class="line">var app = express()</span><br><span class="line">var cook = require(&#x27;./boss.js&#x27;)  // 导入 boss.js 模块（补环境脚本）</span><br><span class="line">var bodyParser = require(&#x27;body-parser&#x27;);</span><br><span class="line"></span><br><span class="line">// 调整参数大小限制，否则会提示参数过大</span><br><span class="line">app.use(bodyParser.urlencoded(&#123;limit: &#x27;50mb&#x27;, extended: true&#125;));</span><br><span class="line"></span><br><span class="line">app.post(&#x27;/get_cookie&#x27;, function (req, res) &#123;</span><br><span class="line">    let ip = req.headers[&#x27;x-real-ip&#x27;] ? req.headers[&#x27;x-real-ip&#x27;] : req.ip.replace(/::ffff:/, &#x27;&#x27;);</span><br><span class="line">    let time = new Date().toString().replace(/\+0800.*/, &#x27;&#x27;);</span><br><span class="line">    console.log(&#x27;INFO:&#x27;, time, ip, req.method, req.originalUrl, &#x27;200 OK!&#x27;);</span><br><span class="line">    // 获取POST请求的formdata</span><br><span class="line">    let result = req.body;</span><br><span class="line">    let code = result.code;</span><br><span class="line">    let seed = result.seed;</span><br><span class="line">    let ts = result.ts;</span><br><span class="line"></span><br><span class="line">    // 调用 boss 模块中的 get_cookie 方法，该方法需要提前 module.exports 导出</span><br><span class="line">    let cookie = cook.get_cookie(seed, ts, code);</span><br><span class="line">    // 设置响应头，如果不设置，通过 asyncio_requests 请求的 res.json() 会报错，因为它是根据响应头解析 json 数据</span><br><span class="line">    // 而 requests 可以直接使用 res.json() 解析，因为它是根据响应信息解析</span><br><span class="line">    res.set(&#x27;Content-Type&#x27;, &#x27;application/json&#x27;)</span><br><span class="line">    res.send(JSON.stringify(cookie));</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">app.listen(5001, () =&gt; &#123;</span><br><span class="line">    console.log(&quot;开启服务，端口 5001&quot;, new Date().toString().replace(/\+0800.*/, &#x27;&#x27;))</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h2 id="四、字体反爬专题"><a href="#四、字体反爬专题" class="headerlink" title="四、字体反爬专题"></a>四、字体反爬专题</h2><blockquote>
+<p><strong>字体反爬工作原理：</strong></p>
+<ol>
+<li><strong>字体文件替代字符映射：</strong>网页使用自定义字体文件，将常规的字符映射到不同的字形。例如，字母”A”在字体文件中可能被映射为一个特定的符号，而不是标准的字母形状。这样，即使在HTML源代码中看到了字母”A”，实际显示的可能是另一种字符。</li>
+<li><strong>动态生成字体文件：</strong>有些网站会在每次加载页面时动态生成字体文件，使得每次访问页面时，字体文件都会有所变化。这增加了破解字体映射的难度，因为爬虫需要每次重新分析字体文件。</li>
+</ol>
+</blockquote>
+<h3 id="1-字体文件格式"><a href="#1-字体文件格式" class="headerlink" title="1. 字体文件格式"></a>1. 字体文件格式</h3><ul>
+<li><strong>常见字体文件格式：</strong><ul>
+<li><strong>TTF：</strong>一种矢量字体格式，支持轮廓字形和平滑的曲线。用于 windows 操作系统、桌面应用程序和网页</li>
+<li><strong>OTF：</strong>一种可扩展的字体格式，TTF的改进版，支持 unicode 字符集。常用于印刷、出版和网页设计</li>
+<li><strong>FON：</strong>通常用于存储位图字体，不支持矢量图形，将每个字符表示为像素图。用于早期的 windows 系统</li>
+<li><strong>TTC：</strong>是 TrueType 字体的集合格式，包含多个字体文件。常用于节省空间，以便同时提供多个字体样式</li>
+<li><strong>SHX：</strong>一种 AutoCAD 使用的字体文件格式。常用于图形设计和 CAD 软件中，支持矢量图形和线框字形</li>
+<li><strong>EOT：</strong>由 Microsoft 开发的一种字体格式，支持字体子集化和压缩。主要用于早期浏览器中网页字体嵌入</li>
+<li><strong>WOFF：</strong>为 Web 优化的字体格式，是 TTF 和 OTF 的包装版，支持压缩和元数据。主要用于网页嵌入字体</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-字体文件处理"><a href="#2-字体文件处理" class="headerlink" title="2. 字体文件处理"></a>2. 字体文件处理</h3><blockquote>
+<p><strong>定位：</strong>一般通过 @font-face 定位字体映射文件的下载地址</p>
+<p><strong>解析：</strong>通过**<a class="link"   href="https://font.qqe2.com/"  target="_blank" rel="noopener">在线字体解析<i class="fas fa-external-link-alt"></i></a>**，将文件直接拖入解析，查看字体映射关系</p>
+<p><strong>分析：</strong>根据在线字体解析出的映射关系，分析<strong>网页源代码</strong>字体与文件映射关系的一一对应</p>
+</blockquote>
+<ul>
+<li><strong>反反爬策略：</strong><ol>
+<li>检查网页控件的字体名称，即 class 样式名称（对应 @font-face 中 font-family 的值）</li>
+<li>通过首页源码 @font-face 搜索、Network-Font面板、全局搜索 class 样式进行调试分析获取字体地址</li>
+<li>通过在线字体解析网站查看字体的映射关系，配合<strong>网页源代码</strong>分析</li>
+<li>通过页面刷新、下载查看字体，判断字体文件是否动态生成</li>
+<li>使用依赖库 fonttools 解析字体，根据元素内容生成新的键值对，对响应结果根据键值对进行内容替换</li>
+</ol>
+</li>
+<li><strong>工具库 fonttools 的使用：</strong><ul>
+<li><strong>cmap - 字符到字形映射：</strong>建立字符码和字形索引之间的映射，将文本字符映射到字体文件中的字形</li>
+<li><strong>glyf - 字形数据：</strong>包含了字体中每个字形的轮廓和其他相关数据。轮廓数据描述了字体中每个字符的形状</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">from fontTools.ttLib import TTFont</span><br><span class="line"></span><br><span class="line"># 加载字体文件</span><br><span class="line">font = TTFont(&#x27;file.woff&#x27;)</span><br><span class="line"># 保存为XML文件，包含了字体的结构和数据，方便进行查看和分析</span><br><span class="line">font.saveXML(&#x27;font.xml&#x27;)</span><br><span class="line"># 获取字体表键值，返回字体对象中包含的字体表的键值列表</span><br><span class="line">kv = font.keys()</span><br><span class="line">print(kv)  # [&#x27;GlyphOrder&#x27;, &#x27;head&#x27;, &#x27;hhea&#x27;, &#x27;maxp&#x27;, &#x27;OS/2&#x27;, &#x27;hmtx&#x27;, &#x27;cmap&#x27;, &#x27;loca&#x27;, &#x27;glyf&#x27;, &#x27;name&#x27;, &#x27;post&#x27;, &#x27;GSUB&#x27;]</span><br><span class="line"></span><br><span class="line"># 获取字符到字形映射表（code-&gt;name），即 Unicode 编码到字形索引的映射</span><br><span class="line">cmap = font.getBestCmap()</span><br><span class="line">print(cmap)  # &#123;57420: &#x27;uni77&#x27;, ......, 63673: &#x27;uni53&#x27;&#125;</span><br><span class="line"></span><br><span class="line"># 获取字形 uni30 的坐标信息，coordinates 属性返回字形的轮廓坐标</span><br><span class="line">print(font[&#x27;glyf&#x27;][&#x27;uni30&#x27;].coordinates)</span><br></pre></td></tr></table></figure>
+
+<h2 id="五、微信小程序专题"><a href="#五、微信小程序专题" class="headerlink" title="五、微信小程序专题"></a>五、微信小程序专题</h2><blockquote>
+<p><strong>微信小程序强制开启开发者工具：<a class="link"   href="https://github.com/JaveleyQAQ/WeChatOpenDevTools-Python"  target="_blank" rel="noopener">WeChatOpenDevTools-Python<i class="fas fa-external-link-alt"></i></a></strong></p>
+<p><strong>注意：只能在 windows 操作系统上使用！</strong></p>
+</blockquote>
+<ul>
+<li><strong>使用：</strong>根据工具教程，下载对应 vx 和小程序版本，运行 exe 可执行文件，登录 vx 后打开小程序即可抓包</li>
+</ul>
+
+                    
+                </div>
+
+                
+                        
+<div class="post-copyright-info-container border-box">
+    <div class="copyright-info-content border-box">
+        <div class="copyright-info-top border-box">
+            <div class="copyright-post-title border-box text-ellipsis">
+                JS逆向_1_基础入门
+            </div>
+
+            <div class="copyright-post-link border-box text-ellipsis">
+                2024/01/01/JS逆向_1_基础入门/
+            </div>
+        </div>
+
+        <div class="copyright-info-bottom border-box">
+            <div class="copyright-post-author bottom-item">
+                <div class="type">
+                    作者
+                </div>
+                <div class="content">xfblog</div>
+            </div>
+
+            <div class="post-time bottom-item">
+                <div class="type">
+                    发布于
+                </div>
+                <div class="content">2024-01-01 00:00</div>
+            </div>
+
+
+            <div class="post-license bottom-item">
+                <div class="type">
+                    许可
+                </div>
+                <div class="content tooltip" data-tooltip-content="CC BY-NC-SA 4.0">
+                    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hans" target="_blank">
+                        
+                            <i class="fa-brands fa-creative-commons"></i>
+                            <i class="fa-brands fa-creative-commons-by"></i>
+                            <i class="fa-brands fa-creative-commons-nc"></i>
+                            <i class="fa-brands fa-creative-commons-sa"></i>
+                        
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <i class="copyright-bg fa-solid fa-copyright"></i>
+    </div>
+    <div class="copy-copyright-info flex-center tooltip" data-tooltip-content="复制版权信息" data-tooltip-offset-y="-2px">
+        <i class="fa-solid fa-copy"></i>
+    </div>
+</div>
+
+                
+
+                <div class="post-bottom-tags-and-share border-box">
+                    <div>
+                        
+                            <ul class="post-tags-box border-box">
+                                
+                                    <li class="tag-item border-box">
+                                        <i class="icon fas fa-hashtag"></i>&nbsp;<a href="/tags/JS%E9%80%86%E5%90%91/">JS逆向</a>
+                                    </li>
+                                
+                                    <li class="tag-item border-box">
+                                        <i class="icon fas fa-hashtag"></i>&nbsp;<a href="/tags/%E7%88%AC%E8%99%AB/">爬虫</a>
+                                    </li>
+                                
+                                    <li class="tag-item border-box">
+                                        <i class="icon fas fa-hashtag"></i>&nbsp;<a href="/tags/Python/">Python</a>
+                                    </li>
+                                
+                            </ul>
+                        
+                    </div>
+                    <div>
+                        
+                            <div class="post-share-container border-box">
+    <ul class="share-list-wrap border-box">
+        <li class="qq share-item border-box flex-center tooltip"
+            data-tooltip-content="分享到 QQ"
+        >
+            <i class="fa-brands fa-qq"></i>
+        </li>
+        <li class="wechat share-item border-box flex-center tooltip tooltip-img"
+            data-tooltip-content="分享到微信"
+            data-tooltip-img-tip="微信扫一扫"
+            data-tooltip-img-style="background-color: #fff; top: -10px; padding: 0.6rem 0.6rem 0.1rem 0.6rem;"
+        >
+            <i class="fa-brands fa-weixin"></i>
+        </li>
+        <li class="weibo share-item border-box flex-center tooltip"
+            data-tooltip-content="分享到微博"
+        >
+            <i class="fa-brands fa-weibo"></i>
+        </li>
+    </ul>
+</div>
+
+                        
+                    </div>
+                </div>
+
+                
+                    
+
+<div class="reward-author-container border-box flex-center">
+    <div class="reward-btn border-box flex-center tooltip tooltip-img"
+            data-tooltip-img-url="/images/zfb.webp"
+            data-tooltip-img-trigger="click"
+            data-tooltip-img-style="top: -6px;"
+    >
+        <i class="fa-solid fa-gift"></i>&nbsp;创作不易，打赏随意，您的支持是我更新的动力💪！
+    </div>
+</div>
+
+                
+
+                
+                    <div class="post-nav border-box">
+                        
+                            <div class="prev-post">
+                                <a class="prev"
+                                   rel="prev"
+                                   href="/2024/03/01/JS%E9%80%86%E5%90%91_2_%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/"
+                                   title="JS逆向_2_加密算法"
+                                >
+                                    <span class="left arrow-icon flex-center">
+                                        <i class="fas fa-chevron-left"></i>
+                                    </span>
+                                    <span class="title flex-center">
+                                        <span class="post-nav-title-item text-ellipsis">JS逆向_2_加密算法</span>
+                                        <span class="post-nav-item">上一篇</span>
+                                    </span>
+                                </a>
+                            </div>
+                        
+                        
+                            <div class="next-post">
+                                <a class="next"
+                                   rel="next"
+                                   href="/2023/11/01/%E7%88%AC%E8%99%AB_3_Ubuntu%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE/"
+                                   title="爬虫_3_Ubuntu安装配置"
+                                >
+                                    <span class="title flex-center">
+                                        <span class="post-nav-title-item text-ellipsis">爬虫_3_Ubuntu安装配置</span>
+                                        <span class="post-nav-item">下一篇</span>
+                                    </span>
+                                    <span class="right arrow-icon flex-center">
+                                        <i class="fas fa-chevron-right"></i>
+                                    </span>
+                                </a>
+                            </div>
+                        
+                    </div>
+                
+
+                
+                    
+
+
+
+
+
+
+                
+            </div>
+        </div>
+
+        
+            <div class="pc-post-toc right-toc">
+                <div class="post-toc-wrap border-box">
+    <div class="post-toc border-box">
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81JS%E8%B0%83%E8%AF%95%E6%8A%80%E5%B7%A7"><span class="nav-text">一、JS调试技巧</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E6%B5%8F%E8%A7%88%E5%99%A8%E5%BC%80%E5%8F%91%E8%80%85%E5%B7%A5%E5%85%B7"><span class="nav-text">1. 浏览器开发者工具</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E6%96%AD%E7%82%B9%E5%AE%9A%E4%BD%8D"><span class="nav-text">2. 断点定位</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E6%96%B9%E6%B3%95%E6%A0%88%EF%BC%88%E8%B0%83%E7%94%A8%E5%A0%86%E6%A0%88%EF%BC%89"><span class="nav-text">3. 方法栈（调用堆栈）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-debugger-%E5%8F%8D%E8%B0%83"><span class="nav-text">4. debugger 反调</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-%E6%90%9C%E7%B4%A2%E5%85%B3%E9%94%AE%E5%AD%97"><span class="nav-text">5. 搜索关键字</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-%E5%90%AF%E5%8A%A8%E5%99%A8%E5%AE%9A%E4%BD%8D"><span class="nav-text">6. 启动器定位</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E8%A1%A5%E7%8E%AF%E5%A2%83"><span class="nav-text">二、补环境</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%9F%BA%E7%A1%80%E8%A1%A5%E7%8E%AF%E5%A2%83"><span class="nav-text">1. 基础补环境</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-VM2-%E6%A1%86%E6%9E%B6%E8%A1%A5%E7%8E%AF%E5%A2%83"><span class="nav-text">2. VM2 框架补环境</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81Python-%E4%B8%8E-JS-%E4%BA%92%E8%B0%83"><span class="nav-text">三、Python 与 JS 互调</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-pyexecjs-%E7%9B%B4%E6%8E%A5%E6%89%A7%E8%A1%8C-js"><span class="nav-text">1. pyexecjs 直接执行 js</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-express-%E5%90%AF%E5%8A%A8-node-%E6%9C%8D%E5%8A%A1"><span class="nav-text">2. express 启动 node 服务</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E5%AD%97%E4%BD%93%E5%8F%8D%E7%88%AC%E4%B8%93%E9%A2%98"><span class="nav-text">四、字体反爬专题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%AD%97%E4%BD%93%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F"><span class="nav-text">1. 字体文件格式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E5%AD%97%E4%BD%93%E6%96%87%E4%BB%B6%E5%A4%84%E7%90%86"><span class="nav-text">2. 字体文件处理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%94%E3%80%81%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E4%B8%93%E9%A2%98"><span class="nav-text">五、微信小程序专题</span></a></li></ol>
+    </div>
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+        </div>
+
+        <div class="page-main-content-bottom border-box">
+            
+<footer class="footer border-box">
+    <div class="copyright-info info-item">
+    Copyright&nbsp;&copy;&nbsp;<span>2021</span>&nbsp;-&nbsp;2024&nbsp;<a href="https://xfblog.cn/" target="_self">小傅博客</a>&nbsp;-&nbsp;All&nbsp;rights&nbsp;reserved.&nbsp;&nbsp;&nbsp;&nbsp;
+    
+            <!-- &nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;&nbsp;<a href="/">xfblog</a> -->
+        
+    </div>
+
+    <!-- <div class="theme-info info-item">
+        由&nbsp;<a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;驱动&nbsp;&&nbsp;主题&nbsp;<a class="keep-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep</a>
+    </div> -->
+
+    
+
+    
+
+    
+        <div class="record-info info-item">
+            
+                
+                    <div class="record-item border-box">
+                        <a class=""
+                           target="_blank"
+                           href="https://beian.miit.gov.cn"
+                        >
+                        
+                            蜀ICP备2021021033号-1
+                        </a>
+                    </div>
+                
+            
+                
+                    <div class="record-item border-box">
+                        <a class=""
+                           target="_blank"
+                           href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=51138102000134"
+                        >
+                        
+                            <!-- 在第二个 <a> 标签前插入图片 -->
+                            <img src="http://127.0.0.1:4000/images/icon.webp" style="vertical-align: top;">
+                        
+                            川公网安备 51138102000134号
+                        </a>
+                    </div>
+                
+            
+        </div>&nbsp;&nbsp;&nbsp;&nbsp;
+        
+</footer>
+
+        </div>
+    </div>
+
+    <!-- post tools -->
+    
+        <div class="post-tools right-toc">
+            <div class="post-tools-container border-box">
+    <ul class="post-tools-list border-box">
+        <!-- PC encrypt again -->
+        
+
+        <!-- PC TOC show toggle -->
+        
+            <li class="tools-item flex-center toggle-show-toc">
+                <i class="fas fa-list"></i>
+            </li>
+        
+
+        <!-- PC go comment -->
+        
+
+        <!-- PC full screen -->
+        <li class="tools-item flex-center full-screen">
+            <i class="fa-solid fa-expand"></i>
+        </li>
+    </ul>
+</div>
+
+        </div>
+    
+
+    <!-- side tools -->
+    <div class="side-tools">
+        <div class="side-tools-container border-box ">
+    <ul class="side-tools-list side-tools-show-handle border-box">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <!-- toggle mode -->
+        
+            <li class="tools-item tool-toggle-theme-mode flex-center">
+                <i class="fas fa-moon"></i>
+            </li>
+        
+
+        <!-- rss -->
+        
+            <li class="tools-item rss flex-center">
+                <a class="flex-center"
+                   href="/atom.xml"
+                   target="_blank"
+                >
+                    <i class="fas fa-rss"></i>
+                </a>
+            </li>
+        
+
+        <!-- to bottom -->
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list border-box">
+        
+            <li class="tools-item toggle-show-toc-tablet flex-center">
+                <i class="fas fa-list"></i>
+            </li>
+        
+
+        
+
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+
+        <li class="tools-item tool-scroll-to-top flex-center show-arrow">
+            <i class="arrow fas fa-arrow-up"></i>
+            <span class="percent"></span>
+        </li>
+    </ul>
+</div>
+
+    </div>
+
+    <!-- image mask -->
+    <div class="zoom-in-image-mask">
+    <img class="zoom-in-image">
+</div>
+
+
+    <!-- local search -->
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="close-popup-btn">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+    <!-- tablet toc -->
+    
+        <div class="tablet-post-toc-mask">
+            <div class="tablet-post-toc">
+                <div class="post-toc-wrap border-box">
+    <div class="post-toc border-box">
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81JS%E8%B0%83%E8%AF%95%E6%8A%80%E5%B7%A7"><span class="nav-text">一、JS调试技巧</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E6%B5%8F%E8%A7%88%E5%99%A8%E5%BC%80%E5%8F%91%E8%80%85%E5%B7%A5%E5%85%B7"><span class="nav-text">1. 浏览器开发者工具</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E6%96%AD%E7%82%B9%E5%AE%9A%E4%BD%8D"><span class="nav-text">2. 断点定位</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E6%96%B9%E6%B3%95%E6%A0%88%EF%BC%88%E8%B0%83%E7%94%A8%E5%A0%86%E6%A0%88%EF%BC%89"><span class="nav-text">3. 方法栈（调用堆栈）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-debugger-%E5%8F%8D%E8%B0%83"><span class="nav-text">4. debugger 反调</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-%E6%90%9C%E7%B4%A2%E5%85%B3%E9%94%AE%E5%AD%97"><span class="nav-text">5. 搜索关键字</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-%E5%90%AF%E5%8A%A8%E5%99%A8%E5%AE%9A%E4%BD%8D"><span class="nav-text">6. 启动器定位</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E8%A1%A5%E7%8E%AF%E5%A2%83"><span class="nav-text">二、补环境</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%9F%BA%E7%A1%80%E8%A1%A5%E7%8E%AF%E5%A2%83"><span class="nav-text">1. 基础补环境</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-VM2-%E6%A1%86%E6%9E%B6%E8%A1%A5%E7%8E%AF%E5%A2%83"><span class="nav-text">2. VM2 框架补环境</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81Python-%E4%B8%8E-JS-%E4%BA%92%E8%B0%83"><span class="nav-text">三、Python 与 JS 互调</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-pyexecjs-%E7%9B%B4%E6%8E%A5%E6%89%A7%E8%A1%8C-js"><span class="nav-text">1. pyexecjs 直接执行 js</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-express-%E5%90%AF%E5%8A%A8-node-%E6%9C%8D%E5%8A%A1"><span class="nav-text">2. express 启动 node 服务</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E5%AD%97%E4%BD%93%E5%8F%8D%E7%88%AC%E4%B8%93%E9%A2%98"><span class="nav-text">四、字体反爬专题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%AD%97%E4%BD%93%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F"><span class="nav-text">1. 字体文件格式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E5%AD%97%E4%BD%93%E6%96%87%E4%BB%B6%E5%A4%84%E7%90%86"><span class="nav-text">2. 字体文件处理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%94%E3%80%81%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E4%B8%93%E9%A2%98"><span class="nav-text">五、微信小程序专题</span></a></li></ol>
+    </div>
+</div>
+
+            </div>
+        </div>
+    
+</main>
+
+
+
+
+
+<!-- common js -->
+<script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.2.5/source/js/utils.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.2.5/source/js/header-shrink.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.2.5/source/js/back2top.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.2.5/source/js/toggle-theme.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.2.5/source/js/code-block.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.2.5/source/js/main.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.2.5/source/js/libs/anime.min.js"></script>
+
+<!-- local search -->
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.2.5/source/js/local-search.js"></script>
+
+
+<!-- lazyload -->
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.2.5/source/js/lazyload.js"></script>
+
+
+<div class="pjax">
+    <!-- home page -->
+    
+
+    <!-- post page -->
+    
+        <!-- post-helper -->
+        <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.2.5/source/js/post/post-helper.js"></script>
+
+        <!-- toc -->
+        
+            <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.2.5/source/js/post/toc.js"></script>
+        
+
+        <!-- copyright-info -->
+        
+            <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.2.5/source/js/post/copyright-info.js"></script>
+        
+
+        <!-- share -->
+        
+            <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.2.5/source/js/post/share.js"></script>
+        
+    
+
+    <!-- categories page -->
+    
+
+    <!-- links page -->
+    
+
+    <!-- photos page -->
+    
+
+    <!-- tools page -->
+    
+</div>
+
+<!-- mermaid -->
+
+
+<!-- pjax -->
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.2.5/source/js/libs/pjax.min.js"></script>
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            KEEP.utils.pjaxProgressBarStart()
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            KEEP.utils.pjaxProgressBarEnd()
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'))
+            KEEP.initExecute()
+        });
+    });
+</script>
+
+
+
+
+    
+        
+            
+<script class="custom-inject-js" src="/js/run_time.js" data-pjax></script>
+
+        
+    
+        
+            
+<script class="custom-inject-js" src="/js/code_click_copy.js" data-pjax></script>
+
+        
+    
+        
+            
+<script class="custom-inject-js" src="/js/copyrightpro.js" data-pjax></script>
+
+        
+    
+
+</body>
+</html>
