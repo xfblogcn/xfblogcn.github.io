@@ -301,7 +301,7 @@
             
                 <span class="meta-info-item post-update-date">
                     <i class="icon fa-solid fa-file-pen"></i>&nbsp;
-                    <span class="datetime" data-updated="Tue Dec 03 2024 17:28:30 GMT+0800">2024-12-03</span>
+                    <span class="datetime" data-updated="Tue Dec 03 2024 17:54:05 GMT+0800">2024-12-03</span>
                 </span>
             
         
@@ -377,7 +377,7 @@
 <img    
                        lazyload
                        alt="image"
-                       data-src="https://xfblog.cn/1701832575-05e785c7a0438d6.webp"
+                       data-src="https://xfblog.cn/images/1701832575-05e785c7a0438d6.webp"
                          style="width:80%;margin:0 auto;"
                  >
 
@@ -740,7 +740,7 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">&quot;&quot;&quot; scrapy-redis配置 &quot;&quot;&quot;</span><br><span class="line"># （使用 scrapy_redis 调度器）指定用于管理请求调度的类</span><br><span class="line">SCHEDULER = &quot;scrapy_redis.scheduler.Scheduler&quot;</span><br><span class="line"># （使用 scrapy_redis 去重器）指定用于管理重复请求的类</span><br><span class="line">DUPEFILTER_CLASS = &quot;scrapy_redis.dupefilter.RFPDupeFilter&quot;</span><br><span class="line">&quot;&quot;&quot;可以替换成布隆过滤器：</span><br><span class="line">pip install scrapy-redis-bloomfilter</span><br><span class="line">from scrapy_redis_bloomfilter.dupefilter import RFPDupeFilter</span><br><span class="line">DUPEFILTER_CLASS = &#x27;scrapy_redis_bloomfilter.dupefilter.RFPDupeFilter&#x27;</span><br><span class="line">&quot;&quot;&quot;</span><br><span class="line"># （调度器持久化）是否在关闭时候保留原来的调度器和去重记录，True=保留，False=清空</span><br><span class="line">SCHEDULER_PERSIST = True</span><br><span class="line"># （设置 redis 连接信息）这里表示 Redis 运行在本地机器上，使用默认端口 6379 和数据库0</span><br><span class="line">REDIS_URL = &quot;redis://127.0.0.1:6379/0&quot;</span><br><span class="line"></span><br><span class="line"># （调度器队列类）指定用于管理优先级队列的类</span><br><span class="line">SCHEDULER_QUEUE_CLASS = &#x27;scrapy_redis.queue.PriorityQueue&#x27;  # （优先级队列）</span><br><span class="line"># SCHEDULER_QUEUE_CLASS = &#x27;scrapy_redis.queue.FifoQueue&#x27;  # （先进先出队列）</span><br><span class="line"># SCHEDULER_QUEUE_CLASS = &#x27;scrapy_redis.queue.LifoQueue&#x27;  # （先进后出/后进先出队列）</span><br><span class="line"></span><br><span class="line"># （启动时清空调度器）默认为False，True表示调度器将在启动时清空所有待处理的请求和去重过滤器，一般不配置</span><br><span class="line"># SCHEDULER_FLUSH_ON_START = True</span><br></pre></td></tr></table></figure>
 
 <h2 id="九、Scrapy-Redis分布式爬虫"><a href="#九、Scrapy-Redis分布式爬虫" class="headerlink" title="九、Scrapy_Redis分布式爬虫"></a>九、Scrapy_Redis分布式爬虫</h2><blockquote>
-<p>**注意：学习使用 ubuntu-18.04.6 版本虚拟机模拟实现分布式爬虫（<a class="link"   href="https://xfblog.cn/2023/12/25/ubuntu-18-04-6%e5%ae%89%e8%a3%85%e9%85%8d%e7%bd%ae/"  target="_blank" rel="noopener">ubuntu-18.04.6安装配置<i class="fas fa-external-link-alt"></i></a>**）</p>
+<p>**注意：学习使用 ubuntu-18.04.6 版本虚拟机模拟实现分布式爬虫（<a class="link"   href="https://xfblog.cn/2023/11/01/%E7%88%AC%E8%99%AB_3_Ubuntu%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE/"  target="_blank" rel="noopener">ubuntu-18.04.6安装配置<i class="fas fa-external-link-alt"></i></a>**）</p>
 <p><strong>引入：为什么要使用 scrapy_redis 做分布式爬虫？</strong></p>
 <ul>
 <li>在单机爬虫中，所有请求对象 requests 都是直接存放在内存中的，除主机外的其他电脑是不可能访问到主机的内存的，所以借助 scrapy_redis 将原本存储在内存中的数据放到了 Redis 队列中，利用 Redis 高效和支持网络访问的特性，便可以实现多台电脑读取同一个 Redis 队列中的数据，从而实现分布式爬虫</li>
@@ -764,7 +764,7 @@
 <img    
                        lazyload
                        alt="image"
-                       data-src="https://xfblog.cn/1703165509-14b9d3416aa3a54.png"
+                       data-src="https://xfblog.cn/images/1703165509-14b9d3416aa3a54.png"
                          style="width:80%;margin:0 auto;"
                  >
 
@@ -1123,7 +1123,7 @@
                         >
                         
                             <!-- 在第二个 <a> 标签前插入图片 -->
-                            <img src="http://127.0.0.1:4000/images/icon.webp" style="vertical-align: top;">
+                            <img src="http://xfblog.cn/images/icon.webp" style="vertical-align: top;">
                         
                             川公网安备 51138102000134号
                         </a>
