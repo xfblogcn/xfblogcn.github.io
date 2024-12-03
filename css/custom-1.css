@@ -15,5 +15,8 @@
     --page-content-max-width: 1200px;
 }
 .post-page-container .pc-post-toc.right-toc {
-    padding: 2rem 0 1rem 0.5rem;
+    padding: 0.5rem 0 1rem 0.5rem;
+}
+.post-page-container .pc-post-toc {
+    width: 18rem;
 }
