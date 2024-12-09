@@ -18,7 +18,7 @@ if (!window.runningTime) {
 
         setInterval(() => {
             tempDiv.innerHTML = '本站已安全运行 ' + formatTimestamp(new Date(since).getTime());
-            console.clear();
+            // console.clear();
         }, 1000)
     }
 }
