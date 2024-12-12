@@ -20,3 +20,9 @@
 .post-page-container .pc-post-toc {
     width: 18rem;
 }
+
+/* 子菜单样式调整 */
+.header-wrapper .header-content .right .pc .menu-list .sub-menu-list {
+    flex-flow: column;
+    bottom: -500%;
+}
