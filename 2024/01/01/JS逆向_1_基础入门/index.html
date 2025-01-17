@@ -367,7 +367,7 @@
             
                 <span class="meta-info-item post-update-date">
                     <i class="icon fa-solid fa-file-pen"></i>&nbsp;
-                    <span class="datetime" data-updated="Sat Dec 21 2024 11:08:12 GMT+0800">2024-12-21</span>
+                    <span class="datetime" data-updated="Wed Jan 15 2025 17:53:53 GMT+0800">2025-01-15</span>
                 </span>
             
         
@@ -403,12 +403,12 @@
         
         
             <span class="meta-info-item post-wordcount">
-                <i class="icon fas fa-file-word"></i>&nbsp;<span>4.8k 字</span>
+                <i class="icon fas fa-file-word"></i>&nbsp;<span>9.2k 字</span>
             </span>
         
         
             <span class="meta-info-item post-min2read">
-                <i class="icon fas fa-clock"></i>&nbsp;<span>19 分钟</span>
+                <i class="icon fas fa-clock"></i>&nbsp;<span>35 分钟</span>
             </span>
         
         
@@ -694,6 +694,170 @@
 <ul>
 <li><strong>使用：</strong>根据工具教程，下载对应 vx 和小程序版本，运行 exe 可执行文件，登录 vx 后打开小程序即可抓包</li>
 </ul>
+<h2 id="六、逆向技巧专题"><a href="#六、逆向技巧专题" class="headerlink" title="六、逆向技巧专题"></a>六、逆向技巧专题</h2><blockquote>
+<p><strong>基础爬虫知识：</strong></p>
+<ul>
+<li>通过浏览器直接访问的方式无法发送 get 以外的请求</li>
+<li>实现 post 请求时，参数 data 和 headers 尽量都使用关键字实参，如果 data 中携带的某一字段值为空，则需使用空字符串””代替，而不是 None</li>
+<li>请求移动端获取的数据接口时，请求头的 user-agent 也一定要用移动端的</li>
+</ul>
+<p><strong>请求参数最终是以 Content-Type 字段确定参数类型的：</strong></p>
+<ul>
+<li><strong>get请求[查询字符串参数]：</strong>显现的，需要通过 request.get() 方法中的 params 参数传递，可以不完整</li>
+<li><strong>post请求[表单数据]：</strong>隐藏的，需要通过 request.post() 方法中的 data 参数传递，必须完整</li>
+<li><strong>post请求[请求载荷]：</strong>隐藏的，需要通过 request.post() 方法中的 json 参数传递，必须完整</li>
+<li><strong>post请求[请求载荷] + <code>&quot;Content-Type&quot;: &quot;application/octet-stream&quot;</code>：</strong>需要 request.post() 方法的 data 参数<strong>传递 bytes 类型数据</strong></li>
+</ul>
+<p><strong><span style="color:red;">查询字符串参数构建（url 后缀）：</span></strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">import urllib.parse</span><br><span class="line"></span><br><span class="line">urllib.parse.urlencode(params)  # key1=value1&amp;key2=value2&amp;key3=value3</span><br></pre></td></tr></table></figure>
+</blockquote>
+<h3 id="1-特殊逆向代码"><a href="#1-特殊逆向代码" class="headerlink" title="1. 特殊逆向代码"></a>1. 特殊逆向代码</h3><ul>
+<li><p><strong>逗号表达式（最后一个逗号的值）：</strong></p>
+<ul>
+<li><strong>用法：</strong>逗号分隔，按照从左到右的顺序执行其中的每个子表达式，但返回值是最后一个子表达式的值</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(0, i[jt])((0, i[qt])(a, d))  // 等价于i[jt](i[qt](a, d))</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>导出模块中的默认成员（对象、函数、类等）：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">// 这里 export default 导出了一个包含两个方法的对象</span><br><span class="line">// 由于 js 的特性，第二个 newGuid 的定义会覆盖第一个，因为它们都使用相同的名称</span><br><span class="line">// 这个方法接受一个名为 format 的参数</span><br><span class="line">export default &#123;</span><br><span class="line">    newGuid()&#123;</span><br><span class="line">        return Guid.NewGuid().ToString(&#x27;N&#x27;).toUpperCase();</span><br><span class="line">    &#125;,</span><br><span class="line">    newGuid(format)&#123;</span><br><span class="line">        return Guid.NewGuid().ToString(format);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>函数return的是逗号表达式：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">var s, u = (s = null, function () &#123;</span><br><span class="line">        return s || (s = function () &#123;</span><br><span class="line">            var e, t, n, r, i = null;</span><br><span class="line">            return i || (t = new RegExp(&quot;\\u200c&quot;, &quot;g&quot;),</span><br><span class="line">                n = new RegExp(&quot;\\u200d&quot;, &quot;g&quot;),</span><br><span class="line">                r = new RegExp(&quot;.&#123;8&#125;&quot;, &quot;g&quot;),</span><br><span class="line">                e = &quot;asdasdasd&quot;,</span><br><span class="line">                i = &#123;key: o.enc.Utf8.parse(e)&#125;),</span><br><span class="line">                i  // 逗号表达式</span><br><span class="line">        &#125;()),</span><br><span class="line">            s  // 逗号表达式</span><br><span class="line">    &#125;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>return另一个对象，直接赋值此对象即可：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">function() &#123;</span><br><span class="line">    return new d</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>自执行入口模块的webpack（全自执行）：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">var protobuf_min = &#123;</span><br><span class="line">    exports: &#123;&#125;  // 创建一个对象用于存储模块的导出内容</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">(function (module) &#123;</span><br><span class="line">    // 定义一个立即执行函数，传入一个参数 module</span><br><span class="line"></span><br><span class="line">    !function (g) &#123;</span><br><span class="line">        var r, e, t, i;</span><br><span class="line"></span><br><span class="line">        r = &#123;  // webpack的模块</span><br><span class="line">            1: [&#x27;&#x27;],</span><br><span class="line">            2: [&#x27;&#x27;],</span><br><span class="line">            3: [&#x27;&#x27;],</span><br><span class="line">            // ......</span><br><span class="line">            39: [&#x27;&#x27;]</span><br><span class="line">        &#125;,</span><br><span class="line">            e = &#123;&#125;,</span><br><span class="line">            t = [16],</span><br><span class="line"></span><br><span class="line">            i = function t(n) &#123;</span><br><span class="line">                // 定义一个递归函数 i，接受一个参数 n</span><br><span class="line">                var o = e[n];</span><br><span class="line">                // 从 e 对象中获取键为 n 的值</span><br><span class="line">                return o || r[n][0].call(o = e[n] = &#123;</span><br><span class="line">                    exports: &#123;&#125;</span><br><span class="line">                &#125;, t, o, o.exports),</span><br><span class="line">                    // 如果 o 不存在，调用 r[n][0] 函数，并将其返回值赋给 o</span><br><span class="line">                    o.exports</span><br><span class="line">                // 返回 o 对象的 exports 属性</span><br><span class="line">            &#125;(t[0]),</span><br><span class="line">            // 调用 i 函数，传入参数 t[0]，并将结果赋给 i</span><br><span class="line"></span><br><span class="line">            i.util.global.protobuf = i,</span><br><span class="line">            // 将 i 对象赋给 i.util.global.protobuf 属性</span><br><span class="line"></span><br><span class="line">        module &amp;&amp; module.exports &amp;&amp; (module.exports = i);</span><br><span class="line">        // 如果 module 和 module.exports 存在，则将 i 对象赋给 module.exports</span><br><span class="line">    &#125;();</span><br><span class="line"></span><br><span class="line">&#125;)(protobuf_min);  // 将 protobuf_min 作为参数传入外层的立即执行函数</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="2-定位加密总结"><a href="#2-定位加密总结" class="headerlink" title="2. 定位加密总结"></a>2. 定位加密总结</h3><blockquote>
+<p><strong>注意：调试时需要调试至需要逆向的参数或数据对应的密文数据出现时，即正确的密文出现时再跟栈</strong></p>
+<ul>
+<li>其中<strong>响应数据加密：</strong>可以调试至明文数据出现时<strong>向上跟一个栈后分析代码，解密逻辑一般在 JSON.parse 附近或里面</strong>。也可以调试至密文数据出现时<strong>向下调试</strong>（不建议），观察数据什么时候变成明文</li>
+<li><strong>注意：不能调试至明文数据出现时，不向上跟栈而直接向下调试</strong>，因为这可能存在解密后的数据重新复制给了加密变量的情况，导致无法观察到密文数据，也就无法判断解密逻辑存在于哪里</li>
+<li>其中<strong>参数加密：</strong>如果参数被赋值给了另一个变量，那么应该去找那个变量的赋值位置，例 **<code>wo=&quot;X-Tingyun&quot;</code>**，则需要找 wo 的赋值位置即是 X-Tingyun 的赋值位置 <strong><code>t.addHeader(wo, i)</code></strong></li>
+</ul>
+</blockquote>
+<ul>
+<li><strong><span style="color:red;">根据加密数据分析+搜索关键字定位：</span></strong></li>
+</ul>
+<img    
+                       lazyload
+                       alt="image"
+                       data-src="https://xfblog.cn/images/1705927789-ee046979a73c226.png"
+                         style="width:80%;margin:0 auto;"
+                 >
+
+<ul>
+<li><strong><span style="color:red;">响应数据加密：</span></strong><ol>
+<li><strong>Hook JSON.parse(parmas)：</strong>监视参数 parmas 的变化</li>
+<li><strong>XHR 断点</strong>：ajax 调用时会通过 <strong>success、then、done</strong> 设置处理（解密）响应数据的回调函数</li>
+</ol>
+</li>
+<li><strong><span style="color:red;">查询字符串参数加密：</span></strong><ol>
+<li><strong>Hook XHR open</strong>：open 方法的参数 url 中包含被加密的查询字符串参数</li>
+</ol>
+</li>
+<li><strong><span style="color:red;">表单数据&#x2F;请求载荷参数加密：</span></strong><ol>
+<li><strong>Hook JSON.stringify(parmas)：</strong>监视参数 parmas 的变化，<strong>调试至正确的密文数据出现时跟栈</strong></li>
+</ol>
+</li>
+<li><strong><span style="color:red;">请求头headers中参数加密：</span></strong><ol>
+<li><strong>Hook XHR setRequestHeader：</strong>setRequestHeader是在 open 方法之后、send 方法之前调用的</li>
+<li><strong><span style="color:red;">参数的key和value都被加密：</span><strong>此时无法再 Hook 关键字了，只能直接 Hook 整个 setRequestHeader，但是这将会 Hook 到全部的参数信息，可以</strong>调试至需要的密文数据出现后再跟栈</strong></li>
+<li><strong>XHR断点：</strong>setRequestHeader 方法是在 open 之后、send 之前调用的</li>
+</ol>
+</li>
+<li><strong><span style="color:red;">cookies加密：</span></strong><ol>
+<li><strong>Hook Object.defineProperty：</strong>Hook 前需要先清除浏览器Cookie</li>
+</ol>
+</li>
+</ul>
+<h3 id="3-调试问题记录"><a href="#3-调试问题记录" class="headerlink" title="3. 调试问题记录"></a>3. 调试问题记录</h3><ul>
+<li><strong>代码在 js 中调用正常，在 python 调用异常：</strong><ol>
+<li><strong>考虑是否是 python 获取的数据有问题</strong>，可以将数据拿到 js 代码运行一下，如果有问题可以跟网页上的数据对比一下，看看是否是因为被反爬了服务器返回了假数据</li>
+<li><strong>考虑是否是传递的参数格式有问题：</strong>同样是将对象转换成字符串，<strong>最大的区别就是 JSON.stringify 不会对非 ASCII 字符进行编码处理；而 json.dumps 会使用 ASCII 编码来处理非ASCII字符（如汉字）</strong>。在通过 python 调用 js 并传递请求参数过去加密时，应该在 python 中通过 json.dumps 方法进行转换后再传递；而不是直接传递过去，再在 js 中通过 JSON.stringify 方法进行转换，这样才能保证最终在 python 中对数据 api 发起请求时所携带的请求参数格式和加密的请求参数格式一致</li>
+<li><strong>考虑是否是传递数据的字符串两端有引号： <code>json.dumps(params).strip(&#39;&quot;&#39;)</code></strong></li>
+<li><strong>考虑是否是传递数据的字符串中有”美化”空格：<code>json.dumps(params).replace(&#39; &#39;, &#39;&#39;)</code></strong></li>
+<li><strong>确保在 js 代码中使用的数据是对象而不是字符串：</strong>直接在加密逻辑的函数内部进行 <strong><code>JSON.parse</code></strong> 转换</li>
+</ol>
+</li>
+<li><strong>解决无法正常使用开发者工具：</strong><ol>
+<li>观察页面特征：页面跳转对应关键字<code>window.location</code>，页面关闭对应关键字<code>window.close()</code></li>
+<li>观察控制台面板特征：输出”控制台数据已被清除”或 “undefine”，对应关键字<code>console.clear()</code></li>
+<li><strong>解决：</strong>使用无痕浏览器打开网站（<strong>避免插件 js 文件过多</strong>），开启 “<strong>源代码&#x2F;来源</strong>“ 面板右侧 “<strong>事件监听器断点</strong>“ 的 “<strong>脚本</strong>“，这可以断住网站加载执行的每一个 js 脚本，进行调试和搜索特征对应的关键字，定位到位置后进行”<strong>替换内容</strong>“</li>
+<li><strong>如果网站通过页面大小尺寸检测开发者工具是否打开：</strong>可以直接抽离开发者工具</li>
+</ol>
+</li>
+</ul>
+<h3 id="4-代码调试专题"><a href="#4-代码调试专题" class="headerlink" title="4. 代码调试专题"></a>4. 代码调试专题</h3><blockquote>
+<p><strong>明确：</strong>首先一定要先明确自己需要加密或解密的数据，在跟栈过程中要时刻观察数据值的变化以确定位置</p>
+<p><strong>分析：分析加密时一定要先去校验这个参数是否需要逆向，可能不携带也能请求成功（通常指请求头参数）</strong></p>
+<p><strong>注意：<span style="color:red;">JavaScript 中的对象是动态的，可以先定义后逐步赋值</span></strong></p>
+</blockquote>
+<ul>
+<li><strong>调试技巧：</strong><ol>
+<li><strong>栈堆的帧对应代码作用域，必须确保使用 Hook 时和无限 debugger 在同一个作用域</strong>，才能 Hook 成功</li>
+<li>断点调试时，断点的位置非常重要，<strong>不要断在还没有调用的函数中</strong>，函数内部要断在一定会走的逻辑</li>
+<li>调试方法时<strong>先看返回值</strong>，逻辑代码中要分析出无效逻辑，只读代码走的部分，<strong>补代码时与网页保持一致</strong></li>
+<li><strong>考虑一长串数据是不是固定值</strong>，先直接搜索数据确定是否是写死数据，搜不到则需要找到数据生成位置，打上断点进行调试，如果走不进断点，则说明数据是<strong>页面刷新时生成的</strong>，且只生成一次。如果是常量，则可以直接写死，不影响加密结果；如果是对象（<strong>webpack</strong>），则可以直接将整个对象（<strong>加载器</strong>）拿下来</li>
+<li><strong>在调试至异步栈的上一帧观察数据时</strong>，需要先观察数据是否是在异步栈之前就已经被加密过了，而不是在异步中加密的，<strong>此时不能直接观察</strong>，而是打上断点重新请求调试观察，避免作用域问题导致数据不准确</li>
+<li>在 XHR 断点定位调试中，如果要找 ajax 的回调函数，那么在跟栈时<strong>注意观察在调用 ajax 的帧的附近的一两个栈</strong>，避免找错真正调用 ajax 的栈</li>
+<li><strong>观察接口的启动器中是否有异步的代码</strong>，如果没有异步，那么通过XHR断点是方便跟栈定位到加密位置的</li>
+<li>在对称加密算法中，<strong>key 和 iv 一定是固定的</strong>，因为对称加密算法加密和解密必须使用相同的密钥</li>
+<li>在 RSA 非对称加密中，<strong>公钥</strong>也有可能不是直接写死在代码中，而是<strong>从请求另一个接口的响应中获取</strong></li>
+</ol>
+</li>
+<li><strong>补代码技巧：</strong><ol>
+<li>遇到非 window 对象调用方法，或者在 <strong>new</strong> 一个非 window 对象时，并且进入被调用方法内部看到 <strong>this</strong> 调用，此时可以将整个”类”对象的定义扣下来，而不单独扣某个函数，<strong>包括附近用到这个”类”的所有自执行方法，自执行方法也可以为对象<span style="color:red;">动态赋值</span></strong></li>
+<li>遵守从里到外逐层加密的原则，贴着函数找数据生成的位置，如果<strong>和实际生成的数据的不一致</strong>，那可能是在函数外面的下面进行了二次**<span style="color:red;">动态赋值</span><strong>，而函数调用在赋值之后导致的（</strong>在数据生成位置打断点调试**）</li>
+<li><strong>自执行方法为形参赋值</strong>，导致找不到对象e的生成位置，例 <strong><code>(function(e)&#123;&#125;).call(this, n(&quot;b639&quot;))</code></strong></li>
+<li>补代码时<strong>无效逻辑代码和异常捕获代码都要删除，补的每段代码的位置一定要和浏览器保持一致</strong></li>
+<li>找到网站的加密算法，<strong>一定要对比它是不是一个标准的加密算法</strong>，可以加密同样的值进行对比</li>
+<li><strong>时间戳：</strong>要确保各参数使用的时间戳一致，还要确保 python 和 js 使用的是同一时间戳（<strong>注意长度相同</strong>）</li>
+<li><strong>遇到 <code>window.属性</code> 赋值位置找不到（常量）</strong>，可以在源代码搜索，大概率存在于<strong>首页</strong> document 文档中</li>
+<li><strong>遇到 <code>window.方法</code> 在环境中报错（方法）</strong>，直接补环境，也可能是 node 中本身就有的方法（<strong>atob</strong>）</li>
+<li><strong>遇到 window 中的环境在 node 中没有</strong>，可以直接让包含环境的那块代码的结果与浏览器保持一致即可</li>
+</ol>
+</li>
+</ul>
+<h3 id="5-Webpack专题"><a href="#5-Webpack专题" class="headerlink" title="5. Webpack专题"></a>5. Webpack专题</h3><ol>
+<li>如果遇到 <strong>obj.func</strong> 的代码，但是<strong>方法的属性 name 值与 func 不一致</strong>，这可能是因为 webpack 打包后改变了函数调用的名称，此时可以先找一下 obj 的生成。或者直接进入函数，看函数是否是在 webpack 打包后的模块（**<code>function(e, t, n)&#123;&#125;</code>**）中，此时也应该找 obj 的生成，不建议直接扣函数</li>
+<li><strong>就算方法的 name 值与 func 一致</strong>，由于 webpack 常见，也应该注意 obj 的生成是否是 webpack 格式</li>
+<li><strong>加载器和模块都补完的情况下代码仍然报 call 错误，</strong>可能是由于加载器没有接受模块形参，需要手动补上</li>
+<li><strong>加载器执行模块后程序无法退出，</strong>可能是因为加载器内使用了定时器无限执行，可以<strong>置空定时器方法</strong>解决</li>
+<li>在导出加载器时，<strong>一定要注释掉加载器自己调用的模块</strong>，否则会调用很多无用模块</li>
+</ol>
+<h3 id="6-OB混淆专题"><a href="#6-OB混淆专题" class="headerlink" title="6. OB混淆专题"></a>6. OB混淆专题</h3><ol>
+<li>扣代码时，后面跟括号的则是方法，<strong>中括号内的属性可以直接还原</strong>，而外层的整体的方法需要扣</li>
+<li><strong>请求头中 Content-Type 值为 octet-stream，表示请求携带的数据类型是通用的二进制流媒体类型，需post请求传递 bytes 类型数据，即<code>requests.post(url..., data=bytes(b_data[&#39;data&#39;])</code></strong></li>
+<li>补混淆代码时，其结果生成的数据与网页不一致，那么说明补代码时，<strong>缺少了重构数组的自执行方法</strong></li>
+<li><strong>代码阻塞不执行：</strong>有两种可能，说明存在检测代码格式化，<strong>需要压缩混淆代码</strong>，也有可能是存在定时器</li>
+</ol>
+<h3 id="7-jsvmp技术专题"><a href="#7-jsvmp技术专题" class="headerlink" title="7. jsvmp技术专题"></a>7. jsvmp技术专题</h3><ol>
+<li><strong>jsvmp代码一般采用全扣，通过日志断点（插桩）或者条件断点调试代码，从而补环境还原算法</strong></li>
+<li><strong>断点调试：</strong>jsvmp代码只在页面刷新时加载一次，调试时需要刷新网页才能走进断点（<strong>当断点无法进入时，第一要考虑是否是断点位置错误，一行中有多个断点位置的可能，可能断点的位置逻辑并没有走；第二要考虑是否断点位置的数据已经生成了，需要刷新网页重新生成</strong>）</li>
+<li><strong>补环境后无报错，但数据不对（1）：</strong>在调用解释器识别字节码时，往往<strong>在字节码参数后面，还会跟上环境检测的代码参数</strong>，此时需要修改检测条件模拟浏览器环境（例 exports、module）</li>
+</ol>
+<h3 id="8-补环境专题"><a href="#8-补环境专题" class="headerlink" title="8. 补环境专题"></a>8. 补环境专题</h3><ol>
+<li><strong>吐环境脚本不吐环境：</strong>可能是 console.log 被置空，可以将其在吐环境脚本中赋值给其他变量，并替换使用</li>
+<li><strong>吐环境脚本使用：</strong>全局导出数据时，<strong>get 总发生在 set 之前</strong>，说明可能在 set 时<strong>存在定时器</strong>，去掉定时器即可</li>
+<li><strong>导出方法技巧：如果方法不好导出，那就调试，与浏览器同步调试，看哪个参数或返回值与浏览器不一致</strong></li>
+<li><strong>遇到异常报错 ReferenceError: xxx is not defined：</strong>最重要的是和网页保持一致，先确定 xxx 在网页中是什么，是对象则补空对象，是函数则补空函数（补空的前提是对整体代码，对数据无影响）</li>
+<li><strong>遇到异常报错 TypeError: Cannot read properties of undefined (reading ‘xxx’)：</strong>无法读取未定义的属性或方法。如果是 js 内置属性，那么则需要补调用它的对象值；如果是环境属性不存在，则直接补对应网页一致的属性值；如果是解密方法不存在，且环境已经补好，则说明还存在环境检测没有处理</li>
+<li><strong>遇到异常报错 TypeError: Cannot set properties of undefined (setting ‘display’)：</strong>无法设置属性值 display，在 css 中通过 style 样式设置其属性，所以补环境 <code>&#123;return &#123;style: &#123;display: &#123;&#125;&#125;&#125;&#125;</code></li>
+<li><strong>补环境后无报错，但数据不对（2）：</strong>对于吐环境脚本中属性值类型为 undefined 的环境，可能还需要进一步与网页环境值保持一致。其中对于关键环境，例如 cookie、userAgent 等，可能存在在代码中对环境值进行置空或修改的情况，此时可以打印具体环境值进行确定，并通过在所有代码后方补关键环境解决</li>
+<li><strong>补环境后无报错，但数据不对（3）：</strong>可能存在环境检测中的 toString 检测，可搜索 <code>native code</code> 或 <code>toString</code> 关键字确定代码中是否有 toString 检测</li>
+</ol>
+<h3 id="9-Cookie反爬专题"><a href="#9-Cookie反爬专题" class="headerlink" title="9. Cookie反爬专题"></a>9. Cookie反爬专题</h3><blockquote>
+<p><strong>重点：<span style="color:red;">Cookie反爬中，生成 Cookie 的代码文件是动态的，每一次请求所返回的代码都不一样，下断点后刷新网页，断点便不再是原始代码位置，此时可以替换文件下断点解决问题</span></strong></p>
+</blockquote>
+<ol>
+<li><strong>在每一次断点调试前，一定要清空 Cookie 值，因为如果 Cookie 一直不失效，可能就一直进入无法断点</strong></li>
+<li><strong>HttpOnly属性：</strong>当服务器在设置 Cookie 时将 HTTPOnly 属性设为 true 时，意味着该 Cookie 将不能被 JavaScript 脚本访问，仅能在 HTTP 请求中被发送到服务器端（<strong>即该 Cookie 只能在服务器响应中设置</strong>）</li>
+<li>网络面板的 Cookie 日志中，<strong>请求 Cookie</strong> 对应请求头中携带的 Cookie，<strong>响应 Cookie</strong> 对应服务器响应设置的 Cookie 或服务器响应的 js 代码生成的 Cookie</li>
+<li><strong>在测试补瑞数环境时，meat 标签 content 属性、自执行 js 函数，外链 js 代码，都必须实时，且缺一不可</strong></li>
+</ol>
 
                     
                 </div>
@@ -872,7 +1036,7 @@
             <div class="pc-post-toc right-toc">
                 <div class="post-toc-wrap border-box">
     <div class="post-toc border-box">
-        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81JS%E8%B0%83%E8%AF%95%E6%8A%80%E5%B7%A7"><span class="nav-text">一、JS调试技巧</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E6%B5%8F%E8%A7%88%E5%99%A8%E5%BC%80%E5%8F%91%E8%80%85%E5%B7%A5%E5%85%B7"><span class="nav-text">1. 浏览器开发者工具</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E6%96%AD%E7%82%B9%E5%AE%9A%E4%BD%8D"><span class="nav-text">2. 断点定位</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E6%96%B9%E6%B3%95%E6%A0%88%EF%BC%88%E8%B0%83%E7%94%A8%E5%A0%86%E6%A0%88%EF%BC%89"><span class="nav-text">3. 方法栈（调用堆栈）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-debugger-%E5%8F%8D%E8%B0%83"><span class="nav-text">4. debugger 反调</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-%E6%90%9C%E7%B4%A2%E5%85%B3%E9%94%AE%E5%AD%97"><span class="nav-text">5. 搜索关键字</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-%E5%90%AF%E5%8A%A8%E5%99%A8%E5%AE%9A%E4%BD%8D"><span class="nav-text">6. 启动器定位</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E8%A1%A5%E7%8E%AF%E5%A2%83"><span class="nav-text">二、补环境</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%9F%BA%E7%A1%80%E8%A1%A5%E7%8E%AF%E5%A2%83"><span class="nav-text">1. 基础补环境</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-VM2-%E6%A1%86%E6%9E%B6%E8%A1%A5%E7%8E%AF%E5%A2%83"><span class="nav-text">2. VM2 框架补环境</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81Python-%E4%B8%8E-JS-%E4%BA%92%E8%B0%83"><span class="nav-text">三、Python 与 JS 互调</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-pyexecjs-%E7%9B%B4%E6%8E%A5%E6%89%A7%E8%A1%8C-js"><span class="nav-text">1. pyexecjs 直接执行 js</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-express-%E5%90%AF%E5%8A%A8-node-%E6%9C%8D%E5%8A%A1"><span class="nav-text">2. express 启动 node 服务</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E5%AD%97%E4%BD%93%E5%8F%8D%E7%88%AC%E4%B8%93%E9%A2%98"><span class="nav-text">四、字体反爬专题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%AD%97%E4%BD%93%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F"><span class="nav-text">1. 字体文件格式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E5%AD%97%E4%BD%93%E6%96%87%E4%BB%B6%E5%A4%84%E7%90%86"><span class="nav-text">2. 字体文件处理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%94%E3%80%81%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E4%B8%93%E9%A2%98"><span class="nav-text">五、微信小程序专题</span></a></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81JS%E8%B0%83%E8%AF%95%E6%8A%80%E5%B7%A7"><span class="nav-text">一、JS调试技巧</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E6%B5%8F%E8%A7%88%E5%99%A8%E5%BC%80%E5%8F%91%E8%80%85%E5%B7%A5%E5%85%B7"><span class="nav-text">1. 浏览器开发者工具</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E6%96%AD%E7%82%B9%E5%AE%9A%E4%BD%8D"><span class="nav-text">2. 断点定位</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E6%96%B9%E6%B3%95%E6%A0%88%EF%BC%88%E8%B0%83%E7%94%A8%E5%A0%86%E6%A0%88%EF%BC%89"><span class="nav-text">3. 方法栈（调用堆栈）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-debugger-%E5%8F%8D%E8%B0%83"><span class="nav-text">4. debugger 反调</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-%E6%90%9C%E7%B4%A2%E5%85%B3%E9%94%AE%E5%AD%97"><span class="nav-text">5. 搜索关键字</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-%E5%90%AF%E5%8A%A8%E5%99%A8%E5%AE%9A%E4%BD%8D"><span class="nav-text">6. 启动器定位</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E8%A1%A5%E7%8E%AF%E5%A2%83"><span class="nav-text">二、补环境</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%9F%BA%E7%A1%80%E8%A1%A5%E7%8E%AF%E5%A2%83"><span class="nav-text">1. 基础补环境</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-VM2-%E6%A1%86%E6%9E%B6%E8%A1%A5%E7%8E%AF%E5%A2%83"><span class="nav-text">2. VM2 框架补环境</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81Python-%E4%B8%8E-JS-%E4%BA%92%E8%B0%83"><span class="nav-text">三、Python 与 JS 互调</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-pyexecjs-%E7%9B%B4%E6%8E%A5%E6%89%A7%E8%A1%8C-js"><span class="nav-text">1. pyexecjs 直接执行 js</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-express-%E5%90%AF%E5%8A%A8-node-%E6%9C%8D%E5%8A%A1"><span class="nav-text">2. express 启动 node 服务</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E5%AD%97%E4%BD%93%E5%8F%8D%E7%88%AC%E4%B8%93%E9%A2%98"><span class="nav-text">四、字体反爬专题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%AD%97%E4%BD%93%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F"><span class="nav-text">1. 字体文件格式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E5%AD%97%E4%BD%93%E6%96%87%E4%BB%B6%E5%A4%84%E7%90%86"><span class="nav-text">2. 字体文件处理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%94%E3%80%81%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E4%B8%93%E9%A2%98"><span class="nav-text">五、微信小程序专题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AD%E3%80%81%E9%80%86%E5%90%91%E6%8A%80%E5%B7%A7%E4%B8%93%E9%A2%98"><span class="nav-text">六、逆向技巧专题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E7%89%B9%E6%AE%8A%E9%80%86%E5%90%91%E4%BB%A3%E7%A0%81"><span class="nav-text">1. 特殊逆向代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E5%AE%9A%E4%BD%8D%E5%8A%A0%E5%AF%86%E6%80%BB%E7%BB%93"><span class="nav-text">2. 定位加密总结</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E8%B0%83%E8%AF%95%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95"><span class="nav-text">3. 调试问题记录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E4%BB%A3%E7%A0%81%E8%B0%83%E8%AF%95%E4%B8%93%E9%A2%98"><span class="nav-text">4. 代码调试专题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-Webpack%E4%B8%93%E9%A2%98"><span class="nav-text">5. Webpack专题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-OB%E6%B7%B7%E6%B7%86%E4%B8%93%E9%A2%98"><span class="nav-text">6. OB混淆专题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-jsvmp%E6%8A%80%E6%9C%AF%E4%B8%93%E9%A2%98"><span class="nav-text">7. jsvmp技术专题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-%E8%A1%A5%E7%8E%AF%E5%A2%83%E4%B8%93%E9%A2%98"><span class="nav-text">8. 补环境专题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-Cookie%E5%8F%8D%E7%88%AC%E4%B8%93%E9%A2%98"><span class="nav-text">9. Cookie反爬专题</span></a></li></ol></li></ol>
     </div>
 </div>
 
@@ -1072,7 +1236,7 @@
             <div class="tablet-post-toc">
                 <div class="post-toc-wrap border-box">
     <div class="post-toc border-box">
-        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81JS%E8%B0%83%E8%AF%95%E6%8A%80%E5%B7%A7"><span class="nav-text">一、JS调试技巧</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E6%B5%8F%E8%A7%88%E5%99%A8%E5%BC%80%E5%8F%91%E8%80%85%E5%B7%A5%E5%85%B7"><span class="nav-text">1. 浏览器开发者工具</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E6%96%AD%E7%82%B9%E5%AE%9A%E4%BD%8D"><span class="nav-text">2. 断点定位</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E6%96%B9%E6%B3%95%E6%A0%88%EF%BC%88%E8%B0%83%E7%94%A8%E5%A0%86%E6%A0%88%EF%BC%89"><span class="nav-text">3. 方法栈（调用堆栈）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-debugger-%E5%8F%8D%E8%B0%83"><span class="nav-text">4. debugger 反调</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-%E6%90%9C%E7%B4%A2%E5%85%B3%E9%94%AE%E5%AD%97"><span class="nav-text">5. 搜索关键字</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-%E5%90%AF%E5%8A%A8%E5%99%A8%E5%AE%9A%E4%BD%8D"><span class="nav-text">6. 启动器定位</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E8%A1%A5%E7%8E%AF%E5%A2%83"><span class="nav-text">二、补环境</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%9F%BA%E7%A1%80%E8%A1%A5%E7%8E%AF%E5%A2%83"><span class="nav-text">1. 基础补环境</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-VM2-%E6%A1%86%E6%9E%B6%E8%A1%A5%E7%8E%AF%E5%A2%83"><span class="nav-text">2. VM2 框架补环境</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81Python-%E4%B8%8E-JS-%E4%BA%92%E8%B0%83"><span class="nav-text">三、Python 与 JS 互调</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-pyexecjs-%E7%9B%B4%E6%8E%A5%E6%89%A7%E8%A1%8C-js"><span class="nav-text">1. pyexecjs 直接执行 js</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-express-%E5%90%AF%E5%8A%A8-node-%E6%9C%8D%E5%8A%A1"><span class="nav-text">2. express 启动 node 服务</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E5%AD%97%E4%BD%93%E5%8F%8D%E7%88%AC%E4%B8%93%E9%A2%98"><span class="nav-text">四、字体反爬专题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%AD%97%E4%BD%93%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F"><span class="nav-text">1. 字体文件格式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E5%AD%97%E4%BD%93%E6%96%87%E4%BB%B6%E5%A4%84%E7%90%86"><span class="nav-text">2. 字体文件处理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%94%E3%80%81%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E4%B8%93%E9%A2%98"><span class="nav-text">五、微信小程序专题</span></a></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81JS%E8%B0%83%E8%AF%95%E6%8A%80%E5%B7%A7"><span class="nav-text">一、JS调试技巧</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E6%B5%8F%E8%A7%88%E5%99%A8%E5%BC%80%E5%8F%91%E8%80%85%E5%B7%A5%E5%85%B7"><span class="nav-text">1. 浏览器开发者工具</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E6%96%AD%E7%82%B9%E5%AE%9A%E4%BD%8D"><span class="nav-text">2. 断点定位</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E6%96%B9%E6%B3%95%E6%A0%88%EF%BC%88%E8%B0%83%E7%94%A8%E5%A0%86%E6%A0%88%EF%BC%89"><span class="nav-text">3. 方法栈（调用堆栈）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-debugger-%E5%8F%8D%E8%B0%83"><span class="nav-text">4. debugger 反调</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-%E6%90%9C%E7%B4%A2%E5%85%B3%E9%94%AE%E5%AD%97"><span class="nav-text">5. 搜索关键字</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-%E5%90%AF%E5%8A%A8%E5%99%A8%E5%AE%9A%E4%BD%8D"><span class="nav-text">6. 启动器定位</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E8%A1%A5%E7%8E%AF%E5%A2%83"><span class="nav-text">二、补环境</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%9F%BA%E7%A1%80%E8%A1%A5%E7%8E%AF%E5%A2%83"><span class="nav-text">1. 基础补环境</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-VM2-%E6%A1%86%E6%9E%B6%E8%A1%A5%E7%8E%AF%E5%A2%83"><span class="nav-text">2. VM2 框架补环境</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81Python-%E4%B8%8E-JS-%E4%BA%92%E8%B0%83"><span class="nav-text">三、Python 与 JS 互调</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-pyexecjs-%E7%9B%B4%E6%8E%A5%E6%89%A7%E8%A1%8C-js"><span class="nav-text">1. pyexecjs 直接执行 js</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-express-%E5%90%AF%E5%8A%A8-node-%E6%9C%8D%E5%8A%A1"><span class="nav-text">2. express 启动 node 服务</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E5%AD%97%E4%BD%93%E5%8F%8D%E7%88%AC%E4%B8%93%E9%A2%98"><span class="nav-text">四、字体反爬专题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%AD%97%E4%BD%93%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F"><span class="nav-text">1. 字体文件格式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E5%AD%97%E4%BD%93%E6%96%87%E4%BB%B6%E5%A4%84%E7%90%86"><span class="nav-text">2. 字体文件处理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%94%E3%80%81%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E4%B8%93%E9%A2%98"><span class="nav-text">五、微信小程序专题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AD%E3%80%81%E9%80%86%E5%90%91%E6%8A%80%E5%B7%A7%E4%B8%93%E9%A2%98"><span class="nav-text">六、逆向技巧专题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E7%89%B9%E6%AE%8A%E9%80%86%E5%90%91%E4%BB%A3%E7%A0%81"><span class="nav-text">1. 特殊逆向代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E5%AE%9A%E4%BD%8D%E5%8A%A0%E5%AF%86%E6%80%BB%E7%BB%93"><span class="nav-text">2. 定位加密总结</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E8%B0%83%E8%AF%95%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95"><span class="nav-text">3. 调试问题记录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E4%BB%A3%E7%A0%81%E8%B0%83%E8%AF%95%E4%B8%93%E9%A2%98"><span class="nav-text">4. 代码调试专题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-Webpack%E4%B8%93%E9%A2%98"><span class="nav-text">5. Webpack专题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-OB%E6%B7%B7%E6%B7%86%E4%B8%93%E9%A2%98"><span class="nav-text">6. OB混淆专题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-jsvmp%E6%8A%80%E6%9C%AF%E4%B8%93%E9%A2%98"><span class="nav-text">7. jsvmp技术专题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-%E8%A1%A5%E7%8E%AF%E5%A2%83%E4%B8%93%E9%A2%98"><span class="nav-text">8. 补环境专题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-Cookie%E5%8F%8D%E7%88%AC%E4%B8%93%E9%A2%98"><span class="nav-text">9. Cookie反爬专题</span></a></li></ol></li></ol>
     </div>
 </div>
 
