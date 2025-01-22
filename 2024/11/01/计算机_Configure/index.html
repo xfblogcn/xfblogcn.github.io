@@ -9,6 +9,8 @@
     
     <title>
         
+            计算机_Configure |
+        
         XFBLOG.CN
     </title>
     
@@ -331,7 +333,7 @@
             <div class="post-content-bottom border-box">
                 
                     <div class="post-title">
-                        
+                        计算机_Configure
                     </div>
                 
 
@@ -359,30 +361,48 @@
         
             <span class="meta-info-item post-create-date">
                 <i class="icon fa-solid fa-calendar-plus"></i>&nbsp;
-                <span class="datetime">2025-01-17</span>
+                <span class="datetime">2024-11-01</span>
             </span>
 
             
                 <span class="meta-info-item post-update-date">
                     <i class="icon fa-solid fa-file-pen"></i>&nbsp;
-                    <span class="datetime" data-updated="Fri Jan 17 2025 14:45:15 GMT+0800">2025-01-17</span>
+                    <span class="datetime" data-updated="Wed Jan 22 2025 15:40:41 GMT+0800">2025-01-22</span>
                 </span>
             
         
 
         
+            <span class="meta-info-item post-category border-box"><i class="icon fas fa-folder"></i>&nbsp;
+                <ul class="post-category-ul">
+                    
+                            <li class="category-item"><a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA-Configure/">计算机_Configure</a></li>
+                        
+                    
+                </ul>
+            </span>
+        
 
+        
+            <span class="post-tag meta-info-item border-box">
+                <ul class="post-tag-ul">
+                    
+                            <li class="tag-item"><span class="tag-separator"><i class="icon fas fa-hashtag"></i></span><a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA-Configure/">计算机_Configure</a></li>
+                        
+                    
+                </ul>
+            </span>
         
 
         
         
             <span class="meta-info-item post-wordcount">
-                <i class="icon fas fa-file-word"></i>&nbsp;<span>32 字</span>
+                <i class="icon fas fa-file-word"></i>&nbsp;<span>2.2k 字</span>
             </span>
         
         
             <span class="meta-info-item post-min2read">
-                <i class="icon fas fa-clock"></i>&nbsp;<span>1 分钟</span>
+                <i class="icon fas fa-clock"></i>&nbsp;<span>9 分钟</span>
             </span>
         
         
@@ -404,9 +424,222 @@
                     
 
                     
-                         <p><a class="link"   target="_blank" rel="noopener" href="https://drive.google.com/file/d/1M04QjhvYSs8AYrN7EZQ47l6kjtIEpjG6/view?usp=drive_link" >https://drive.google.com/file/d/1M04QjhvYSs8AYrN7EZQ47l6kjtIEpjG6/view?usp=drive_link<i class="fas fa-external-link-alt"></i></a></p>
-<p><a class="link"   target="_blank" rel="noopener" href="https://drive.google.com/file/d/1GNcs9dPR8bp1Cg5y-f3m7lfdyFYjWIwU/view?usp=drive_link" >https://drive.google.com/file/d/1GNcs9dPR8bp1Cg5y-f3m7lfdyFYjWIwU/view?usp=drive_link<i class="fas fa-external-link-alt"></i></a></p>
-<p><a class="link"   target="_blank" rel="noopener" href="https://drive.google.com/file/d/10qwOTdFtevaO3umqX-eJcI4lQ50lvI47/view?usp=sharing" >https://drive.google.com/file/d/10qwOTdFtevaO3umqX-eJcI4lQ50lvI47/view?usp=sharing<i class="fas fa-external-link-alt"></i></a></p>
+                         <h2 id="一、MAC"><a href="#一、MAC" class="headerlink" title="一、MAC"></a>一、MAC</h2><h4 id="1-配置美化-iterm2"><a href="#1-配置美化-iterm2" class="headerlink" title="1. 配置美化 iterm2"></a>1. 配置美化 iterm2</h4><blockquote>
+<p><strong>CSDN 配置教程：</strong><a class="link"   href="https://blog.csdn.net/Xiang__Qian/article/details/139815664?spm=1001.2014.3001.5502"  target="_blank" rel="noopener">安装配置美化 iterm2<i class="fas fa-external-link-alt"></i></a></p>
+<p><strong>iTerm2 默认的行数限制：</strong>设置 –&gt; 配置文件 –&gt; 终端 –&gt; 无限回滚【勾选】</p>
+</blockquote>
+<ul>
+<li><strong>更改 p10k 样式配置：</strong><ol>
+<li><code>p10k configure</code> –&gt; <code>source ~/.p10k.zsh</code></li>
+<li><code>vim ~/.zshrc</code> –&gt; + <code>export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH</code></li>
+<li><code>source ~/.bash_profile</code></li>
+<li><code>source ~/.zshrc</code></li>
+</ol>
+</li>
+</ul>
+<h4 id="2-MuMu-模拟器配置"><a href="#2-MuMu-模拟器配置" class="headerlink" title="2. MuMu 模拟器配置"></a>2. MuMu 模拟器配置</h4><ul>
+<li><p><strong>mac 完整环境配置（无可用证书）：</strong></p>
+<ol>
+<li>通过 App Cleaner 卸载 MuMu 模拟器 Pro，重新安装破解版，运行前执行 <code>sudo spctl --master-disable</code> + <code>sudo xattr -d com.apple.quarantine </code> + <code>sudo xattr -d com.apple.quarantine /Applications/MuMuPlayer.app</code></li>
+<li>打开 MuMu 模拟器 Pro，创建安卓手机，设置权限 <strong>可写系统盘 + 开启手机 Root 权限</strong>，并启动</li>
+<li>从抓包软件（Proxyman、Charles）中下载 .pem 证书，在模拟器中打开<strong>工具 –&gt; 打开 ADB (16416, 5555)</strong></li>
+<li>执行命令 <code>exit</code> + <code>cd /Applications/MuMuPlayer.app/Contents/MacOS/MuMuEmulator.app/Contents/MacOS/tools/</code> + <code>openssl x509 -subject_hash_old -in /Users/xfblog/Desktop/代理.pem证书</code> <strong>输出一串 87d7a3db 混合中英文字符串</strong></li>
+<li>将 .pem 证书重新命名为此字符串 <code>mv Proxyman CA (25 Jul 2024, xfblogdemacbook-pro.local).pem 87d7a3db.0</code></li>
+<li><strong>用 ADB 把证书放到系统目录，</strong>执行 <code>./adb push /Users/xfblog/Desktop/87d7a3db.0 /system/etc/security/cacerts</code> + <code>./adb shell &quot;chmod 664 /system/etc/security/cacerts/87d7a3db.0&quot;</code>（如果报错有多个设备，则可通过 <code>adb devices</code> 查看所有设备，通过 <code>-s emulator-5554</code> 指定设备）</li>
+<li>最后在模拟器中打开设置 –&gt; 网络WIFI –&gt; 右上角铅笔编辑 –&gt; 代理选择手动代理 –&gt; 填入电脑 IP 和端口（抓包工具代理端口）</li>
+</ol>
+</li>
+<li><p><strong>有可用证书：</strong></p>
+<ol>
+<li>打开 MuMu 模拟器 Pro，创建安卓手机，设置权限 <strong>可写系统盘 + 开启手机 Root 权限</strong>，并启动</li>
+<li>从抓包软件（Proxyman、Charles）中下载 .pem 证书，在模拟器中打开<strong>工具 –&gt; 打开 ADB (16416, 5555)</strong></li>
+<li>执行命令 <code>exit</code> + <code>cd /Applications/MuMuPlayer.app/Contents/MacOS/MuMuEmulator.app/Contents/MacOS/tools/</code> + <code>./adb push /Users/xfblog/Desktop/87d7a3db.0 /system/etc/security/cacerts</code> + <code>./adb shell &quot;chmod 664 /system/etc/security/cacerts/87d7a3db.0&quot;</code>（异常由 <code>adb devices</code> 查看所有设备，通过 <code>-s emulator-5554</code> 指定设备）</li>
+</ol>
+</li>
+<li><p><strong>关于软件：</strong>直接在自己手机上下载，下载后分享至微信即为 apk 安装包</p>
+</li>
+</ul>
+<h4 id="3-git-拉项目配置"><a href="#3-git-拉项目配置" class="headerlink" title="3. git 拉项目配置"></a>3. git 拉项目配置</h4><ul>
+<li><p><strong>在电脑任意位置：生成 SSH 密钥：</strong><code>sudo ssh-keygen -t rsa -b 4096 -C &quot;chuanfu7w@163.com&quot;</code></p>
+<ul>
+<li><strong>私钥文件</strong>：<code>/var/root/.ssh/id_rsa</code></li>
+<li><strong>公钥文件</strong>：<code>/var/root/.ssh/id_rsa.pub</code></li>
+<li><strong>密钥指纹</strong>：<code>SHA256:R9/3+LprMgYMrIBTFw3oeeHAo4m/G8fJB8MqvRD15rw</code></li>
+<li><strong>随机艺术图</strong>：这个图形是用来可视化你的公钥特征的</li>
+</ul>
+</li>
+<li><p><strong>移动公钥和私钥到用户文件中，并配置权限：</strong></p>
+<ol>
+<li><code>sudo mv /var/root/.ssh/id_rsa /Users/xfblog/.ssh/</code></li>
+<li><code>sudo mv /var/root/.ssh/id_rsa.pub /Users/xfblog/.ssh/</code></li>
+<li><code>chmod 600 /Users/xfblog/.ssh/id_rsa</code></li>
+<li><code>chmod 644 /Users/xfblog/.ssh/id_rsa.pub</code></li>
+<li><code>cat /Users/xfblog/.ssh/id_rsa.pub</code></li>
+</ol>
+</li>
+<li><p><strong>在 github 中添加 SSH 密钥：</strong></p>
+<ol>
+<li>点击右上角的头像，选择 <strong>Settings</strong>（设置）</li>
+<li>在左侧菜单中，点击 <strong>SSH and GPG keys</strong></li>
+<li>点击 <strong>New SSH key</strong> 按钮</li>
+<li>在 <strong>Title</strong> 中输入一个描述（如“我的本地机器”）</li>
+<li>在 <strong>Key</strong> 中粘贴你刚才复制的公钥内容</li>
+<li>点击 <strong>Add SSH key</strong> 保存</li>
+</ol>
+</li>
+<li><p><strong>配置权限：</strong></p>
+<ol>
+<li>查看文件的拥有者：<code>ls -l /Users/xfblog/.ssh/id_rsa</code></li>
+<li>更改文件的拥有者：<code>sudo chown xfblog /Users/xfblog/.ssh/id_rsa</code></li>
+<li>确保 SSH 代理运行并添加密钥：<code>eval &quot;$(ssh-agent -s)&quot;</code>，<code>ssh-add /Users/xfblog/.ssh/id_rsa</code></li>
+<li>测试 SSH 连接：<code>ssh -T git@github.com</code></li>
+</ol>
+</li>
+<li><p><code>git remote set-url origin git@github.com:Chuanfu-Wei/xfblogProjects.git</code></p>
+</li>
+</ul>
+<h4 id="4-安装-python-虚拟环境"><a href="#4-安装-python-虚拟环境" class="headerlink" title="4. 安装 python 虚拟环境"></a>4. 安装 python 虚拟环境</h4><ul>
+<li><strong>安装步骤：</strong><code>pip3 install virtualenv virtualenvwrapper</code></li>
+<li><strong>环境配置：</strong></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">export VIRTUALENVWRAPPER_PYTHON=$(which python3)  # 指定Python路径</span><br><span class="line">export WORKON_HOME=$HOME/.virtualenvs             # 设置虚拟环境的默认目录</span><br><span class="line">source $(which virtualenvwrapper.sh)              # 加载 virtualenvwrapper</span><br><span class="line"></span><br><span class="line">source ~/.zshrc</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>使用方法：</strong><ol>
+<li><p><strong>创建虚拟环境：</strong><code>mkvirtualenv testenv</code></p>
+</li>
+<li><p><strong>激活虚拟环境：</strong><code>workon testenv</code></p>
+</li>
+<li><p><strong>安装所需的包：</strong><code>pip install requests</code></p>
+</li>
+<li><p><strong>列出所有虚拟环境：</strong><code>lsvirtualenv</code></p>
+</li>
+<li><p><strong>删除虚拟环境：</strong><code>rmvirtualenv testenv</code></p>
+</li>
+<li><p><strong>退出虚拟环境：</strong><code>deactivate</code></p>
+</li>
+</ol>
+</li>
+</ul>
+<h4 id="5-安装-pyenv-多版本-py"><a href="#5-安装-pyenv-多版本-py" class="headerlink" title="5. 安装 pyenv 多版本 py"></a>5. 安装 pyenv 多版本 py</h4><ul>
+<li><strong>安装步骤：</strong><code>brew install pyenv</code></li>
+<li><strong>环境配置：</strong></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">echo &#x27;export PYENV_ROOT=&quot;$HOME/.pyenv&quot;&#x27; &gt;&gt; ~/.zshrc</span><br><span class="line">echo &#x27;export PATH=&quot;$PYENV_ROOT/bin:$PATH&quot;&#x27; &gt;&gt; ~/.zshrc</span><br><span class="line">echo &#x27;eval &quot;$(pyenv init --path)&quot;&#x27; &gt;&gt; ~/.zshrc</span><br><span class="line"></span><br><span class="line">source ~/.zshrc</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p><strong>使用方法：</strong></p>
+<ol>
+<li><p><strong>安装 python 版本：</strong><code>pyenv install 3.9.18</code></p>
+</li>
+<li><p><strong>列出所有可安装的 Python 版本：</strong><code>pyenv install --list</code></p>
+</li>
+<li><p><strong>查看已安装的 Python 版本：</strong><code>pyenv versions</code></p>
+</li>
+<li><p><strong>设置全局版本：</strong><code>pyenv global 3.9.18</code></p>
+</li>
+<li><p><strong>设置本地版本：</strong><code>pyenv local 3.9.18</code></p>
+</li>
+<li><p><strong>验证 Python 版本：</strong><code>python --version</code></p>
+</li>
+</ol>
+</li>
+<li><p>虚拟环境配置：</p>
+<ul>
+<li><p>安装 <code>pyenv-virtualenv</code>：<code>brew install pyenv-virtualenv</code></p>
+<p>  在 <code>.zshrc</code> 或 <code>.bashrc</code> 中添加配置：</p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">eval &quot;$(pyenv init --path)&quot;</span><br><span class="line">eval &quot;$(pyenv init -)&quot;</span><br><span class="line">eval &quot;$(pyenv virtualenv-init -)&quot;</span><br></pre></td></tr></table></figure>
+<p>  重新加载配置文件：<code>source ~/.zshrc</code></p>
+<p>  创建虚拟环境：<code>pyenv virtualenv &lt;python版本&gt; &lt;虚拟环境名称&gt;</code></p>
+<p>  列出所有虚拟环境：<code>pyenv virtualenvs</code></p>
+<p>  激活虚拟环境：<code>pyenv activate &lt;虚拟环境名称&gt;</code></p>
+<p>  停用虚拟环境：<code>pyenv deactivate</code></p>
+<p>  设置全局虚拟环境：<code>pyenv global &lt;虚拟环境名称&gt;</code></p>
+<p>  设置本地虚拟环境：<code>pyenv local &lt;虚拟环境名称&gt;</code></p>
+<p>  删除虚拟环境：<code>pyenv uninstall &lt;虚拟环境名称&gt;</code></p>
+<p>  查看所有 Python 版本和虚拟环境：<code>pyenv versions</code></p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="二、Linux"><a href="#二、Linux" class="headerlink" title="二、Linux"></a>二、Linux</h2><blockquote>
+<p>指定 Python 解释器查找模块的路径（设置项目主环境目录）：<code>export PYTHONPATH=.</code></p>
+<p><strong>注意：</strong>bookingServer –&gt; 重启服务就是杀死服务，kill -9 pid，<strong>重启前先 git 拉代码</strong>！</p>
+<p><strong>调试技巧：</strong></p>
+<ol>
+<li>OA传过来的数据在 booking.log 日志中可以看到，是原始的，会经过 BookingServer.py 解析数据为 order 格式后，传给自动化</li>
+<li>在本地进行调试，BookingServer.py 需要注释掉动态加载的代码，替换为 <code>bookingHandle = S7CBooker()</code>，调试中两个文件打断点调试均有效，可以开启 BookingServer.py 服务后，使用 postman 调用本地 <code>http://localhost:46303/booking</code> 进行自动化出票，即可进行本地调试</li>
+</ol>
+<p><strong>携程外采：</strong>采同行的票，用同行的 oa 出票，我们出不过去了（7C第一单）</p>
+<p>nohup python3 mmcheck.py &gt; &#x2F;dev&#x2F;null 2&gt;&amp;1 &amp;</p>
+<p>pkill -f occconsumer.py（批量关闭进程）</p>
+<p>grep -Pi -A 1 “OA存在订单.*?MMYW:KIX:CTS:2024-12-10:MM134:” maintain_tasks.log</p>
+<p>grep -Pi -A 1 “OA存在订单.*?MMYW:KIX:CTS:2024-12-13:” MMCheack&#x2F;myenv&#x2F;bin&#x2F;mmyw&#x2F;maintain_tasks.log</p>
+<p>grep -Pi -A 2 “当前价格.<em>?库存价格.</em>?MMYW:FUK:NRT:2024-12-09:MM520:” maintain_tasks.log</p>
+</blockquote>
+<ul>
+<li><p>虚拟环境的使用（<code>pip3 install virtualenv virtualenvwrapper</code>）：</p>
+<ol>
+<li><p><strong>创建虚拟环境：</strong><code>mkvirtualenv testenv</code></p>
+</li>
+<li><p><strong>激活虚拟环境：</strong><code>workon testenv</code></p>
+</li>
+<li><p><strong>安装所需的包：</strong><code>pip install requests</code></p>
+</li>
+<li><p><strong>列出所有虚拟环境：</strong><code>lsvirtualenv</code></p>
+</li>
+<li><p><strong>删除虚拟环境：</strong><code>rmvirtualenv testenv</code></p>
+</li>
+<li><p><strong>退出虚拟环境：</strong><code>deactivate</code></p>
+</li>
+<li><p><strong>环境变量配置：</strong><code>vim ~/.bashrc</code> –&gt; <code>source ~/.bashrc</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">export PATH=$PATH:/home/programs/python/Python-3.8.16/bin</span><br><span class="line">source /home/programs/python/Python-3.8.16/bin/virtualenvwrapper.sh</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>安装项目所需包：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pip3 install tornado==5.1.1</span><br><span class="line">pip3 install pymysql</span><br><span class="line">pip3 install pycryptodome</span><br></pre></td></tr></table></figure></li>
+</ol>
+</li>
+<li><p><strong>进程相关：</strong></p>
+<ol>
+<li><strong>显示监听 46302 的进程的 pid：</strong><code>ss -tulnp | grep 46302</code></li>
+<li>kill pid</li>
+</ol>
+</li>
+<li><p><strong>后台运行服务：<code>nohup python3.8 mmcheck.py &gt; /dev/null 2&gt;&amp;1 &amp;</code></strong> 直接 tail -f 看日志即可</p>
+</li>
+</ul>
+<h2 id="三、Window"><a href="#三、Window" class="headerlink" title="三、Window"></a>三、Window</h2><h4 id="1-DP-缓存处理"><a href="#1-DP-缓存处理" class="headerlink" title="1. DP 缓存处理"></a>1. DP 缓存处理</h4><ul>
+<li><p><strong>直接更改系统环境变量 Temp 的临时文件存储地址：</strong><code>C:\Users\Admin\AppData\Local\Temp</code> –&gt; <code>D:\temp</code></p>
+</li>
+<li><p><strong>创建脚本文件：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">@echo off</span><br><span class="line">rd /S /Q &quot;D:\temp\&quot;</span><br><span class="line">mkdir &quot;D:\temp&quot;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>设置任务计划程序，定时清理此文件：</strong></p>
+<ol>
+<li>打开<strong>任务计划程序</strong>：按 Win + S，搜索“任务计划程序”（Task Scheduler），并打开</li>
+<li>在任务计划程序中，点击右侧的<strong>创建基本任务</strong></li>
+<li>设置任务名称，例如 “定时清理文件夹”，然后点击“下一步”</li>
+<li>选择触发器（定时任务的执行频率），例如每天、每周等，点击“下一步”</li>
+<li>设置具体的时间和频率，点击“下一步”</li>
+<li>在操作选项中，选择<strong>启动程序</strong>，点击“下一步”</li>
+<li>在<strong>程序&#x2F;脚本</strong>栏中，浏览选择刚才创建的 .bat 文件</li>
+<li>点击“下一步”，确认任务信息后，点击“完成”</li>
+</ol>
+</li>
+</ul>
+<h2 id="四、xfblog-cn"><a href="#四、xfblog-cn" class="headerlink" title="四、xfblog.cn"></a>四、xfblog.cn</h2><h4 id="1-SSL-证书过期"><a href="#1-SSL-证书过期" class="headerlink" title="1. SSL 证书过期"></a>1. SSL 证书过期</h4><blockquote>
+<p><a class="link"   href="https://www.bt.cn/new/btcode.html"  target="_blank" rel="noopener noreferrer">宝塔 linux 面板命令大全<i class="fas fa-external-link-alt"></i></a></p>
+</blockquote>
+<ul>
+<li><strong>重置步骤：</strong><ol>
+<li>远程 ssh 登录服务器（101.132.64.172，22，root，Zhangjie789.）</li>
+<li>关闭面板 SSL（暂时没开启）：<code>rm -f /www/server/panel/data/ssl.pl &amp;&amp; /etc/init.d/bt restart</code></li>
+<li>面板 SSL 证书申请：登录宝塔面板官网 <a class="link"   target="_blank" rel="noopener" href="https://www.bt.cn/" >https://www.bt.cn/<i class="fas fa-external-link-alt"></i></a> 删除已过期的 SSL 证书订单，然后 HTTP协议（微信）进入 xfblog.cn 宝塔后台，进行新的宝塔 SSL 证书申请</li>
+</ol>
+</li>
+</ul>
+<h4 id="2-flask-解决跨域问题"><a href="#2-flask-解决跨域问题" class="headerlink" title="2. flask 解决跨域问题"></a>2. flask 解决跨域问题</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">from flask import Flask, jsonify</span><br><span class="line">from flask_cors import CORS  # 导入 CORS</span><br><span class="line"></span><br><span class="line">app = Flask(__name__)</span><br><span class="line">CORS(app, supports_credentials=True)  # 允许所有域名的请求，可以指定特定的域名</span><br><span class="line"></span><br><span class="line">@app.route(&#x27;/test&#x27;, methods=[&#x27;GET&#x27;])</span><br><span class="line">def test():</span><br><span class="line">    # 返回一段JSON数据</span><br><span class="line">    response = &#123;</span><br><span class="line">        &quot;message&quot;: &quot;小傅博客 xfblog.cn 专用测试接口&quot;,</span><br><span class="line">        &quot;status&quot;: &quot;成功&quot;,</span><br><span class="line">        &quot;data&quot;: &#123;</span><br><span class="line">            &quot;id&quot;: 1,</span><br><span class="line">            &quot;result&quot;: &quot;JSON测试数据......&quot;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return jsonify(response)</span><br><span class="line"></span><br><span class="line"># 运行服务</span><br><span class="line">if __name__ == &#x27;__main__&#x27;:</span><br><span class="line">    app.run(host=&#x27;0.0.0.0&#x27;, port=5000)  # 使用 0.0.0.0 使其可被外部访问</span><br><span class="line">    # app.run(host=&#x27;0.0.0.0&#x27;, port=5000, ssl_context=(&#x27;cert.pem&#x27;, &#x27;key.pem&#x27;))</span><br></pre></td></tr></table></figure>
+
 
                     
                 </div>
@@ -417,11 +650,11 @@
     <div class="copyright-info-content border-box">
         <div class="copyright-info-top border-box">
             <div class="copyright-post-title border-box text-ellipsis">
-                
+                计算机_Configure
             </div>
 
             <div class="copyright-post-link border-box text-ellipsis">
-                2025/01/17/Untitled/
+                2024/11/01/计算机_Configure/
             </div>
         </div>
 
@@ -437,7 +670,7 @@
                 <div class="type">
                     发布于
                 </div>
-                <div class="content">2025-01-17 14:24</div>
+                <div class="content">2024-11-01 00:00</div>
             </div>
 
 
@@ -469,6 +702,14 @@
 
                 <div class="post-bottom-tags-and-share border-box">
                     <div>
+                        
+                            <ul class="post-tags-box border-box">
+                                
+                                    <li class="tag-item border-box">
+                                        <i class="icon fas fa-hashtag"></i>&nbsp;<a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA-Configure/">计算机_Configure</a>
+                                    </li>
+                                
+                            </ul>
                         
                     </div>
                     <div>
@@ -553,7 +794,7 @@
             <div class="pc-post-toc right-toc">
                 <div class="post-toc-wrap border-box">
     <div class="post-toc border-box">
-        
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81MAC"><span class="nav-text">一、MAC</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E9%85%8D%E7%BD%AE%E7%BE%8E%E5%8C%96-iterm2"><span class="nav-text">1. 配置美化 iterm2</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-MuMu-%E6%A8%A1%E6%8B%9F%E5%99%A8%E9%85%8D%E7%BD%AE"><span class="nav-text">2. MuMu 模拟器配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-git-%E6%8B%89%E9%A1%B9%E7%9B%AE%E9%85%8D%E7%BD%AE"><span class="nav-text">3. git 拉项目配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-%E5%AE%89%E8%A3%85-python-%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83"><span class="nav-text">4. 安装 python 虚拟环境</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-%E5%AE%89%E8%A3%85-pyenv-%E5%A4%9A%E7%89%88%E6%9C%AC-py"><span class="nav-text">5. 安装 pyenv 多版本 py</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81Linux"><span class="nav-text">二、Linux</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81Window"><span class="nav-text">三、Window</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-DP-%E7%BC%93%E5%AD%98%E5%A4%84%E7%90%86"><span class="nav-text">1. DP 缓存处理</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E3%80%81xfblog-cn"><span class="nav-text">四、xfblog.cn</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-SSL-%E8%AF%81%E4%B9%A6%E8%BF%87%E6%9C%9F"><span class="nav-text">1. SSL 证书过期</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-flask-%E8%A7%A3%E5%86%B3%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98"><span class="nav-text">2. flask 解决跨域问题</span></a></li></ol></li></ol></li></ol>
     </div>
 </div>
 
@@ -753,7 +994,7 @@
             <div class="tablet-post-toc">
                 <div class="post-toc-wrap border-box">
     <div class="post-toc border-box">
-        
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81MAC"><span class="nav-text">一、MAC</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E9%85%8D%E7%BD%AE%E7%BE%8E%E5%8C%96-iterm2"><span class="nav-text">1. 配置美化 iterm2</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-MuMu-%E6%A8%A1%E6%8B%9F%E5%99%A8%E9%85%8D%E7%BD%AE"><span class="nav-text">2. MuMu 模拟器配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-git-%E6%8B%89%E9%A1%B9%E7%9B%AE%E9%85%8D%E7%BD%AE"><span class="nav-text">3. git 拉项目配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-%E5%AE%89%E8%A3%85-python-%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83"><span class="nav-text">4. 安装 python 虚拟环境</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-%E5%AE%89%E8%A3%85-pyenv-%E5%A4%9A%E7%89%88%E6%9C%AC-py"><span class="nav-text">5. 安装 pyenv 多版本 py</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81Linux"><span class="nav-text">二、Linux</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81Window"><span class="nav-text">三、Window</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-DP-%E7%BC%93%E5%AD%98%E5%A4%84%E7%90%86"><span class="nav-text">1. DP 缓存处理</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E3%80%81xfblog-cn"><span class="nav-text">四、xfblog.cn</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-SSL-%E8%AF%81%E4%B9%A6%E8%BF%87%E6%9C%9F"><span class="nav-text">1. SSL 证书过期</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-flask-%E8%A7%A3%E5%86%B3%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98"><span class="nav-text">2. flask 解决跨域问题</span></a></li></ol></li></ol></li></ol>
     </div>
 </div>
 
